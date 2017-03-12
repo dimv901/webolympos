@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MovimientoStockListForm">
+
+        <p:panel header="#{bundle.ListMovimientoStockTitle}">
+            <p:dataTable id="datalist"
+                         value="#{movimientoStockController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         selectionMode="single"
+                         selection="#{movimientoStockController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{movimientoStockController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListMovimientoStockTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.movimiento}" filterBy="#{item.movimiento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListMovimientoStockTitle_movimiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.movimiento}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.fechaMovimiento}" filterBy="#{item.fechaMovimiento}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListMovimientoStockTitle_fechaMovimiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaMovimiento}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.cantidad}" filterBy="#{item.cantidad}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListMovimientoStockTitle_cantidad}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cantidad}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListMovimientoStockTitle_fechaCreacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaCreacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListMovimientoStockTitle_fechaActualizacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaActualizacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idProducto.descripcion}" filterBy="#{item.idProducto.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListMovimientoStockTitle_idProducto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idProducto.descripcion}"/>
+                                    </p:column>
+                -->
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{movimientoStockController.prepareCreate}" update=":MovimientoStockCreateForm" oncomplete="PF('MovimientoStockCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MovimientoStockViewForm" oncomplete="PF('MovimientoStockViewDialog').show()" disabled="#{empty movimientoStockController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MovimientoStockEditForm" oncomplete="PF('MovimientoStockEditDialog').show()" disabled="#{empty movimientoStockController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{movimientoStockController.delete}" update=":growl,datalist" disabled="#{empty movimientoStockController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ProveedoresEditDlg" widgetVar="ProveedoresEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditProveedoresTitle}" closeOnEscape="true">
+
+            <h:form id="ProveedoresEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{proveedoresController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditProveedoresLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{proveedoresController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{proveedoresController.selected.descripcion}" title="#{bundle.EditProveedoresTitle_descripcion}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{proveedoresController.selected.telefono}" title="#{bundle.EditProveedoresTitle_telefono}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_telefono}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{proveedoresController.selected.direccion}" title="#{bundle.EditProveedoresTitle_direccion}" size="250" maxlength="250"/>
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.EditProveedoresTitle_email}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{proveedoresController.selected.fechaCreacion}" title="#{bundle.EditProveedoresTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_fechaActuaizacion}" for="fechaActuaizacion" />
+                        <p:calendar id="fechaActuaizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{proveedoresController.selected.fechaActuaizacion}" title="#{bundle.EditProveedoresTitle_fechaActuaizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditProveedoresLabel_idPais}" for="idPais" />
+                        <p:selectOneMenu id="idPais" value="#{proveedoresController.selected.idPais}" required="true" requiredMessage="#{bundle.EditProveedoresRequiredMessage_idPais}" converter="paisesConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{paisesController.items}"
+                                           var="idPaisItem"
+                                           itemValue="#{idPaisItem}"
+                                           itemLabel="#{idPaisItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{proveedoresController.save}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProveedoresEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProveedoresEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

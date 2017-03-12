@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OrdenCompraDetalleViewDlg" widgetVar="OrdenCompraDetalleViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewOrdenCompraDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenCompraDetalleViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ordenCompraDetalleController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_id}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.id}" title="#{bundle.ViewOrdenCompraDetalleTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_cantidad}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.cantidad}" title="#{bundle.ViewOrdenCompraDetalleTitle_cantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_precio}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.precio}" title="#{bundle.ViewOrdenCompraDetalleTitle_precio}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_importe}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.importe}" title="#{bundle.ViewOrdenCompraDetalleTitle_importe}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_fechaCreacion}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.fechaCreacion}" title="#{bundle.ViewOrdenCompraDetalleTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.fechaActualizacion}" title="#{bundle.ViewOrdenCompraDetalleTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_idCabecera}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.idCabecera.id}"/>
+
+                        <h:outputText value="#{bundle.ViewOrdenCompraDetalleLabel_idProducto}"/>
+                        <h:outputText value="#{ordenCompraDetalleController.selected.idProducto.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('OrdenCompraDetalleViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

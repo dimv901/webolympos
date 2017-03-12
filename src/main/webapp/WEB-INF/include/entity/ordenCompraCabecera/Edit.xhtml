@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OrdenCompraCabeceraEditDlg" widgetVar="OrdenCompraCabeceraEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditOrdenCompraCabeceraTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenCompraCabeceraEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ordenCompraCabeceraController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditOrdenCompraCabeceraLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{ordenCompraCabeceraController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraCabeceraLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{ordenCompraCabeceraController.selected.fecha}" title="#{bundle.EditOrdenCompraCabeceraTitle_fecha}" required="true" requiredMessage="#{bundle.EditOrdenCompraCabeceraRequiredMessage_fecha}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraCabeceraLabel_total}" for="total" />
+                        <p:inputText id="total" value="#{ordenCompraCabeceraController.selected.total}" title="#{bundle.EditOrdenCompraCabeceraTitle_total}" required="true" requiredMessage="#{bundle.EditOrdenCompraCabeceraRequiredMessage_total}"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraCabeceraLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ordenCompraCabeceraController.selected.fechaCreacion}" title="#{bundle.EditOrdenCompraCabeceraTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraCabeceraLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ordenCompraCabeceraController.selected.fechaActualizacion}" title="#{bundle.EditOrdenCompraCabeceraTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraCabeceraLabel_idProveedor}" for="idProveedor" />
+                        <p:selectOneMenu id="idProveedor" value="#{ordenCompraCabeceraController.selected.idProveedor}" required="true" requiredMessage="#{bundle.EditOrdenCompraCabeceraRequiredMessage_idProveedor}" converter="proveedoresConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{proveedoresController.items}"
+                                           var="idProveedorItem"
+                                           itemValue="#{idProveedorItem}"
+                                           itemLabel="#{idProveedorItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordenCompraCabeceraController.save}" value="#{bundle.Save}" update="display,:OrdenCompraCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenCompraCabeceraEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenCompraCabeceraEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

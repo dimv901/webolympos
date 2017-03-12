@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RepartosEditDlg" widgetVar="RepartosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditRepartosTitle}" closeOnEscape="true">
+
+            <h:form id="RepartosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{repartosController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditRepartosLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{repartosController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditRepartosLabel_entregado}" for="entregado" />
+                        <p:selectBooleanCheckbox id="entregado" value="#{repartosController.selected.entregado}" required="true" requiredMessage="#{bundle.EditRepartosRequiredMessage_entregado}"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartosLabel_fechaEntregado}" for="fechaEntregado" />
+                        <p:calendar id="fechaEntregado" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartosController.selected.fechaEntregado}" title="#{bundle.EditRepartosTitle_fechaEntregado}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartosLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartosController.selected.fechaCreacion}" title="#{bundle.EditRepartosTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartosController.selected.fechaActualizacion}" title="#{bundle.EditRepartosTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartosLabel_idComprobanteVenta}" for="idComprobanteVenta" />
+                        <p:selectOneMenu id="idComprobanteVenta" value="#{repartosController.selected.idComprobanteVenta}" required="true" requiredMessage="#{bundle.EditRepartosRequiredMessage_idComprobanteVenta}" converter="comprobantesVentaCabeceraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{comprobantesVentaCabeceraController.items}"
+                                           var="idComprobanteVentaItem"
+                                           itemValue="#{idComprobanteVentaItem}"
+                                           itemLabel="#{idComprobanteVentaItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditRepartosLabel_idRepartidor}" for="idRepartidor" />
+                        <p:selectOneMenu id="idRepartidor" value="#{repartosController.selected.idRepartidor}" required="true" requiredMessage="#{bundle.EditRepartosRequiredMessage_idRepartidor}" converter="repartidoresConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{repartidoresController.items}"
+                                           var="idRepartidorItem"
+                                           itemValue="#{idRepartidorItem}"
+                                           itemLabel="#{idRepartidorItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{repartosController.save}" value="#{bundle.Save}" update="display,:RepartosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RepartosEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('RepartosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

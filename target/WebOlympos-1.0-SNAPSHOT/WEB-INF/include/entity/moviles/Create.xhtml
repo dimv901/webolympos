@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovilesCreateDlg" widgetVar="MovilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovilesTitle}" closeOnEscape="true">
+
+            <h:form id="MovilesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{movilesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_marca}" for="marca" />
+                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.CreateMovilesTitle_marca}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_marca}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_modelo}" for="modelo" />
+                        <p:inputText id="modelo" value="#{movilesController.selected.modelo}" title="#{bundle.CreateMovilesTitle_modelo}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_modelo}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_matricula}" for="matricula" />
+                        <p:inputText id="matricula" value="#{movilesController.selected.matricula}" title="#{bundle.CreateMovilesTitle_matricula}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_matricula}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaCreacion}" title="#{bundle.CreateMovilesTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovilesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaActualizacion}" title="#{bundle.CreateMovilesTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movilesController.saveNew}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovilesCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovilesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

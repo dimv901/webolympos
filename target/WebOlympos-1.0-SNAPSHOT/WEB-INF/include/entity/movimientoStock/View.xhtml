@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovimientoStockViewDlg" widgetVar="MovimientoStockViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewMovimientoStockTitle}" closeOnEscape="true">
+
+            <h:form id="MovimientoStockViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{movimientoStockController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_id}"/>
+                        <h:outputText value="#{movimientoStockController.selected.id}" title="#{bundle.ViewMovimientoStockTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_movimiento}"/>
+                        <h:outputText value="#{movimientoStockController.selected.movimiento}" title="#{bundle.ViewMovimientoStockTitle_movimiento}"/>
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_fechaMovimiento}"/>
+                        <h:outputText value="#{movimientoStockController.selected.fechaMovimiento}" title="#{bundle.ViewMovimientoStockTitle_fechaMovimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_cantidad}"/>
+                        <h:outputText value="#{movimientoStockController.selected.cantidad}" title="#{bundle.ViewMovimientoStockTitle_cantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_fechaCreacion}"/>
+                        <h:outputText value="#{movimientoStockController.selected.fechaCreacion}" title="#{bundle.ViewMovimientoStockTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{movimientoStockController.selected.fechaActualizacion}" title="#{bundle.ViewMovimientoStockTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewMovimientoStockLabel_idProducto}"/>
+                        <h:outputText value="#{movimientoStockController.selected.idProducto.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('MovimientoStockViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

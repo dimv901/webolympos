@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ComprobantesVentaCabeceraEditDlg" widgetVar="ComprobantesVentaCabeceraEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditComprobantesVentaCabeceraTitle}" closeOnEscape="true">
+
+            <h:form id="ComprobantesVentaCabeceraEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{comprobantesVentaCabeceraController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{comprobantesVentaCabeceraController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_totalComprobante}" for="totalComprobante" />
+                        <p:inputText id="totalComprobante" value="#{comprobantesVentaCabeceraController.selected.totalComprobante}" title="#{bundle.EditComprobantesVentaCabeceraTitle_totalComprobante}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_totalComprobante}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_totalIva10}" for="totalIva10" />
+                        <p:inputText id="totalIva10" value="#{comprobantesVentaCabeceraController.selected.totalIva10}" title="#{bundle.EditComprobantesVentaCabeceraTitle_totalIva10}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_totalIva10}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_totalIva5}" for="totalIva5" />
+                        <p:inputText id="totalIva5" value="#{comprobantesVentaCabeceraController.selected.totalIva5}" title="#{bundle.EditComprobantesVentaCabeceraTitle_totalIva5}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_totalIva5}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_totalExentas}" for="totalExentas" />
+                        <p:inputText id="totalExentas" value="#{comprobantesVentaCabeceraController.selected.totalExentas}" title="#{bundle.EditComprobantesVentaCabeceraTitle_totalExentas}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_totalExentas}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{comprobantesVentaCabeceraController.selected.fechaCreacion}" title="#{bundle.EditComprobantesVentaCabeceraTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{comprobantesVentaCabeceraController.selected.fechaActualizacion}" title="#{bundle.EditComprobantesVentaCabeceraTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{comprobantesVentaCabeceraController.selected.idCliente}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_idCliente}" converter="clientesConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clientesController.items}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"
+                                           itemLabel="#{idClienteItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_idPedido}" for="idPedido" />
+                        <p:selectOneMenu id="idPedido" value="#{comprobantesVentaCabeceraController.selected.idPedido}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_idPedido}" converter="pedidosCabeceraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{pedidosCabeceraController.items}"
+                                           var="idPedidoItem"
+                                           itemValue="#{idPedidoItem}"
+                                           itemLabel="#{idPedidoItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesVentaCabeceraLabel_idTipoComprobante}" for="idTipoComprobante" />
+                        <p:selectOneMenu id="idTipoComprobante" value="#{comprobantesVentaCabeceraController.selected.idTipoComprobante}" required="true" requiredMessage="#{bundle.EditComprobantesVentaCabeceraRequiredMessage_idTipoComprobante}" converter="tipoComprobantesConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoComprobantesController.items}"
+                                           var="idTipoComprobanteItem"
+                                           itemValue="#{idTipoComprobanteItem}"
+                                           itemLabel="#{idTipoComprobanteItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{comprobantesVentaCabeceraController.save}" value="#{bundle.Save}" update="display,:ComprobantesVentaCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ComprobantesVentaCabeceraEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ComprobantesVentaCabeceraEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

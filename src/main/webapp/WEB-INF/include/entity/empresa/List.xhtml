@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EmpresaListForm">
+
+        <p:panel header="#{bundle.ListEmpresaTitle}">
+            <p:dataTable id="datalist"
+                         value="#{empresaController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         selectionMode="single"
+                         selection="#{empresaController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{empresaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListEmpresaTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.razonSocial}" filterBy="#{item.razonSocial}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListEmpresaTitle_razonSocial}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.razonSocial}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreFantasia}" filterBy="#{item.nombreFantasia}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListEmpresaTitle_nombreFantasia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreFantasia}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.ruc}" filterBy="#{item.ruc}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListEmpresaTitle_ruc}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ruc}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListEmpresaTitle_email}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.email}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.telefono}" filterBy="#{item.telefono}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListEmpresaTitle_telefono}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.telefono}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.direccion}" filterBy="#{item.direccion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListEmpresaTitle_direccion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.direccion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListEmpresaTitle_fechaCreacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaCreacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListEmpresaTitle_fechaActualizacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaActualizacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{empresaController.prepareCreate}" update=":EmpresaCreateForm" oncomplete="PF('EmpresaCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty empresaController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmpresaEditForm" oncomplete="PF('EmpresaEditDialog').show()" disabled="#{empty empresaController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{empresaController.delete}" update=":growl,datalist" disabled="#{empty empresaController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

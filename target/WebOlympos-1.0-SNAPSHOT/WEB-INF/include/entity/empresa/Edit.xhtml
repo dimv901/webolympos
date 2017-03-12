@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EmpresaEditDlg" widgetVar="EmpresaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="EmpresaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{empresaController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditEmpresaLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{empresaController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_razonSocial}" for="razonSocial" />
+                        <p:inputText id="razonSocial" value="#{empresaController.selected.razonSocial}" title="#{bundle.EditEmpresaTitle_razonSocial}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_razonSocial}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_nombreFantasia}" for="nombreFantasia" />
+                        <p:inputText id="nombreFantasia" value="#{empresaController.selected.nombreFantasia}" title="#{bundle.EditEmpresaTitle_nombreFantasia}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_nombreFantasia}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_ruc}" for="ruc" />
+                        <p:inputText id="ruc" value="#{empresaController.selected.ruc}" title="#{bundle.EditEmpresaTitle_ruc}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_ruc}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{empresaController.selected.email}" title="#{bundle.EditEmpresaTitle_email}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_email}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{empresaController.selected.telefono}" title="#{bundle.EditEmpresaTitle_telefono}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_telefono}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{empresaController.selected.direccion}" title="#{bundle.EditEmpresaTitle_direccion}" required="true" requiredMessage="#{bundle.EditEmpresaRequiredMessage_direccion}" size="250" maxlength="250"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{empresaController.selected.fechaCreacion}" title="#{bundle.EditEmpresaTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditEmpresaLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{empresaController.selected.fechaActualizacion}" title="#{bundle.EditEmpresaTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empresaController.save}" value="#{bundle.Save}" update="display,:EmpresaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpresaEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('EmpresaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

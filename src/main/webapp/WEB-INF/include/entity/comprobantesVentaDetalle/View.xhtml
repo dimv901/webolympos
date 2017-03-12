@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComprobantesVentaDetalleViewDlg" widgetVar="ComprobantesVentaDetalleViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewComprobantesVentaDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="ComprobantesVentaDetalleViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{comprobantesVentaDetalleController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_id}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.id}" title="#{bundle.ViewComprobantesVentaDetalleTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_cantidad}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.cantidad}" title="#{bundle.ViewComprobantesVentaDetalleTitle_cantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_importe}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.importe}" title="#{bundle.ViewComprobantesVentaDetalleTitle_importe}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_precio}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.precio}" title="#{bundle.ViewComprobantesVentaDetalleTitle_precio}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_fechaCreacion}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.fechaCreacion}" title="#{bundle.ViewComprobantesVentaDetalleTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.fechaActualizacion}" title="#{bundle.ViewComprobantesVentaDetalleTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_idCabecera}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.idCabecera.id}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaDetalleLabel_idProducto}"/>
+                        <h:outputText value="#{comprobantesVentaDetalleController.selected.idProducto.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ComprobantesVentaDetalleViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

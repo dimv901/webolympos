@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosMovilesCreateDlg" widgetVar="UsuariosMovilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuariosMovilesTitle}" closeOnEscape="true">
+
+            <h:form id="UsuariosMovilesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuariosMovilesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{usuariosMovilesController.selected.descripcion}" title="#{bundle.CreateUsuariosMovilesTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateUsuariosMovilesRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_usuario}" for="usuario" />
+                        <p:inputText id="usuario" value="#{usuariosMovilesController.selected.usuario}" title="#{bundle.CreateUsuariosMovilesTitle_usuario}" required="true" requiredMessage="#{bundle.CreateUsuariosMovilesRequiredMessage_usuario}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_password}" for="password" />
+                        <p:inputTextarea rows="4" cols="30" id="password" value="#{usuariosMovilesController.selected.password}" title="#{bundle.CreateUsuariosMovilesTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuariosMovilesRequiredMessage_password}"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{usuariosMovilesController.selected.activo}" required="true" requiredMessage="#{bundle.CreateUsuariosMovilesRequiredMessage_activo}"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_resetPassword}" for="resetPassword" />
+                        <p:selectBooleanCheckbox id="resetPassword" value="#{usuariosMovilesController.selected.resetPassword}" required="true" requiredMessage="#{bundle.CreateUsuariosMovilesRequiredMessage_resetPassword}"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosMovilesController.selected.fechaCreacion}" title="#{bundle.CreateUsuariosMovilesTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosMovilesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosMovilesController.selected.fechaActualizacion}" title="#{bundle.CreateUsuariosMovilesTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuariosMovilesController.saveNew}" value="#{bundle.Save}" update="display,:UsuariosMovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosMovilesCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuariosMovilesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

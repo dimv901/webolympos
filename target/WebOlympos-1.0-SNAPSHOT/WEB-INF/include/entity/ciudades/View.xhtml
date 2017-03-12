@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CiudadesViewDlg" widgetVar="CiudadesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCiudadesTitle}" closeOnEscape="true">
+
+            <h:form id="CiudadesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ciudadesController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCiudadesLabel_id}"/>
+                        <h:outputText value="#{ciudadesController.selected.id}" title="#{bundle.ViewCiudadesTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewCiudadesLabel_descripcion}"/>
+                        <h:outputText value="#{ciudadesController.selected.descripcion}" title="#{bundle.ViewCiudadesTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewCiudadesLabel_fechaCreacion}"/>
+                        <h:outputText value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.ViewCiudadesTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCiudadesLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.ViewCiudadesTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCiudadesLabel_idDepartamento}"/>
+                        <h:outputText value="#{ciudadesController.selected.idDepartamento.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CiudadesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

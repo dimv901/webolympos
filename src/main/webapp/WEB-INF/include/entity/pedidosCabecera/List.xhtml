@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PedidosCabeceraListForm">
+
+        <p:panel header="#{bundle.ListPedidosCabeceraTitle}">
+            <p:dataTable id="datalist"
+                         value="#{pedidosCabeceraController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         selectionMode="single"
+                         selection="#{pedidosCabeceraController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{pedidosCabeceraController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.importe}" filterBy="#{item.importe}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_importe}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.importe}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.latitud}" filterBy="#{item.latitud}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_latitud}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.latitud}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.longitud}" filterBy="#{item.longitud}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_longitud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.longitud}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_estado}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.estado}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaPedido}" filterBy="#{item.fechaPedido}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaPedido}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaPedido}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaCreacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaCreacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaActualizacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaActualizacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idCliente.id}" filterBy="#{item.idCliente.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_idCliente}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idCliente.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idVendedor.id}" filterBy="#{item.idVendedor.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_idVendedor}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idVendedor.id}"/>
+                                    </p:column>
+                -->
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidosCabeceraController.prepareCreate}" update=":PedidosCabeceraCreateForm" oncomplete="PF('PedidosCabeceraCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidosCabeceraViewForm" oncomplete="PF('PedidosCabeceraViewDialog').show()" disabled="#{empty pedidosCabeceraController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PedidosCabeceraEditForm" oncomplete="PF('PedidosCabeceraEditDialog').show()" disabled="#{empty pedidosCabeceraController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidosCabeceraController.delete}" update=":growl,datalist" disabled="#{empty pedidosCabeceraController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

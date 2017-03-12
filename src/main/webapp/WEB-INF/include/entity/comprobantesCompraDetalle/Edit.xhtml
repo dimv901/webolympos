@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ComprobantesCompraDetalleEditDlg" widgetVar="ComprobantesCompraDetalleEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditComprobantesCompraDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="ComprobantesCompraDetalleEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{comprobantesCompraDetalleController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{comprobantesCompraDetalleController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_idProducto}" for="idProducto" />
+                        <p:inputText id="idProducto" value="#{comprobantesCompraDetalleController.selected.idProducto}" title="#{bundle.EditComprobantesCompraDetalleTitle_idProducto}" required="true" requiredMessage="#{bundle.EditComprobantesCompraDetalleRequiredMessage_idProducto}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{comprobantesCompraDetalleController.selected.cantidad}" title="#{bundle.EditComprobantesCompraDetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.EditComprobantesCompraDetalleRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_importe}" for="importe" />
+                        <p:inputText id="importe" value="#{comprobantesCompraDetalleController.selected.importe}" title="#{bundle.EditComprobantesCompraDetalleTitle_importe}" required="true" requiredMessage="#{bundle.EditComprobantesCompraDetalleRequiredMessage_importe}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{comprobantesCompraDetalleController.selected.precio}" title="#{bundle.EditComprobantesCompraDetalleTitle_precio}" required="true" requiredMessage="#{bundle.EditComprobantesCompraDetalleRequiredMessage_precio}"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{comprobantesCompraDetalleController.selected.fechaCreacion}" title="#{bundle.EditComprobantesCompraDetalleTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{comprobantesCompraDetalleController.selected.fechaActualizacion}" title="#{bundle.EditComprobantesCompraDetalleTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditComprobantesCompraDetalleLabel_idCabecera}" for="idCabecera" />
+                        <p:selectOneMenu id="idCabecera" value="#{comprobantesCompraDetalleController.selected.idCabecera}" required="true" requiredMessage="#{bundle.EditComprobantesCompraDetalleRequiredMessage_idCabecera}" converter="comprobantesCompraCabeceraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{comprobantesCompraCabeceraController.items}"
+                                           var="idCabeceraItem"
+                                           itemValue="#{idCabeceraItem}"
+                                           itemLabel="#{idCabeceraItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{comprobantesCompraDetalleController.save}" value="#{bundle.Save}" update="display,:ComprobantesCompraDetalleListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ComprobantesCompraDetalleEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ComprobantesCompraDetalleEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

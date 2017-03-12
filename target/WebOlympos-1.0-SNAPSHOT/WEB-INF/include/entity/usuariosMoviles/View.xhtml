@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosMovilesViewDlg" widgetVar="UsuariosMovilesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewUsuariosMovilesTitle}" closeOnEscape="true">
+
+            <h:form id="UsuariosMovilesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuariosMovilesController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_id}"/>
+                        <h:outputText value="#{usuariosMovilesController.selected.id}" title="#{bundle.ViewUsuariosMovilesTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_descripcion}"/>
+                        <h:outputText value="#{usuariosMovilesController.selected.descripcion}" title="#{bundle.ViewUsuariosMovilesTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_usuario}"/>
+                        <h:outputText value="#{usuariosMovilesController.selected.usuario}" title="#{bundle.ViewUsuariosMovilesTitle_usuario}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_password}"/>
+                        <h:outputText value="#{usuariosMovilesController.selected.password}" title="#{bundle.ViewUsuariosMovilesTitle_password}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_activo}"/>
+                        <h:selectBooleanCheckbox id="activo" value="#{usuariosMovilesController.selected.activo}" title="#{bundle.EditUsuariosMovilesTitle_activo}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_activo}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_resetPassword}"/>
+                        <h:selectBooleanCheckbox id="resetPassword" value="#{usuariosMovilesController.selected.resetPassword}" title="#{bundle.EditUsuariosMovilesTitle_resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_resetPassword}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_fechaCreacion}"/>
+                        <h:outputText value="#{usuariosMovilesController.selected.fechaCreacion}" title="#{bundle.ViewUsuariosMovilesTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{usuariosMovilesController.selected.fechaActualizacion}" title="#{bundle.ViewUsuariosMovilesTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('UsuariosMovilesViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

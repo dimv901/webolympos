@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidosDetalleCreateDlg" widgetVar="PedidosDetalleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="PedidosDetalleCreateForm">
+
+                <h:panelGroup id="display" rendered="#{pedidosDetalleController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{pedidosDetalleController.selected.cantidad}" title="#{bundle.CreatePedidosDetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.CreatePedidosDetalleRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{pedidosDetalleController.selected.precio}" title="#{bundle.CreatePedidosDetalleTitle_precio}" required="true" requiredMessage="#{bundle.CreatePedidosDetalleRequiredMessage_precio}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_importe}" for="importe" />
+                        <p:inputText id="importe" value="#{pedidosDetalleController.selected.importe}" title="#{bundle.CreatePedidosDetalleTitle_importe}" required="true" requiredMessage="#{bundle.CreatePedidosDetalleRequiredMessage_importe}"/>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{pedidosDetalleController.selected.fechaCreacion}" title="#{bundle.CreatePedidosDetalleTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{pedidosDetalleController.selected.fechaActualizacion}" title="#{bundle.CreatePedidosDetalleTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_idCabecera}" for="idCabecera" />
+                        <p:selectOneMenu id="idCabecera" value="#{pedidosDetalleController.selected.idCabecera}" required="true" requiredMessage="#{bundle.CreatePedidosDetalleRequiredMessage_idCabecera}" converter="pedidosCabeceraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{pedidosCabeceraController.items}"
+                                           var="idCabeceraItem"
+                                           itemValue="#{idCabeceraItem}"
+                                           itemLabel="#{idCabeceraItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreatePedidosDetalleLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{pedidosDetalleController.selected.idProducto}" required="true" requiredMessage="#{bundle.CreatePedidosDetalleRequiredMessage_idProducto}" converter="productosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pedidosDetalleController.saveNew}" value="#{bundle.Save}" update="display,:PedidosDetalleListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PedidosDetalleCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PedidosDetalleCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

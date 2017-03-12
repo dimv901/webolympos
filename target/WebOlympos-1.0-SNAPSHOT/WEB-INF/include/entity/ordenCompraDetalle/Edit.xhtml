@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="OrdenCompraDetalleEditDlg" widgetVar="OrdenCompraDetalleEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditOrdenCompraDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="OrdenCompraDetalleEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ordenCompraDetalleController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{ordenCompraDetalleController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{ordenCompraDetalleController.selected.cantidad}" title="#{bundle.EditOrdenCompraDetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.EditOrdenCompraDetalleRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{ordenCompraDetalleController.selected.precio}" title="#{bundle.EditOrdenCompraDetalleTitle_precio}" required="true" requiredMessage="#{bundle.EditOrdenCompraDetalleRequiredMessage_precio}"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_importe}" for="importe" />
+                        <p:inputText id="importe" value="#{ordenCompraDetalleController.selected.importe}" title="#{bundle.EditOrdenCompraDetalleTitle_importe}" required="true" requiredMessage="#{bundle.EditOrdenCompraDetalleRequiredMessage_importe}"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ordenCompraDetalleController.selected.fechaCreacion}" title="#{bundle.EditOrdenCompraDetalleTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ordenCompraDetalleController.selected.fechaActualizacion}" title="#{bundle.EditOrdenCompraDetalleTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_idCabecera}" for="idCabecera" />
+                        <p:selectOneMenu id="idCabecera" value="#{ordenCompraDetalleController.selected.idCabecera}" required="true" requiredMessage="#{bundle.EditOrdenCompraDetalleRequiredMessage_idCabecera}" converter="ordenCompraCabeceraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ordenCompraCabeceraController.items}"
+                                           var="idCabeceraItem"
+                                           itemValue="#{idCabeceraItem}"
+                                           itemLabel="#{idCabeceraItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.EditOrdenCompraDetalleLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{ordenCompraDetalleController.selected.idProducto}" required="true" requiredMessage="#{bundle.EditOrdenCompraDetalleRequiredMessage_idProducto}" converter="productosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ordenCompraDetalleController.save}" value="#{bundle.Save}" update="display,:OrdenCompraDetalleListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OrdenCompraDetalleEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('OrdenCompraDetalleEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StockCreateDlg" widgetVar="StockCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateStockTitle}" closeOnEscape="true">
+
+            <h:form id="StockCreateForm">
+
+                <h:panelGroup id="display" rendered="#{stockController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateStockLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{stockController.selected.cantidad}" title="#{bundle.CreateStockTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.CreateStockLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{stockController.selected.fechaCreacion}" title="#{bundle.CreateStockTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateStockLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{stockController.selected.fechaActualizacion}" title="#{bundle.CreateStockTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateStockLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{stockController.selected.idProducto}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_idProducto}" converter="productosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stockController.saveNew}" value="#{bundle.Save}" update="display,:StockListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('StockCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('StockCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

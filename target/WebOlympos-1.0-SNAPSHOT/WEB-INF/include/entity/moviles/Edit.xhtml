@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MovilesEditDlg" widgetVar="MovilesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMovilesTitle}" closeOnEscape="true">
+
+            <h:form id="MovilesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{movilesController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditMovilesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{movilesController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_marca}" for="marca" />
+                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.EditMovilesTitle_marca}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_marca}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_modelo}" for="modelo" />
+                        <p:inputText id="modelo" value="#{movilesController.selected.modelo}" title="#{bundle.EditMovilesTitle_modelo}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_modelo}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_matricula}" for="matricula" />
+                        <p:inputText id="matricula" value="#{movilesController.selected.matricula}" title="#{bundle.EditMovilesTitle_matricula}" required="true" requiredMessage="#{bundle.EditMovilesRequiredMessage_matricula}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaCreacion}" title="#{bundle.EditMovilesTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditMovilesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaActualizacion}" title="#{bundle.EditMovilesTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movilesController.save}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovilesEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovilesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

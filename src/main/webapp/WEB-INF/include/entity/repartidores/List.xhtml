@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="RepartidoresListForm">
+
+        <p:panel header="#{bundle.ListRepartidoresTitle}">
+            <p:dataTable id="datalist"
+                         value="#{repartidoresController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         selectionMode="single"
+                         selection="#{repartidoresController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{repartidoresController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListRepartidoresTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListRepartidoresTitle_nombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.apellido}" filterBy="#{item.apellido}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListRepartidoresTitle_apellido}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.apellido}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.activo}" filterBy="#{item.activo}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListRepartidoresTitle_activo}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="activo" value="#{item.activo}" title="#{bundle.EditRepartidoresTitle_activo}" required="true" requiredMessage="#{bundle.EditRepartidoresRequiredMessage_activo}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListRepartidoresTitle_fechaCreacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaCreacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListRepartidoresTitle_fechaActualizacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaActualizacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idMovil.id}" filterBy="#{item.idMovil.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListRepartidoresTitle_idMovil}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idMovil.id}"/>
+                                    </p:column>
+                -->
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{repartidoresController.prepareCreate}" update=":RepartidoresCreateForm" oncomplete="PF('RepartidoresCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RepartidoresViewForm" oncomplete="PF('RepartidoresViewDialog').show()" disabled="#{empty repartidoresController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RepartidoresEditForm" oncomplete="PF('RepartidoresEditDialog').show()" disabled="#{empty repartidoresController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{repartidoresController.delete}" update=":growl,datalist" disabled="#{empty repartidoresController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

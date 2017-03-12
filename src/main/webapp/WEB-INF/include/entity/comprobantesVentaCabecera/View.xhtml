@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComprobantesVentaCabeceraViewDlg" widgetVar="ComprobantesVentaCabeceraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewComprobantesVentaCabeceraTitle}" closeOnEscape="true">
+
+            <h:form id="ComprobantesVentaCabeceraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{comprobantesVentaCabeceraController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_id}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.id}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_totalComprobante}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.totalComprobante}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_totalComprobante}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_totalIva10}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.totalIva10}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_totalIva10}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_totalIva5}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.totalIva5}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_totalIva5}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_totalExentas}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.totalExentas}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_totalExentas}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_fechaCreacion}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.fechaCreacion}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.fechaActualizacion}" title="#{bundle.ViewComprobantesVentaCabeceraTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_idCliente}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.idCliente.id}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_idPedido}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.idPedido.id}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesVentaCabeceraLabel_idTipoComprobante}"/>
+                        <h:outputText value="#{comprobantesVentaCabeceraController.selected.idTipoComprobante.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ComprobantesVentaCabeceraViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RepartidoresEditDlg" widgetVar="RepartidoresEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditRepartidoresTitle}" closeOnEscape="true">
+
+            <h:form id="RepartidoresEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{repartidoresController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditRepartidoresLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{repartidoresController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditRepartidoresLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{repartidoresController.selected.nombre}" title="#{bundle.EditRepartidoresTitle_nombre}" required="true" requiredMessage="#{bundle.EditRepartidoresRequiredMessage_nombre}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartidoresLabel_apellido}" for="apellido" />
+                        <p:inputTextarea rows="4" cols="30" id="apellido" value="#{repartidoresController.selected.apellido}" title="#{bundle.EditRepartidoresTitle_apellido}" required="true" requiredMessage="#{bundle.EditRepartidoresRequiredMessage_apellido}"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartidoresLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{repartidoresController.selected.activo}" required="true" requiredMessage="#{bundle.EditRepartidoresRequiredMessage_activo}"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartidoresLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartidoresController.selected.fechaCreacion}" title="#{bundle.EditRepartidoresTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartidoresLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartidoresController.selected.fechaActualizacion}" title="#{bundle.EditRepartidoresTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditRepartidoresLabel_idMovil}" for="idMovil" />
+                        <p:selectOneMenu id="idMovil" value="#{repartidoresController.selected.idMovil}" required="true" requiredMessage="#{bundle.EditRepartidoresRequiredMessage_idMovil}" converter="movilesConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{movilesController.items}"
+                                           var="idMovilItem"
+                                           itemValue="#{idMovilItem}"
+                                           itemLabel="#{idMovilItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{repartidoresController.save}" value="#{bundle.Save}" update="display,:RepartidoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RepartidoresEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('RepartidoresEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

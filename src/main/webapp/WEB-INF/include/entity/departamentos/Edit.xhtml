@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DepartamentosEditDlg" widgetVar="DepartamentosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditDepartamentosTitle}" closeOnEscape="true">
+
+            <h:form id="DepartamentosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{departamentosController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditDepartamentosLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{departamentosController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditDepartamentosLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{departamentosController.selected.descripcion}" title="#{bundle.EditDepartamentosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditDepartamentosRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.EditDepartamentosLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{departamentosController.selected.fechaCreacion}" title="#{bundle.EditDepartamentosTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditDepartamentosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{departamentosController.selected.fechaActualizacion}" title="#{bundle.EditDepartamentosTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentosController.save}" value="#{bundle.Save}" update="display,:DepartamentosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DepartamentosEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DepartamentosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CircuitosViewDlg" widgetVar="CircuitosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCircuitosTitle}" closeOnEscape="true">
+
+            <h:form id="CircuitosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{circuitosController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewCircuitosLabel_id}"/>
+                        <h:outputText value="#{circuitosController.selected.id}" title="#{bundle.ViewCircuitosTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewCircuitosLabel_codigo}"/>
+                        <h:outputText value="#{circuitosController.selected.codigo}" title="#{bundle.ViewCircuitosTitle_codigo}"/>
+
+                        <h:outputText value="#{bundle.ViewCircuitosLabel_descripcion}"/>
+                        <h:outputText value="#{circuitosController.selected.descripcion}" title="#{bundle.ViewCircuitosTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewCircuitosLabel_fechaCreacion}"/>
+                        <h:outputText value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.ViewCircuitosTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewCircuitosLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.ViewCircuitosTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('CircuitosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

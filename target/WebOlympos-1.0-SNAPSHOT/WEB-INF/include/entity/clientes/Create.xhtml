@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClientesCreateDlg" widgetVar="ClientesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClientesTitle}" closeOnEscape="true">
+
+            <h:form id="ClientesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{clientesController.selected != null}">
+                    <p:tabView id="ClientesTabView">
+
+                        <p:tab id="ClientesTab1" title="#{bundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_nombreTitular}" for="nombreTitular" />
+                                <p:inputText id="nombreTitular" value="#{clientesController.selected.nombreTitular}" title="#{bundle.CreateClientesTitle_nombreTitular}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_nombreTitular}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_cedulaTitular}" for="cedulaTitular" />
+                                <p:inputText id="cedulaTitular" value="#{clientesController.selected.cedulaTitular}" title="#{bundle.CreateClientesTitle_cedulaTitular}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_cedulaTitular}" size="30" maxlength="30"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_contactoTitular}" for="contactoTitular" />
+                                <p:inputText id="contactoTitular" value="#{clientesController.selected.contactoTitular}" title="#{bundle.CreateClientesTitle_contactoTitular}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_contactoTitular}" size="10" maxlength="10"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_email}" for="email" />
+                                <p:inputText id="email" value="#{clientesController.selected.email}" title="#{bundle.CreateClientesTitle_email}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_razonSocial}" for="razonSocial" />
+                                <p:inputText id="razonSocial" value="#{clientesController.selected.razonSocial}" title="#{bundle.CreateClientesTitle_razonSocial}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_razonSocial}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_nombreNegocio}" for="nombreNegocio" />
+                                <p:inputText id="nombreNegocio" value="#{clientesController.selected.nombreNegocio}" title="#{bundle.CreateClientesTitle_nombreNegocio}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_nombreNegocio}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_ruc}" for="ruc" />
+                                <p:inputText id="ruc" value="#{clientesController.selected.ruc}" title="#{bundle.CreateClientesTitle_ruc}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_ruc}" size="10" maxlength="10"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_barrio}" for="barrio" />
+                                <p:inputText id="barrio" value="#{clientesController.selected.barrio}" title="#{bundle.CreateClientesTitle_barrio}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_barrio}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_callePrincipal}" for="callePrincipal" />
+                                <p:inputText id="callePrincipal" value="#{clientesController.selected.callePrincipal}" title="#{bundle.CreateClientesTitle_callePrincipal}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_callePrincipal}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_calleSecundaria}" for="calleSecundaria" />
+                                <p:inputText id="calleSecundaria" value="#{clientesController.selected.calleSecundaria}" title="#{bundle.CreateClientesTitle_calleSecundaria}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_calleSecundaria}" size="100" maxlength="100"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_numeroCasa}" for="numeroCasa" />
+                                <p:inputText id="numeroCasa" value="#{clientesController.selected.numeroCasa}" title="#{bundle.CreateClientesTitle_numeroCasa}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_numeroCasa}"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_referencia}" for="referencia" />
+                                <p:inputText id="referencia" value="#{clientesController.selected.referencia}" title="#{bundle.CreateClientesTitle_referencia}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_referencia}" size="250" maxlength="250"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_geolocalizado}" for="geolocalizado" />
+                                <p:selectBooleanCheckbox id="geolocalizado" value="#{clientesController.selected.geolocalizado}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_geolocalizado}"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_latitude}" for="latitude" />
+                                <p:inputText id="latitude" value="#{clientesController.selected.latitude}" title="#{bundle.CreateClientesTitle_latitude}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_latitude}"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_longitud}" for="longitud" />
+                                <p:inputText id="longitud" value="#{clientesController.selected.longitud}" title="#{bundle.CreateClientesTitle_longitud}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_longitud}"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_fechaCreacion}" for="fechaCreacion" />
+                                <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{clientesController.selected.fechaCreacion}" title="#{bundle.CreateClientesTitle_fechaCreacion}"  showOn="button"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                                <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{clientesController.selected.fechaActualizacion}" title="#{bundle.CreateClientesTitle_fechaActualizacion}"  showOn="button"/>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_idCircuito}" for="idCircuito" />
+                                <p:selectOneMenu id="idCircuito" value="#{clientesController.selected.idCircuito}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idCircuito}" converter="circuitosConverter">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{circuitosController.items}"
+                                                   var="idCircuitoItem"
+                                                   itemValue="#{idCircuitoItem}"
+                                                   itemLabel="#{idCircuitoItem.descripcion.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_idCiudad}" for="idCiudad" />
+                                <p:selectOneMenu id="idCiudad" value="#{clientesController.selected.idCiudad}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idCiudad}" converter="ciudadesConverter">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{ciudadesController.items}"
+                                                   var="idCiudadItem"
+                                                   itemValue="#{idCiudadItem}"
+                                                   itemLabel="#{idCiudadItem.descripcion.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_idDepartamento}" for="idDepartamento" />
+                                <p:selectOneMenu id="idDepartamento" value="#{clientesController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idDepartamento}" converter="departamentosConverter">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{departamentosController.items}"
+                                                   var="idDepartamentoItem"
+                                                   itemValue="#{idDepartamentoItem}"
+                                                   itemLabel="#{idDepartamentoItem.descripcion.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="ClientesTab2" title="#{bundle.TabHeaderPrefix} 2">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{bundle.CreateClientesLabel_idFormaPago}" for="idFormaPago" />
+                                <p:selectOneMenu id="idFormaPago" value="#{clientesController.selected.idFormaPago}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idFormaPago}" converter="formasPagoConverter">
+                                    <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{formasPagoController.items}"
+                                                   var="idFormaPagoItem"
+                                                   itemValue="#{idFormaPagoItem}"
+                                                   itemLabel="#{idFormaPagoItem.descripcion.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{clientesController.saveNew}" value="#{bundle.Save}" update="display,:ClientesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ClientesCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ClientesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

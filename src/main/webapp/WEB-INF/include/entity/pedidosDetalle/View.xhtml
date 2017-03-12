@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidosDetalleViewDlg" widgetVar="PedidosDetalleViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPedidosDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="PedidosDetalleViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{pedidosDetalleController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_id}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.id}" title="#{bundle.ViewPedidosDetalleTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_cantidad}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.cantidad}" title="#{bundle.ViewPedidosDetalleTitle_cantidad}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_precio}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.precio}" title="#{bundle.ViewPedidosDetalleTitle_precio}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_importe}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.importe}" title="#{bundle.ViewPedidosDetalleTitle_importe}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_fechaCreacion}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.fechaCreacion}" title="#{bundle.ViewPedidosDetalleTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.fechaActualizacion}" title="#{bundle.ViewPedidosDetalleTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_idCabecera}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.idCabecera.id}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosDetalleLabel_idProducto}"/>
+                        <h:outputText value="#{pedidosDetalleController.selected.idProducto.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PedidosDetalleViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

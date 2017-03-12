@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComprobantesCompraCabeceraViewDlg" widgetVar="ComprobantesCompraCabeceraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewComprobantesCompraCabeceraTitle}" closeOnEscape="true">
+
+            <h:form id="ComprobantesCompraCabeceraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{comprobantesCompraCabeceraController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_id}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.id}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalComprobante}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalComprobante}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalComprobante}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalIva10}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva10}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalIva10}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalIva5}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva5}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalIva5}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalExentas}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalExentas}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalExentas}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_fechaCreacion}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.fechaCreacion}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.fechaActualizacion}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_idProveedor}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.idProveedor.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_idTipoComprobante}"/>
+                        <h:outputText value="#{comprobantesCompraCabeceraController.selected.idTipoComprobante.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ComprobantesCompraCabeceraViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

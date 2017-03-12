@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RepartidoresViewDlg" widgetVar="RepartidoresViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewRepartidoresTitle}" closeOnEscape="true">
+
+            <h:form id="RepartidoresViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{repartidoresController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_id}"/>
+                        <h:outputText value="#{repartidoresController.selected.id}" title="#{bundle.ViewRepartidoresTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_nombre}"/>
+                        <h:outputText value="#{repartidoresController.selected.nombre}" title="#{bundle.ViewRepartidoresTitle_nombre}"/>
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_apellido}"/>
+                        <h:outputText value="#{repartidoresController.selected.apellido}" title="#{bundle.ViewRepartidoresTitle_apellido}"/>
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_activo}"/>
+                        <h:selectBooleanCheckbox id="activo" value="#{repartidoresController.selected.activo}" title="#{bundle.EditRepartidoresTitle_activo}" required="true" requiredMessage="#{bundle.EditRepartidoresRequiredMessage_activo}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_fechaCreacion}"/>
+                        <h:outputText value="#{repartidoresController.selected.fechaCreacion}" title="#{bundle.ViewRepartidoresTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{repartidoresController.selected.fechaActualizacion}" title="#{bundle.ViewRepartidoresTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewRepartidoresLabel_idMovil}"/>
+                        <h:outputText value="#{repartidoresController.selected.idMovil.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('RepartidoresViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosWebCreateDlg" widgetVar="UsuariosWebCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuariosWebTitle}" closeOnEscape="true">
+
+            <h:form id="UsuariosWebCreateForm">
+
+                <h:panelGroup id="display" rendered="#{usuariosWebController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{usuariosWebController.selected.descripcion}" title="#{bundle.CreateUsuariosWebTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateUsuariosWebRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_usuario}" for="usuario" />
+                        <p:inputText id="usuario" value="#{usuariosWebController.selected.usuario}" title="#{bundle.CreateUsuariosWebTitle_usuario}" required="true" requiredMessage="#{bundle.CreateUsuariosWebRequiredMessage_usuario}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_password}" for="password" />
+                        <p:inputTextarea rows="4" cols="30" id="password" value="#{usuariosWebController.selected.password}" title="#{bundle.CreateUsuariosWebTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuariosWebRequiredMessage_password}"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usuariosWebController.selected.email}" title="#{bundle.CreateUsuariosWebTitle_email}" required="true" requiredMessage="#{bundle.CreateUsuariosWebRequiredMessage_email}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{usuariosWebController.selected.activo}" required="true" requiredMessage="#{bundle.CreateUsuariosWebRequiredMessage_activo}"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_resetPassword}" for="resetPassword" />
+                        <p:selectBooleanCheckbox id="resetPassword" value="#{usuariosWebController.selected.resetPassword}" required="true" requiredMessage="#{bundle.CreateUsuariosWebRequiredMessage_resetPassword}"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosWebController.selected.fechaCreacion}" title="#{bundle.CreateUsuariosWebTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateUsuariosWebLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosWebController.selected.fechaActualizacion}" title="#{bundle.CreateUsuariosWebTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuariosWebController.saveNew}" value="#{bundle.Save}" update="display,:UsuariosWebListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosWebCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuariosWebCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

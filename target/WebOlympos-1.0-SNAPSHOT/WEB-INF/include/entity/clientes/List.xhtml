@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ClientesListForm">
+
+        <p:panel header="#{bundle.ListClientesTitle}">
+            <p:dataTable id="datalist"
+                         value="#{clientesController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         selectionMode="single"
+                         selection="#{clientesController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{clientesController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClientesTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nombreTitular}" filterBy="#{item.nombreTitular}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClientesTitle_nombreTitular}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreTitular}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cedulaTitular}" filterBy="#{item.cedulaTitular}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListClientesTitle_cedulaTitular}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cedulaTitular}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.contactoTitular}" filterBy="#{item.contactoTitular}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_contactoTitular}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.contactoTitular}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_email}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.email}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.razonSocial}" filterBy="#{item.razonSocial}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_razonSocial}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.razonSocial}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.nombreNegocio}" filterBy="#{item.nombreNegocio}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_nombreNegocio}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.nombreNegocio}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.ruc}" filterBy="#{item.ruc}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_ruc}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.ruc}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.barrio}" filterBy="#{item.barrio}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_barrio}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.barrio}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.callePrincipal}" filterBy="#{item.callePrincipal}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_callePrincipal}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.callePrincipal}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.calleSecundaria}" filterBy="#{item.calleSecundaria}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_calleSecundaria}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.calleSecundaria}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.numeroCasa}" filterBy="#{item.numeroCasa}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_numeroCasa}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.numeroCasa}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.referencia}" filterBy="#{item.referencia}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_referencia}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.referencia}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.geolocalizado}" filterBy="#{item.geolocalizado}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_geolocalizado}"/>
+                                        </f:facet>
+                                        <h:selectBooleanCheckbox id="geolocalizado" value="#{item.geolocalizado}" title="#{bundle.EditClientesTitle_geolocalizado}" required="true" requiredMessage="#{bundle.EditClientesRequiredMessage_geolocalizado}" disabled="true"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.latitude}" filterBy="#{item.latitude}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_latitude}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.latitude}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.longitud}" filterBy="#{item.longitud}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_longitud}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.longitud}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_fechaCreacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaCreacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_fechaActualizacion}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.fechaActualizacion}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idCircuito.descripcion}" filterBy="#{item.idCircuito.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_idCircuito}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idCircuito.descripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idCiudad.descripcion}" filterBy="#{item.idCiudad.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_idCiudad}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idCiudad.descripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idDepartamento.descripcion}" filterBy="#{item.idDepartamento.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_idDepartamento}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idDepartamento.descripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idFormaPago.descripcion}" filterBy="#{item.idFormaPago.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListClientesTitle_idFormaPago}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idFormaPago.descripcion}"/>
+                                    </p:column>
+                -->
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clientesController.prepareCreate}" update=":ClientesCreateForm" oncomplete="PF('ClientesCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClientesViewForm" oncomplete="PF('ClientesViewDialog').show()" disabled="#{empty clientesController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClientesEditForm" oncomplete="PF('ClientesEditDialog').show()" disabled="#{empty clientesController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clientesController.delete}" update=":growl,datalist" disabled="#{empty clientesController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

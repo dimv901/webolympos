@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="VendedoresEditDlg" widgetVar="VendedoresEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditVendedoresTitle}" closeOnEscape="true">
+
+            <h:form id="VendedoresEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{vendedoresController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditVendedoresLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{vendedoresController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{vendedoresController.selected.nombre}" title="#{bundle.EditVendedoresTitle_nombre}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_nombre}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_cedula}" for="cedula" />
+                        <p:inputText id="cedula" value="#{vendedoresController.selected.cedula}" title="#{bundle.EditVendedoresTitle_cedula}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_cedula}" size="30" maxlength="30"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_activo}" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{vendedoresController.selected.activo}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_activo}"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_android}" for="android" />
+                        <p:selectBooleanCheckbox id="android" value="#{vendedoresController.selected.android}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_android}"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_telefonoContacto}" for="telefonoContacto" />
+                        <p:inputText id="telefonoContacto" value="#{vendedoresController.selected.telefonoContacto}" title="#{bundle.EditVendedoresTitle_telefonoContacto}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_telefonoContacto}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{vendedoresController.selected.fechaCreacion}" title="#{bundle.EditVendedoresTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{vendedoresController.selected.fechaActualizacion}" title="#{bundle.EditVendedoresTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditVendedoresLabel_idCircuito}" for="idCircuito" />
+                        <p:selectOneMenu id="idCircuito" value="#{vendedoresController.selected.idCircuito}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_idCircuito}" converter="circuitosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{circuitosController.items}"
+                                           var="idCircuitoItem"
+                                           itemValue="#{idCircuitoItem}"
+                                           itemLabel="#{idCircuitoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{vendedoresController.save}" value="#{bundle.Save}" update="display,:VendedoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VendedoresEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VendedoresEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

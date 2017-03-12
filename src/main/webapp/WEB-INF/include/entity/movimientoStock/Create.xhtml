@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MovimientoStockCreateDlg" widgetVar="MovimientoStockCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovimientoStockTitle}" closeOnEscape="true">
+
+            <h:form id="MovimientoStockCreateForm">
+
+                <h:panelGroup id="display" rendered="#{movimientoStockController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateMovimientoStockLabel_movimiento}" for="movimiento" />
+                        <p:inputTextarea rows="4" cols="30" id="movimiento" value="#{movimientoStockController.selected.movimiento}" title="#{bundle.CreateMovimientoStockTitle_movimiento}" required="true" requiredMessage="#{bundle.CreateMovimientoStockRequiredMessage_movimiento}"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovimientoStockLabel_fechaMovimiento}" for="fechaMovimiento" />
+                        <p:calendar id="fechaMovimiento" pattern="MM/dd/yyyy HH:mm:ss" value="#{movimientoStockController.selected.fechaMovimiento}" title="#{bundle.CreateMovimientoStockTitle_fechaMovimiento}" required="true" requiredMessage="#{bundle.CreateMovimientoStockRequiredMessage_fechaMovimiento}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovimientoStockLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{movimientoStockController.selected.cantidad}" title="#{bundle.CreateMovimientoStockTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateMovimientoStockRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovimientoStockLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movimientoStockController.selected.fechaCreacion}" title="#{bundle.CreateMovimientoStockTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovimientoStockLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movimientoStockController.selected.fechaActualizacion}" title="#{bundle.CreateMovimientoStockTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateMovimientoStockLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{movimientoStockController.selected.idProducto}" required="true" requiredMessage="#{bundle.CreateMovimientoStockRequiredMessage_idProducto}" converter="productosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movimientoStockController.saveNew}" value="#{bundle.Save}" update="display,:MovimientoStockListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovimientoStockCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovimientoStockCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

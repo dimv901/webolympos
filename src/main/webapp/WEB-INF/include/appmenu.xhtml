@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{bundle.Maintenance}">
+                    <p:menuitem value="#{bundle.CircuitosHeading}..." outcome="/circuitos/index" />
+                    <p:menuitem value="#{bundle.CiudadesHeading}..." outcome="/ciudades/index" />
+                    <p:menuitem value="#{bundle.ClientesHeading}..." outcome="/clientes/index" />
+                    <p:menuitem value="#{bundle.ComprobantesCompraCabeceraHeading}..." outcome="/comprobantesCompraCabecera/index" />
+                    <p:menuitem value="#{bundle.ComprobantesCompraDetalleHeading}..." outcome="/comprobantesCompraDetalle/index" />
+                    <p:menuitem value="#{bundle.ComprobantesVentaCabeceraHeading}..." outcome="/comprobantesVentaCabecera/index" />
+                    <p:menuitem value="#{bundle.ComprobantesVentaDetalleHeading}..." outcome="/comprobantesVentaDetalle/index" />
+                    <p:menuitem value="#{bundle.DepartamentosHeading}..." outcome="/departamentos/index" />
+                    <p:menuitem value="#{bundle.EmpresaHeading}..." outcome="/empresa/index" />
+                    <p:menuitem value="#{bundle.FormasPagoHeading}..." outcome="/formasPago/index" />
+                    <p:menuitem value="#{bundle.MotivosNoCompraHeading}..." outcome="/motivosNoCompra/index" />
+                    <p:menuitem value="#{bundle.MovilesHeading}..." outcome="/moviles/index" />
+                    <p:menuitem value="#{bundle.MovimientoStockHeading}..." outcome="/movimientoStock/index" />
+                    <p:menuitem value="#{bundle.OrdenCompraCabeceraHeading}..." outcome="/ordenCompraCabecera/index" />
+                    <p:menuitem value="#{bundle.OrdenCompraDetalleHeading}..." outcome="/ordenCompraDetalle/index" />
+                    <p:menuitem value="#{bundle.PaisesHeading}..." outcome="/paises/index" />
+                    <p:menuitem value="#{bundle.PedidosCabeceraHeading}..." outcome="/pedidosCabecera/index" />
+                    <p:menuitem value="#{bundle.PedidosDetalleHeading}..." outcome="/pedidosDetalle/index" />
+                    <p:menuitem value="#{bundle.ProductoFamiliasHeading}..." outcome="/productoFamilias/index" />
+                    <p:menuitem value="#{bundle.ProductosHeading}..." outcome="/productos/index" />
+                    <p:menuitem value="#{bundle.ProveedoresHeading}..." outcome="/proveedores/index" />
+                    <p:menuitem value="#{bundle.RepartidoresHeading}..." outcome="/repartidores/index" />
+                    <p:menuitem value="#{bundle.RepartosHeading}..." outcome="/repartos/index" />
+                    <p:menuitem value="#{bundle.StockHeading}..." outcome="/stock/index" />
+                    <p:menuitem value="#{bundle.TipoComprobantesHeading}..." outcome="/tipoComprobantes/index" />
+                    <p:menuitem value="#{bundle.TipoImpuestosHeading}..." outcome="/tipoImpuestos/index" />
+                    <p:menuitem value="#{bundle.UsuariosMovilesHeading}..." outcome="/usuariosMoviles/index" />
+                    <p:menuitem value="#{bundle.UsuariosWebHeading}..." outcome="/usuariosWeb/index" />
+                    <p:menuitem value="#{bundle.VendedoresHeading}..." outcome="/vendedores/index" />
+                    <p:menuitem value="#{bundle.VisitasHeading}..." outcome="/visitas/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

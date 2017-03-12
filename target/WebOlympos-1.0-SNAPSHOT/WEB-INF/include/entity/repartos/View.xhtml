@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RepartosViewDlg" widgetVar="RepartosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewRepartosTitle}" closeOnEscape="true">
+
+            <h:form id="RepartosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{repartosController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_id}"/>
+                        <h:outputText value="#{repartosController.selected.id}" title="#{bundle.ViewRepartosTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_entregado}"/>
+                        <h:selectBooleanCheckbox id="entregado" value="#{repartosController.selected.entregado}" title="#{bundle.EditRepartosTitle_entregado}" required="true" requiredMessage="#{bundle.EditRepartosRequiredMessage_entregado}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_fechaEntregado}"/>
+                        <h:outputText value="#{repartosController.selected.fechaEntregado}" title="#{bundle.ViewRepartosTitle_fechaEntregado}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_fechaCreacion}"/>
+                        <h:outputText value="#{repartosController.selected.fechaCreacion}" title="#{bundle.ViewRepartosTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{repartosController.selected.fechaActualizacion}" title="#{bundle.ViewRepartosTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_idComprobanteVenta}"/>
+                        <h:outputText value="#{repartosController.selected.idComprobanteVenta.id}"/>
+
+                        <h:outputText value="#{bundle.ViewRepartosLabel_idRepartidor}"/>
+                        <h:outputText value="#{repartosController.selected.idRepartidor.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('RepartosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

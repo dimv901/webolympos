@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CiudadesCreateDlg" widgetVar="CiudadesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCiudadesTitle}" closeOnEscape="true">
+
+            <h:form id="CiudadesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{ciudadesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{ciudadesController.selected.descripcion}" title="#{bundle.CreateCiudadesTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateCiudadesRequiredMessage_descripcion}" size="150" maxlength="150"/>
+
+                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.CreateCiudadesTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.CreateCiudadesTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_idDepartamento}" for="idDepartamento" />
+                        <p:selectOneMenu id="idDepartamento" value="#{ciudadesController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.CreateCiudadesRequiredMessage_idDepartamento}" converter="departamentosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{departamentosController.items}"
+                                           var="idDepartamentoItem"
+                                           itemValue="#{idDepartamentoItem}"
+                                           itemLabel="#{idDepartamentoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ciudadesController.saveNew}" value="#{bundle.Save}" update="display,:CiudadesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadesCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

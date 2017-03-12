@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoImpuestosCreateDlg" widgetVar="TipoImpuestosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoImpuestosTitle}" closeOnEscape="true">
+
+            <h:form id="TipoImpuestosCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tipoImpuestosController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{tipoImpuestosController.selected.descripcion}" title="#{bundle.CreateTipoImpuestosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoImpuestosRequiredMessage_descripcion}"/>
+
+                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaCreacion}" title="#{bundle.CreateTipoImpuestosTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaActualizacion}" title="#{bundle.CreateTipoImpuestosTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoImpuestosController.saveNew}" value="#{bundle.Save}" update="display,:TipoImpuestosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoImpuestosCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoImpuestosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

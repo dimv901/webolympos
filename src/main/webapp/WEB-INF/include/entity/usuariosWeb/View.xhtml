@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuariosWebViewDlg" widgetVar="UsuariosWebViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewUsuariosWebTitle}" closeOnEscape="true">
+
+            <h:form id="UsuariosWebViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuariosWebController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_id}"/>
+                        <h:outputText value="#{usuariosWebController.selected.id}" title="#{bundle.ViewUsuariosWebTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_descripcion}"/>
+                        <h:outputText value="#{usuariosWebController.selected.descripcion}" title="#{bundle.ViewUsuariosWebTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_usuario}"/>
+                        <h:outputText value="#{usuariosWebController.selected.usuario}" title="#{bundle.ViewUsuariosWebTitle_usuario}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_password}"/>
+                        <h:outputText value="#{usuariosWebController.selected.password}" title="#{bundle.ViewUsuariosWebTitle_password}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_email}"/>
+                        <h:outputText value="#{usuariosWebController.selected.email}" title="#{bundle.ViewUsuariosWebTitle_email}"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_activo}"/>
+                        <h:selectBooleanCheckbox id="activo" value="#{usuariosWebController.selected.activo}" title="#{bundle.EditUsuariosWebTitle_activo}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_activo}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_resetPassword}"/>
+                        <h:selectBooleanCheckbox id="resetPassword" value="#{usuariosWebController.selected.resetPassword}" title="#{bundle.EditUsuariosWebTitle_resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_resetPassword}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_fechaCreacion}"/>
+                        <h:outputText value="#{usuariosWebController.selected.fechaCreacion}" title="#{bundle.ViewUsuariosWebTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewUsuariosWebLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{usuariosWebController.selected.fechaActualizacion}" title="#{bundle.ViewUsuariosWebTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('UsuariosWebViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

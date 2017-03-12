@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpresaCreateDlg" widgetVar="EmpresaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="EmpresaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{empresaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_razonSocial}" for="razonSocial" />
+                        <p:inputText id="razonSocial" value="#{empresaController.selected.razonSocial}" title="#{bundle.CreateEmpresaTitle_razonSocial}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_razonSocial}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_nombreFantasia}" for="nombreFantasia" />
+                        <p:inputText id="nombreFantasia" value="#{empresaController.selected.nombreFantasia}" title="#{bundle.CreateEmpresaTitle_nombreFantasia}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_nombreFantasia}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_ruc}" for="ruc" />
+                        <p:inputText id="ruc" value="#{empresaController.selected.ruc}" title="#{bundle.CreateEmpresaTitle_ruc}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_ruc}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{empresaController.selected.email}" title="#{bundle.CreateEmpresaTitle_email}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_email}" size="100" maxlength="100"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{empresaController.selected.telefono}" title="#{bundle.CreateEmpresaTitle_telefono}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_telefono}" size="10" maxlength="10"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{empresaController.selected.direccion}" title="#{bundle.CreateEmpresaTitle_direccion}" required="true" requiredMessage="#{bundle.CreateEmpresaRequiredMessage_direccion}" size="250" maxlength="250"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{empresaController.selected.fechaCreacion}" title="#{bundle.CreateEmpresaTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateEmpresaLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{empresaController.selected.fechaActualizacion}" title="#{bundle.CreateEmpresaTitle_fechaActualizacion}"  showOn="button"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empresaController.saveNew}" value="#{bundle.Save}" update="display,:EmpresaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpresaCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('EmpresaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

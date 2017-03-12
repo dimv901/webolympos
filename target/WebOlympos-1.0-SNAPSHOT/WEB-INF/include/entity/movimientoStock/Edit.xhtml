@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MovimientoStockEditDlg" widgetVar="MovimientoStockEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMovimientoStockTitle}" closeOnEscape="true">
+
+            <h:form id="MovimientoStockEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{movimientoStockController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditMovimientoStockLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{movimientoStockController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditMovimientoStockLabel_movimiento}" for="movimiento" />
+                        <p:inputTextarea rows="4" cols="30" id="movimiento" value="#{movimientoStockController.selected.movimiento}" title="#{bundle.EditMovimientoStockTitle_movimiento}" required="true" requiredMessage="#{bundle.EditMovimientoStockRequiredMessage_movimiento}"/>
+
+                        <p:outputLabel value="#{bundle.EditMovimientoStockLabel_fechaMovimiento}" for="fechaMovimiento" />
+                        <p:calendar id="fechaMovimiento" pattern="MM/dd/yyyy HH:mm:ss" value="#{movimientoStockController.selected.fechaMovimiento}" title="#{bundle.EditMovimientoStockTitle_fechaMovimiento}" required="true" requiredMessage="#{bundle.EditMovimientoStockRequiredMessage_fechaMovimiento}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditMovimientoStockLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{movimientoStockController.selected.cantidad}" title="#{bundle.EditMovimientoStockTitle_cantidad}" required="true" requiredMessage="#{bundle.EditMovimientoStockRequiredMessage_cantidad}"/>
+
+                        <p:outputLabel value="#{bundle.EditMovimientoStockLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movimientoStockController.selected.fechaCreacion}" title="#{bundle.EditMovimientoStockTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditMovimientoStockLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movimientoStockController.selected.fechaActualizacion}" title="#{bundle.EditMovimientoStockTitle_fechaActualizacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditMovimientoStockLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{movimientoStockController.selected.idProducto}" required="true" requiredMessage="#{bundle.EditMovimientoStockRequiredMessage_idProducto}" converter="productosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{movimientoStockController.save}" value="#{bundle.Save}" update="display,:MovimientoStockListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovimientoStockEditDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovimientoStockEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

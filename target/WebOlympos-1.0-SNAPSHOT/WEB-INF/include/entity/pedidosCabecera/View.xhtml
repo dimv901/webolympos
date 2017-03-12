@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidosCabeceraViewDlg" widgetVar="PedidosCabeceraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPedidosCabeceraTitle}" closeOnEscape="true">
+
+            <h:form id="PedidosCabeceraViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{pedidosCabeceraController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_id}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.id}" title="#{bundle.ViewPedidosCabeceraTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_importe}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.importe}" title="#{bundle.ViewPedidosCabeceraTitle_importe}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_latitud}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.latitud}" title="#{bundle.ViewPedidosCabeceraTitle_latitud}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_longitud}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.longitud}" title="#{bundle.ViewPedidosCabeceraTitle_longitud}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_estado}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.estado}" title="#{bundle.ViewPedidosCabeceraTitle_estado}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaPedido}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.fechaPedido}" title="#{bundle.ViewPedidosCabeceraTitle_fechaPedido}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaCreacion}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.fechaCreacion}" title="#{bundle.ViewPedidosCabeceraTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.fechaActualizacion}" title="#{bundle.ViewPedidosCabeceraTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_idCliente}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.idCliente.id}"/>
+
+                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_idVendedor}"/>
+                        <h:outputText value="#{pedidosCabeceraController.selected.idVendedor.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('PedidosCabeceraViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VendedoresViewDlg" widgetVar="VendedoresViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewVendedoresTitle}" closeOnEscape="true">
+
+            <h:form id="VendedoresViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{vendedoresController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_id}"/>
+                        <h:outputText value="#{vendedoresController.selected.id}" title="#{bundle.ViewVendedoresTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_nombre}"/>
+                        <h:outputText value="#{vendedoresController.selected.nombre}" title="#{bundle.ViewVendedoresTitle_nombre}"/>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_cedula}"/>
+                        <h:outputText value="#{vendedoresController.selected.cedula}" title="#{bundle.ViewVendedoresTitle_cedula}"/>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_activo}"/>
+                        <h:selectBooleanCheckbox id="activo" value="#{vendedoresController.selected.activo}" title="#{bundle.EditVendedoresTitle_activo}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_activo}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_android}"/>
+                        <h:selectBooleanCheckbox id="android" value="#{vendedoresController.selected.android}" title="#{bundle.EditVendedoresTitle_android}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_android}" disabled="true"/>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_telefonoContacto}"/>
+                        <h:outputText value="#{vendedoresController.selected.telefonoContacto}" title="#{bundle.ViewVendedoresTitle_telefonoContacto}"/>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_fechaCreacion}"/>
+                        <h:outputText value="#{vendedoresController.selected.fechaCreacion}" title="#{bundle.ViewVendedoresTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{vendedoresController.selected.fechaActualizacion}" title="#{bundle.ViewVendedoresTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_idCircuito}"/>
+                        <h:outputText value="#{vendedoresController.selected.idCircuito.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('VendedoresViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProveedoresViewDlg" widgetVar="ProveedoresViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewProveedoresTitle}" closeOnEscape="true">
+
+            <h:form id="ProveedoresViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{proveedoresController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_id}"/>
+                        <h:outputText value="#{proveedoresController.selected.id}" title="#{bundle.ViewProveedoresTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_descripcion}"/>
+                        <h:outputText value="#{proveedoresController.selected.descripcion}" title="#{bundle.ViewProveedoresTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_telefono}"/>
+                        <h:outputText value="#{proveedoresController.selected.telefono}" title="#{bundle.ViewProveedoresTitle_telefono}"/>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_direccion}"/>
+                        <h:outputText value="#{proveedoresController.selected.direccion}" title="#{bundle.ViewProveedoresTitle_direccion}"/>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_email}"/>
+                        <h:outputText value="#{proveedoresController.selected.email}" title="#{bundle.ViewProveedoresTitle_email}"/>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_fechaCreacion}"/>
+                        <h:outputText value="#{proveedoresController.selected.fechaCreacion}" title="#{bundle.ViewProveedoresTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_fechaActuaizacion}"/>
+                        <h:outputText value="#{proveedoresController.selected.fechaActuaizacion}" title="#{bundle.ViewProveedoresTitle_fechaActuaizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewProveedoresLabel_idPais}"/>
+                        <h:outputText value="#{proveedoresController.selected.idPais.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('ProveedoresViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

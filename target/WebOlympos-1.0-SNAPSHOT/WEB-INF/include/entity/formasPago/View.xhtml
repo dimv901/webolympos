@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FormasPagoViewDlg" widgetVar="FormasPagoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewFormasPagoTitle}" closeOnEscape="true">
+
+            <h:form id="FormasPagoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{formasPagoController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewFormasPagoLabel_id}"/>
+                        <h:outputText value="#{formasPagoController.selected.id}" title="#{bundle.ViewFormasPagoTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewFormasPagoLabel_descripcion}"/>
+                        <h:outputText value="#{formasPagoController.selected.descripcion}" title="#{bundle.ViewFormasPagoTitle_descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewFormasPagoLabel_fechaCreacion}"/>
+                        <h:outputText value="#{formasPagoController.selected.fechaCreacion}" title="#{bundle.ViewFormasPagoTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewFormasPagoLabel_fechaActalizacion}"/>
+                        <h:outputText value="#{formasPagoController.selected.fechaActalizacion}" title="#{bundle.ViewFormasPagoTitle_fechaActalizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('FormasPagoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
