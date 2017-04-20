@@ -8,43 +8,64 @@
 
     <ui:composition>
 
-        <p:dialog id="RepartidoresCreateDlg" widgetVar="RepartidoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRepartidoresTitle}" closeOnEscape="true">
+        <p:dialog id="RepartidoresCreateDlg"  widgetVar="RepartidoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRepartidoresTitle}" closeOnEscape="true">
 
             <h:form id="RepartidoresCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{repartidoresController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{repartidoresController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_nombre}" for="nombre" />
+                            <p:inputText id="nombre" 
+                                         value="#{repartidoresController.selected.nombre}" 
+                                         title="#{bundle.CreateRepartidoresTitle_nombre}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_nombre}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateRepartidoresLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{repartidoresController.selected.nombre}" title="#{bundle.CreateRepartidoresTitle_nombre}" required="true" requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_nombre}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_apellido}" for="apellido" />
+                            <p:inputText  id="apellido" 
+                                          value="#{repartidoresController.selected.apellido}" 
+                                          title="#{bundle.CreateRepartidoresTitle_apellido}" 
+                                          required="true" 
+                                          requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_apellido}"
+                                          size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateRepartidoresLabel_apellido}" for="apellido" />
-                        <p:inputTextarea rows="4" cols="30" id="apellido" value="#{repartidoresController.selected.apellido}" title="#{bundle.CreateRepartidoresTitle_apellido}" required="true" requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_apellido}"/>
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_cedula}" for="cedula" />
+                            <p:inputText  id="cedula" 
+                                          value="#{repartidoresController.selected.cedula}" 
+                                          title="#{bundle.CreateRepartidoresTitle_cedula}" 
+                                          required="true" 
+                                          requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_cedula}"
+                                          size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateRepartidoresLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{repartidoresController.selected.activo}" required="true" requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_activo}"/>
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_activo}" for="activo" />
+                            <p:inputSwitch id="activo" 
+                                           value="#{repartidoresController.selected.activo}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_activo}"
+                                           offLabel="#{bundle.No}"
+                                           onLabel="#{bundle.Yes}"/>
+                         
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_idMovil}" for="idMovil" />
+                            <p:selectOneMenu id="idMovil" value="#{repartidoresController.selected.idMovil}" required="true" requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_idMovil}" converter="movilesConverter" filter="true" filterMatchMode="contains" style="width: 100px;">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{movilesController.items}"
+                                               var="idMovilItem"
+                                               itemValue="#{idMovilItem}"
+                                               itemLabel="#{idMovilItem.marca.toString()}"
+                                               />
 
-                        <p:outputLabel value="#{bundle.CreateRepartidoresLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartidoresController.selected.fechaCreacion}" title="#{bundle.CreateRepartidoresTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateRepartidoresLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartidoresController.selected.fechaActualizacion}" title="#{bundle.CreateRepartidoresTitle_fechaActualizacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateRepartidoresLabel_idMovil}" for="idMovil" />
-                        <p:selectOneMenu id="idMovil" value="#{repartidoresController.selected.idMovil}" required="true" requiredMessage="#{bundle.CreateRepartidoresRequiredMessage_idMovil}" converter="movilesConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{movilesController.items}"
-                                           var="idMovilItem"
-                                           itemValue="#{idMovilItem}"
-                                           itemLabel="#{idMovilItem.id.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{repartidoresController.saveNew}" value="#{bundle.Save}" update="display,:RepartidoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RepartidoresCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('RepartidoresCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{repartidoresController.saveNew}" value="#{bundle.Save}" update="display,:RepartidoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RepartidoresCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('RepartidoresCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -52,3 +73,10 @@
     </ui:composition>
 
 </html>
+   <!--
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartidoresController.selected.fechaCreacion}" title="#{bundle.CreateRepartidoresTitle_fechaCreacion}"  showOn="button"/>
+
+                            <p:outputLabel value="#{bundle.CreateRepartidoresLabel_fechaActualizacion}" for="fechaActualizacion" />
+                            <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{repartidoresController.selected.fechaActualizacion}" title="#{bundle.CreateRepartidoresTitle_fechaActualizacion}"  showOn="button"/>
+                            -->

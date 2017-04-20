@@ -6,10 +6,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vendedores.findAll", query = "SELECT v FROM Vendedores v")
     , @NamedQuery(name = "Vendedores.findById", query = "SELECT v FROM Vendedores v WHERE v.id = :id")
     , @NamedQuery(name = "Vendedores.findByNombre", query = "SELECT v FROM Vendedores v WHERE v.nombre = :nombre")
+    , @NamedQuery(name = "Vendedores.findByApellido", query = "SELECT v FROM Vendedores v WHERE v.apellido = :apellido")
     , @NamedQuery(name = "Vendedores.findByCedula", query = "SELECT v FROM Vendedores v WHERE v.cedula = :cedula")
     , @NamedQuery(name = "Vendedores.findByActivo", query = "SELECT v FROM Vendedores v WHERE v.activo = :activo")
     , @NamedQuery(name = "Vendedores.findByAndroid", query = "SELECT v FROM Vendedores v WHERE v.android = :android")
@@ -60,6 +57,11 @@ public class Vendedores implements Serializable {
     private String nombre;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "apellido")
+    private String apellido;
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "cedula")
     private String cedula;
@@ -73,7 +75,7 @@ public class Vendedores implements Serializable {
     private boolean android;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 30)
     @Column(name = "telefono_contacto")
     private String telefonoContacto;
     @Column(name = "fecha_creacion")
@@ -85,8 +87,6 @@ public class Vendedores implements Serializable {
     @JoinColumn(name = "id_circuito", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Circuitos idCircuito;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idVendedor")
-    private Collection<PedidosCabecera> pedidosCabeceraCollection;
 
     public Vendedores() {
     }
@@ -95,9 +95,10 @@ public class Vendedores implements Serializable {
         this.id = id;
     }
 
-    public Vendedores(Integer id, String nombre, String cedula, boolean activo, boolean android, String telefonoContacto) {
+    public Vendedores(Integer id, String nombre, String apellido, String cedula, boolean activo, boolean android, String telefonoContacto) {
         this.id = id;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.cedula = cedula;
         this.activo = activo;
         this.android = android;
@@ -118,6 +119,14 @@ public class Vendedores implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getCedula() {
@@ -176,15 +185,6 @@ public class Vendedores implements Serializable {
         this.idCircuito = idCircuito;
     }
 
-    @XmlTransient
-    public Collection<PedidosCabecera> getPedidosCabeceraCollection() {
-        return pedidosCabeceraCollection;
-    }
-
-    public void setPedidosCabeceraCollection(Collection<PedidosCabecera> pedidosCabeceraCollection) {
-        this.pedidosCabeceraCollection = pedidosCabeceraCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -209,5 +209,5 @@ public class Vendedores implements Serializable {
     public String toString() {
         return "entities.Vendedores[ id=" + id + " ]";
     }
-    
+
 }

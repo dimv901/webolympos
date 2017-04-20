@@ -11,26 +11,43 @@
         <p:dialog id="CircuitosCreateDlg" widgetVar="CircuitosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCircuitosTitle}" closeOnEscape="true">
 
             <h:form id="CircuitosCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{circuitosController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{circuitosController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateCircuitosLabel_codigo}" for="codigo" />
+                            <p:inputText  id="codigo" 
+                                          value="#{circuitosController.selected.codigo}" 
+                                          title="#{bundle.CreateCircuitosTitle_codigo}" 
+                                          required="true" 
+                                          requiredMessage="#{bundle.CreateCircuitosRequiredMessage_codigo}"
+                                          size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateCircuitosLabel_codigo}" for="codigo" />
-                        <p:inputTextarea rows="4" cols="30" id="codigo" value="#{circuitosController.selected.codigo}" title="#{bundle.CreateCircuitosTitle_codigo}" required="true" requiredMessage="#{bundle.CreateCircuitosRequiredMessage_codigo}"/>
+                            <p:outputLabel value="#{bundle.CreateCircuitosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{circuitosController.selected.descripcion}" 
+                                         title="#{bundle.CreateCircuitosTitle_descripcion}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateCircuitosLabel_descripcion}" for="descripcion" />
-                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{circuitosController.selected.descripcion}" title="#{bundle.CreateCircuitosTitle_descripcion}" />
+                            <!--
+                            <p:outputLabel value="#{bundle.CreateCircuitosLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.CreateCircuitosTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateCircuitosRequiredMessage_fechaCreacion}" showOn="button"/>
+                            -->
+                            <!--
+                           <p:outputLabel value="#{bundle.CreateCircuitosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                           <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.CreateCircuitosTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <p:outputLabel value="#{bundle.CreateCircuitosLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.CreateCircuitosTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateCircuitosRequiredMessage_fechaCreacion}" showOn="button"/>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{circuitosController.saveNew}" value="#{bundle.Save}" update="display,:CircuitosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CircuitosCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CircuitosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
 
-                        <p:outputLabel value="#{bundle.CreateCircuitosLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.CreateCircuitosTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{circuitosController.saveNew}" value="#{bundle.Save}" update="display,:CircuitosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CircuitosCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CircuitosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                </p:panel>
             </h:form>
 
         </p:dialog>

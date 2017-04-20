@@ -10,46 +10,81 @@
         <p:dialog id="UsuariosWebEditDlg" widgetVar="UsuariosWebEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditUsuariosWebTitle}" closeOnEscape="true">
 
             <h:form id="UsuariosWebEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{usuariosWebController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuariosWebController.selected != null}">
+                            <!--
+                           <h:outputLabel value="#{bundle.EditUsuariosWebLabel_id}" for="id" />
+                           <h:outputText id="id" value="#{usuariosWebController.selected.id}" />
+                            -->
 
+                            <p:outputLabel value="#{bundle.EditUsuariosWebLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion"
+                                         value="#{usuariosWebController.selected.descripcion}" 
+                                         title="#{bundle.EditUsuariosWebTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_descripcion}" 
+                                         size="100" />
 
-                        <h:outputLabel value="#{bundle.EditUsuariosWebLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{usuariosWebController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditUsuariosWebLabel_usuario}" for="usuario" />
+                            <p:inputText id="usuario" 
+                                         value="#{usuariosWebController.selected.usuario}" 
+                                         title="#{bundle.EditUsuariosWebTitle_usuario}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_usuario}" 
+                                         size="100" />
 
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{usuariosWebController.selected.descripcion}" title="#{bundle.EditUsuariosWebTitle_descripcion}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <p:outputLabel value="#{bundle.EditUsuariosWebLabel_password}" for="password" />
+                            <p:inputText id="password" 
+                                         value="#{usuariosWebController.selected.password}" 
+                                         title="#{bundle.EditUsuariosWebTitle_password}" 
+                                         type="password"
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_password}"
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_usuario}" for="usuario" />
-                        <p:inputText id="usuario" value="#{usuariosWebController.selected.usuario}" title="#{bundle.EditUsuariosWebTitle_usuario}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_usuario}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.EditUsuariosWebLabel_email}" for="email" />
+                            <p:inputText id="email" 
+                                         value="#{usuariosWebController.selected.email}" 
+                                         title="#{bundle.EditUsuariosWebTitle_email}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_email}" 
+                                         size="100">
+                                <f:validator validatorId="utils.emailValidator" />
+                            </p:inputText>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_password}" for="password" />
-                        <p:inputTextarea rows="4" cols="30" id="password" value="#{usuariosWebController.selected.password}" title="#{bundle.EditUsuariosWebTitle_password}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_password}"/>
+                            <p:outputLabel value="#{bundle.EditUsuariosWebLabel_activo}" for="activo" />
+                            <p:inputSwitch id="activo" value="#{usuariosWebController.selected.activo}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_activo}" offLabel="#{bundle.No}" onLabel="#{bundle.Yes}"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usuariosWebController.selected.email}" title="#{bundle.EditUsuariosWebTitle_email}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_email}" size="150" maxlength="150"/>
+                            <p:outputLabel value="#{bundle.EditUsuariosWebLabel_resetPassword}" for="resetPassword" />
+                            <p:inputSwitch id="resetPassword" 
+                                           value="#{usuariosWebController.selected.resetPassword}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_resetPassword}" 
+                                           offLabel="#{bundle.No}" 
+                                           onLabel="#{bundle.Yes}"/>
+                                <!--
+                                    <p:outputLabel value="#{bundle.EditUsuariosWebLabel_fechaCreacion}" for="fechaCreacion" />
+                                    <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosWebController.selected.fechaCreacion}" title="#{bundle.EditUsuariosWebTitle_fechaCreacion}"  showOn="button"/>
+                                -->
+                                <!--
+                                <p:outputLabel value="#{bundle.EditUsuariosWebLabel_fechaActualizacion}" for="fechaActualizacion" />
+                                <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosWebController.selected.fechaActualizacion}" title="#{bundle.EditUsuariosWebTitle_fechaActualizacion}"  showOn="button"/>
+                                -->  
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{usuariosWebController.selected.activo}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_activo}"/>
-
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_resetPassword}" for="resetPassword" />
-                        <p:selectBooleanCheckbox id="resetPassword" value="#{usuariosWebController.selected.resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_resetPassword}"/>
-
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosWebController.selected.fechaCreacion}" title="#{bundle.EditUsuariosWebTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditUsuariosWebLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosWebController.selected.fechaActualizacion}" title="#{bundle.EditUsuariosWebTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuariosWebController.save}" value="#{bundle.Save}" update="display,:UsuariosWebListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosWebEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuariosWebEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{usuariosWebController.save}" value="#{bundle.Save}" update="display,:UsuariosWebListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosWebEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuariosWebEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
-
     </ui:composition>
 
 </html>

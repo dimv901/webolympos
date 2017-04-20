@@ -11,29 +11,23 @@
         <p:dialog id="DepartamentosViewDlg" widgetVar="DepartamentosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewDepartamentosTitle}" closeOnEscape="true">
 
             <h:form id="DepartamentosViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{departamentosController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{departamentosController.selected != null}">
+                            <h:outputText value="#{bundle.ViewDepartamentosLabel_id}"/>
+                            <h:outputText value="#{departamentosController.selected.id}" title="#{bundle.ViewDepartamentosTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewDepartamentosLabel_id}"/>
-                        <h:outputText value="#{departamentosController.selected.id}" title="#{bundle.ViewDepartamentosTitle_id}"/>
-
-                        <h:outputText value="#{bundle.ViewDepartamentosLabel_descripcion}"/>
-                        <h:outputText value="#{departamentosController.selected.descripcion}" title="#{bundle.ViewDepartamentosTitle_descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewDepartamentosLabel_fechaCreacion}"/>
-                        <h:outputText value="#{departamentosController.selected.fechaCreacion}" title="#{bundle.ViewDepartamentosTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewDepartamentosLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{departamentosController.selected.fechaActualizacion}" title="#{bundle.ViewDepartamentosTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('DepartamentosViewDialog').hide()"/>
-                </h:panelGroup>
-
+                            <h:outputText value="#{bundle.ViewDepartamentosLabel_descripcion}"/>
+                            <h:outputText value="#{departamentosController.selected.descripcion}" title="#{bundle.ViewDepartamentosTitle_descripcion}"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('DepartamentosViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -41,3 +35,16 @@
     </ui:composition>
 
 </html>
+
+<!--
+
+<h:outputText value="#{bundle.ViewDepartamentosLabel_fechaCreacion}"/>
+<h:outputText value="#{departamentosController.selected.fechaCreacion}" title="#{bundle.ViewDepartamentosTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+
+<h:outputText value="#{bundle.ViewDepartamentosLabel_fechaActualizacion}"/>
+<h:outputText value="#{departamentosController.selected.fechaActualizacion}" title="#{bundle.ViewDepartamentosTitle_fechaActualizacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->

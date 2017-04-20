@@ -6,79 +6,98 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="MotivosNoCompraListForm">
+    <div class="Container100 ui-fluid">
+        <div class="Card">
 
-        <p:panel header="#{bundle.ListMotivosNoCompraTitle}">
-            <p:dataTable id="datalist"
-                         value="#{motivosNoCompraController.items}"
-                         lazy="false"
-                         rowKey="#{item.id}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30"
-                         selectionMode="single"
-                         selection="#{motivosNoCompraController.selected}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{motivosNoCompraController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.id}"  <<< Remove this line
-                -->
+            <div class="SeparatorFull"></div>
 
+            <h:form id="MotivosNoCompraListForm">
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+                <p:panel header="#{bundle.ListMotivosNoCompraTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{motivosNoCompraController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.id}"
+                                 var="item"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30"
+                                 selectionMode="single"
+                                 selection="#{motivosNoCompraController.selected}"
+                                 reflow="true"
+                                 filteredValue="#{motivosNoCompraController.filtered}"
+                                 widgetVar="table"
+                                 emptyMessage="#{bundle.EmptyMessage}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{motivosNoCompraController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.id}"  <<< Remove this line
+                        -->
 
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListMotivosNoCompraTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
+                        <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
 
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+                        <!--
+                        <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMotivosNoCompraTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        -->
 
-                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListMotivosNoCompraTitle_descripcion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.descripcion}"/>
-                </p:column>
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMotivosNoCompraTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
 
+                        <!--
+                        <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMotivosNoCompraTitle_fechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCreacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        -->
 
-                <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListMotivosNoCompraTitle_fechaCreacion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaCreacion}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </p:column>
+                        <!--
+                                            <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListMotivosNoCompraTitle_fechaActualizacion}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.fechaActualizacion}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                </h:outputText>
+                                            </p:column>
+                        -->
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" value="#{bundle.Create}" actionListener="#{motivosNoCompraController.prepareCreate}" update=":MotivosNoCompraCreateForm" oncomplete="PF('MotivosNoCompraCreateDialog').show()"  style="width: 100px" styleClass="GreenButton" icon="fa fa-plus Fs16 White"/>
+                                <p:commandButton id="viewButton"   value="#{bundle.View}" update=":MotivosNoCompraViewForm" oncomplete="PF('MotivosNoCompraViewDialog').show()" disabled="#{empty motivosNoCompraController.selected}" style="width: 100px" styleClass="AquaButton" icon="fa fa-search Fs16 White"/>
+                                <p:commandButton id="editButton"   value="#{bundle.Edit}" update=":MotivosNoCompraEditForm" oncomplete="PF('MotivosNoCompraEditDialog').show()" disabled="#{empty motivosNoCompraController.selected}"  style="width: 100px" styleClass="NavyButton" icon="fa fa-edit Fs16 White"/>
+                                <p:commandButton id="deleteButton" value="#{bundle.Delete}" actionListener="#{motivosNoCompraController.delete}" update=":growl,datalist" disabled="#{empty motivosNoCompraController.selected}" style="width: 100px" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                            </div>
+                        </f:facet>
 
-                <!--
-                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListMotivosNoCompraTitle_fechaActualizacion}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.fechaActualizacion}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>
-                                    </p:column>
-                -->
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{motivosNoCompraController.prepareCreate}" update=":MotivosNoCompraCreateForm" oncomplete="PF('MotivosNoCompraCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":MotivosNoCompraViewForm" oncomplete="PF('MotivosNoCompraViewDialog').show()" disabled="#{empty motivosNoCompraController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":MotivosNoCompraEditForm" oncomplete="PF('MotivosNoCompraEditDialog').show()" disabled="#{empty motivosNoCompraController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{motivosNoCompraController.delete}" update=":growl,datalist" disabled="#{empty motivosNoCompraController.selected}"/>
-                    </div>
-                </f:facet>
+                    </p:dataTable>
 
-            </p:dataTable>
-
-        </p:panel>
-    </h:form>
-
+                </p:panel>
+            </h:form>
+        </div>
+    </div>
 </ui:composition>

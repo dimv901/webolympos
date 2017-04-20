@@ -11,29 +11,24 @@
         <p:dialog id="TipoComprobantesViewDlg" widgetVar="TipoComprobantesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewTipoComprobantesTitle}" closeOnEscape="true">
 
             <h:form id="TipoComprobantesViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoComprobantesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoComprobantesController.selected != null}">
+                            <h:outputText value="#{bundle.ViewTipoComprobantesLabel_id}"/>
+                            <h:outputText value="#{tipoComprobantesController.selected.id}" title="#{bundle.ViewTipoComprobantesTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewTipoComprobantesLabel_id}"/>
-                        <h:outputText value="#{tipoComprobantesController.selected.id}" title="#{bundle.ViewTipoComprobantesTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewTipoComprobantesLabel_descripcion}"/>
+                            <h:outputText value="#{tipoComprobantesController.selected.descripcion}" title="#{bundle.ViewTipoComprobantesTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewTipoComprobantesLabel_descripcion}"/>
-                        <h:outputText value="#{tipoComprobantesController.selected.descripcion}" title="#{bundle.ViewTipoComprobantesTitle_descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewTipoComprobantesLabel_fechaCreacion}"/>
-                        <h:outputText value="#{tipoComprobantesController.selected.fechaCreacion}" title="#{bundle.ViewTipoComprobantesTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewTipoComprobantesLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{tipoComprobantesController.selected.fechaActualizacion}" title="#{bundle.ViewTipoComprobantesTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('TipoComprobantesViewDialog').hide()"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('TipoComprobantesViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -41,3 +36,16 @@
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputText value="#{bundle.ViewTipoComprobantesLabel_fechaCreacion}"/>
+<h:outputText value="#{tipoComprobantesController.selected.fechaCreacion}" title="#{bundle.ViewTipoComprobantesTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->
+<!--
+<h:outputText value="#{bundle.ViewTipoComprobantesLabel_fechaActualizacion}"/>
+<h:outputText value="#{tipoComprobantesController.selected.fechaActualizacion}" title="#{bundle.ViewTipoComprobantesTitle_fechaActualizacion}">
+   <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->

@@ -6,10 +6,8 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Repartidores.findById", query = "SELECT r FROM Repartidores r WHERE r.id = :id")
     , @NamedQuery(name = "Repartidores.findByNombre", query = "SELECT r FROM Repartidores r WHERE r.nombre = :nombre")
     , @NamedQuery(name = "Repartidores.findByApellido", query = "SELECT r FROM Repartidores r WHERE r.apellido = :apellido")
+    , @NamedQuery(name = "Repartidores.findByCedula", query = "SELECT r FROM Repartidores r WHERE r.cedula = :cedula")
     , @NamedQuery(name = "Repartidores.findByActivo", query = "SELECT r FROM Repartidores r WHERE r.activo = :activo")
     , @NamedQuery(name = "Repartidores.findByFechaCreacion", query = "SELECT r FROM Repartidores r WHERE r.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "Repartidores.findByFechaActualizacion", query = "SELECT r FROM Repartidores r WHERE r.fechaActualizacion = :fechaActualizacion")})
@@ -58,9 +55,14 @@ public class Repartidores implements Serializable {
     private String nombre;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 100)
     @Column(name = "apellido")
     private String apellido;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "cedula")
+    private String cedula;
     @Basic(optional = false)
     @NotNull
     @Column(name = "activo")
@@ -71,8 +73,6 @@ public class Repartidores implements Serializable {
     @Column(name = "fecha_actualizacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRepartidor")
-    private Collection<Repartos> repartosCollection;
     @JoinColumn(name = "id_movil", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Moviles idMovil;
@@ -84,13 +84,7 @@ public class Repartidores implements Serializable {
         this.id = id;
     }
 
-    public Repartidores(Integer id, String nombre, String apellido, boolean activo) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.activo = activo;
-    }
-
+  
     public Integer getId() {
         return id;
     }
@@ -115,6 +109,14 @@ public class Repartidores implements Serializable {
         this.apellido = apellido;
     }
 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
     public boolean getActivo() {
         return activo;
     }
@@ -137,15 +139,6 @@ public class Repartidores implements Serializable {
 
     public void setFechaActualizacion(Date fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
-    }
-
-    @XmlTransient
-    public Collection<Repartos> getRepartosCollection() {
-        return repartosCollection;
-    }
-
-    public void setRepartosCollection(Collection<Repartos> repartosCollection) {
-        this.repartosCollection = repartosCollection;
     }
 
     public Moviles getIdMovil() {

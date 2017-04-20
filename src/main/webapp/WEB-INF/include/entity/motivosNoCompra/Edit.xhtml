@@ -10,31 +10,45 @@
         <p:dialog id="MotivosNoCompraEditDlg" widgetVar="MotivosNoCompraEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMotivosNoCompraTitle}" closeOnEscape="true">
 
             <h:form id="MotivosNoCompraEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{motivosNoCompraController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{motivosNoCompraController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditMotivosNoCompraLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{motivosNoCompraController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditMotivosNoCompraLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{motivosNoCompraController.selected.descripcion}" 
+                                         title="#{bundle.EditMotivosNoCompraTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditMotivosNoCompraRequiredMessage_descripcion}"
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.EditMotivosNoCompraLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{motivosNoCompraController.selected.descripcion}" title="#{bundle.EditMotivosNoCompraTitle_descripcion}" required="true" requiredMessage="#{bundle.EditMotivosNoCompraRequiredMessage_descripcion}" size="150" maxlength="150"/>
-
-                        <p:outputLabel value="#{bundle.EditMotivosNoCompraLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaCreacion}" title="#{bundle.EditMotivosNoCompraTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditMotivosNoCompraLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaActualizacion}" title="#{bundle.EditMotivosNoCompraTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{motivosNoCompraController.save}" value="#{bundle.Save}" update="display,:MotivosNoCompraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MotivosNoCompraEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MotivosNoCompraEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{motivosNoCompraController.save}" value="#{bundle.Save}" update="display,:MotivosNoCompraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MotivosNoCompraEditDialog'));"  styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MotivosNoCompraEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
-
         </p:dialog>
 
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputLabel value="#{bundle.EditMotivosNoCompraLabel_id}" for="id" />
+<h:outputText id="id" value="#{motivosNoCompraController.selected.id}" />
+-->
+<!--
+                          <p:outputLabel value="#{bundle.EditMotivosNoCompraLabel_fechaCreacion}" for="fechaCreacion" />
+                          <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaCreacion}" title="#{bundle.EditMotivosNoCompraTitle_fechaCreacion}"  showOn="button"/>
+-->
+<!--
+<p:outputLabel value="#{bundle.EditMotivosNoCompraLabel_fechaActualizacion}" for="fechaActualizacion" />
+<p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaActualizacion}" title="#{bundle.EditMotivosNoCompraTitle_fechaActualizacion}"  showOn="button"/>
+-->

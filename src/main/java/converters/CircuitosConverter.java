@@ -10,6 +10,10 @@ import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
 @FacesConverter(value = "circuitosConverter")
 public class CircuitosConverter implements Converter {
@@ -22,6 +26,28 @@ public class CircuitosConverter implements Converter {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
+
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        Context ctx = null;
+        try {
+            ctx = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(CircuitosConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ctx != null) {
+            try {
+                String lookupString;
+                if (servletContext != null) {
+                    lookupString = "java:global" + servletContext.getContextPath() + "/" + CircuitosFacade.class.getSimpleName();
+                } else {
+                    lookupString = "java:global/" + CircuitosFacade.class.getSimpleName();
+                }
+                ejbFacade = (CircuitosFacade) ctx.lookup(lookupString);
+            } catch (NamingException ex) {
+                Logger.getLogger(CircuitosConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         return this.ejbFacade.find(getKey(value));
     }
 
@@ -32,7 +58,7 @@ public class CircuitosConverter implements Converter {
     }
 
     String getStringKey(java.lang.Integer value) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(value);
         return sb.toString();
     }

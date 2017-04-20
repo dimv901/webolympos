@@ -11,32 +11,26 @@
         <p:dialog id="CiudadesViewDlg" widgetVar="CiudadesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCiudadesTitle}" closeOnEscape="true">
 
             <h:form id="CiudadesViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{ciudadesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{ciudadesController.selected != null}">
+                            <h:outputText value="#{bundle.ViewCiudadesLabel_id}"/>
+                            <h:outputText value="#{ciudadesController.selected.id}" title="#{bundle.ViewCiudadesTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewCiudadesLabel_id}"/>
-                        <h:outputText value="#{ciudadesController.selected.id}" title="#{bundle.ViewCiudadesTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewCiudadesLabel_descripcion}"/>
+                            <h:outputText value="#{ciudadesController.selected.descripcion}" title="#{bundle.ViewCiudadesTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewCiudadesLabel_descripcion}"/>
-                        <h:outputText value="#{ciudadesController.selected.descripcion}" title="#{bundle.ViewCiudadesTitle_descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewCiudadesLabel_fechaCreacion}"/>
-                        <h:outputText value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.ViewCiudadesTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewCiudadesLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.ViewCiudadesTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewCiudadesLabel_idDepartamento}"/>
-                        <h:outputText value="#{ciudadesController.selected.idDepartamento.descripcion}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('CiudadesViewDialog').hide()"/>
-                </h:panelGroup>
-
+                            <h:outputText value="#{bundle.ViewCiudadesLabel_idDepartamento}"/>
+                            <h:outputText value="#{ciudadesController.selected.idDepartamento.descripcion}"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('CiudadesViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -44,3 +38,16 @@
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputText value="#{bundle.ViewCiudadesLabel_fechaCreacion}"/>
+<h:outputText value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.ViewCiudadesTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->
+<!--
+<h:outputText value="#{bundle.ViewCiudadesLabel_fechaActualizacion}"/>
+<h:outputText value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.ViewCiudadesTitle_fechaActualizacion}">
+   <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->

@@ -33,15 +33,7 @@
                         <h:outputText value="#{bundle.ViewVendedoresLabel_telefonoContacto}"/>
                         <h:outputText value="#{vendedoresController.selected.telefonoContacto}" title="#{bundle.ViewVendedoresTitle_telefonoContacto}"/>
 
-                        <h:outputText value="#{bundle.ViewVendedoresLabel_fechaCreacion}"/>
-                        <h:outputText value="#{vendedoresController.selected.fechaCreacion}" title="#{bundle.ViewVendedoresTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
 
-                        <h:outputText value="#{bundle.ViewVendedoresLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{vendedoresController.selected.fechaActualizacion}" title="#{bundle.ViewVendedoresTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
 
                         <h:outputText value="#{bundle.ViewVendedoresLabel_idCircuito}"/>
                         <h:outputText value="#{vendedoresController.selected.idCircuito.descripcion}"/>
@@ -56,3 +48,15 @@
     </ui:composition>
 
 </html>
+
+<!--
+       <h:outputText value="#{bundle.ViewVendedoresLabel_fechaCreacion}"/>
+                        <h:outputText value="#{vendedoresController.selected.fechaCreacion}" title="#{bundle.ViewVendedoresTitle_fechaCreacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{bundle.ViewVendedoresLabel_fechaActualizacion}"/>
+                        <h:outputText value="#{vendedoresController.selected.fechaActualizacion}" title="#{bundle.ViewVendedoresTitle_fechaActualizacion}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+-->

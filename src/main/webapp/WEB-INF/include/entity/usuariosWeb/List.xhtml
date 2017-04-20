@@ -6,119 +6,143 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="UsuariosWebListForm">
+    <div class="Container100 ui-fluid">
+        <div class="Card">
 
-        <p:panel header="#{bundle.ListUsuariosWebTitle}">
-            <p:dataTable id="datalist"
-                         value="#{usuariosWebController.items}"
-                         lazy="false"
-                         rowKey="#{item.id}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30"
-                         selectionMode="single"
-                         selection="#{usuariosWebController.selected}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{usuariosWebController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.id}"  <<< Remove this line
-                -->
+            <div class="SeparatorFull"></div>
 
+            <h:form id="UsuariosWebListForm">
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
-
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListUsuariosWebTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
+                <p:panel header="#{bundle.ListUsuariosWebTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{usuariosWebController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.id}"
+                                 var="item"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30"
+                                 selectionMode="single"
+                                 selection="#{usuariosWebController.selected}"
+                                 reflow="true"
+                                 filteredValue="#{usuariosWebController.filtered}"
+                                 widgetVar="table"
+                                 emptyMessage="#{bundle.EmptyMessage}">
 
 
-                <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListUsuariosWebTitle_descripcion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.descripcion}"/>
-                </p:column>
+                        <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
+                        <!--
+                        To enable Lazy Loading, please copy/replace the following lines above,
+                        and be sure to replace the word HASH with the # symbol:
+        
+                        value="HASH{usuariosWebController.lazyItems}"
+                        lazy="true"
+                        rowKey="HASH{item.id}"  <<< Remove this line
+                        -->
 
 
-                <p:column sortBy="#{item.usuario}" filterBy="#{item.usuario}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListUsuariosWebTitle_usuario}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.usuario}"/>
-                </p:column>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                <!--
-                                    <p:column sortBy="#{item.password}" filterBy="#{item.password}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsuariosWebTitle_password}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.password}"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.email}" filterBy="#{item.email}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsuariosWebTitle_email}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.email}"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.activo}" filterBy="#{item.activo}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsuariosWebTitle_activo}"/>
-                                        </f:facet>
-                                        <h:selectBooleanCheckbox id="activo" value="#{item.activo}" title="#{bundle.EditUsuariosWebTitle_activo}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_activo}" disabled="true"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.resetPassword}" filterBy="#{item.resetPassword}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsuariosWebTitle_resetPassword}"/>
-                                        </f:facet>
-                                        <h:selectBooleanCheckbox id="resetPassword" value="#{item.resetPassword}" title="#{bundle.EditUsuariosWebTitle_resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_resetPassword}" disabled="true"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsuariosWebTitle_fechaCreacion}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.fechaCreacion}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListUsuariosWebTitle_fechaActualizacion}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.fechaActualizacion}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>
-                                    </p:column>
-                -->
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuariosWebController.prepareCreate}" update=":UsuariosWebCreateForm" oncomplete="PF('UsuariosWebCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuariosWebViewForm" oncomplete="PF('UsuariosWebViewDialog').show()" disabled="#{empty usuariosWebController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuariosWebEditForm" oncomplete="PF('UsuariosWebEditDialog').show()" disabled="#{empty usuariosWebController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuariosWebController.delete}" update=":growl,datalist" disabled="#{empty usuariosWebController.selected}"/>
-                    </div>
-                </f:facet>
 
-            </p:dataTable>
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuariosWebTitle_descripcion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
 
-        </p:panel>
-    </h:form>
 
+                        <p:column sortBy="#{item.usuario}" filterBy="#{item.usuario}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuariosWebTitle_usuario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.usuario}"/>
+                        </p:column>
+
+
+                        <p:column sortBy="#{item.email}" filterBy="#{item.email}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUsuariosWebTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+
+
+                        <!--
+                                          <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                                              <f:facet name="header">
+                                                  <h:outputText value="#{bundle.ListUsuariosWebTitle_id}"/>
+                                              </f:facet>
+                                              <h:outputText value="#{item.id}"/>
+                                          </p:column>
+                        -->
+
+                        <!--
+                                            <p:column sortBy="#{item.password}" filterBy="#{item.password}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListUsuariosWebTitle_password}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.password}"/>
+                                            </p:column>
+                        -->
+
+                        <!--
+                                            <p:column sortBy="#{item.activo}" filterBy="#{item.activo}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListUsuariosWebTitle_activo}"/>
+                                                </f:facet>
+                                                <h:selectBooleanCheckbox id="activo" value="#{item.activo}" title="#{bundle.EditUsuariosWebTitle_activo}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_activo}" disabled="true"/>
+                                            </p:column>
+                        -->
+                        <!--
+                                            <p:column sortBy="#{item.resetPassword}" filterBy="#{item.resetPassword}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListUsuariosWebTitle_resetPassword}"/>
+                                                </f:facet>
+                                                <h:selectBooleanCheckbox id="resetPassword" value="#{item.resetPassword}" title="#{bundle.EditUsuariosWebTitle_resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosWebRequiredMessage_resetPassword}" disabled="true"/>
+                                            </p:column>
+                        -->
+                        <!--
+                                            <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListUsuariosWebTitle_fechaCreacion}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.fechaCreacion}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                </h:outputText>
+                                            </p:column>
+                        -->
+                        <!--
+                                            <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListUsuariosWebTitle_fechaActualizacion}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.fechaActualizacion}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                </h:outputText>
+                                            </p:column>
+                        -->
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" value="#{bundle.Create}" actionListener="#{usuariosWebController.prepareCreate}" update=":UsuariosWebCreateForm" oncomplete="PF('UsuariosWebCreateDialog').show()" style="width: 100px" styleClass="GreenButton" icon="fa fa-plus Fs16 White"/>
+                                <p:commandButton id="viewButton"   value="#{bundle.View}" update=":UsuariosWebViewForm" oncomplete="PF('UsuariosWebViewDialog').show()" disabled="#{empty usuariosWebController.selected}" style="width: 100px" styleClass="AquaButton" icon="fa fa-search Fs16 White"/>
+                                <p:commandButton id="editButton"   value="#{bundle.Edit}" update=":UsuariosWebEditForm" oncomplete="PF('UsuariosWebEditDialog').show()" disabled="#{empty usuariosWebController.selected}" style="width: 100px" styleClass="NavyButton" icon="fa fa-edit Fs16 White"/>
+                                <p:commandButton id="deleteButton" value="#{bundle.Delete}" actionListener="#{usuariosWebController.delete}" update=":growl,datalist" disabled="#{empty usuariosWebController.selected}" style="width: 100px" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                            </div>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+        </div>
+    </div>
 </ui:composition>

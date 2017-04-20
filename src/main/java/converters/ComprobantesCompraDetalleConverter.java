@@ -10,6 +10,10 @@ import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
 @FacesConverter(value = "comprobantesCompraDetalleConverter")
 public class ComprobantesCompraDetalleConverter implements Converter {
@@ -21,6 +25,27 @@ public class ComprobantesCompraDetalleConverter implements Converter {
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
+        }
+
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        Context ctx = null;
+        try {
+            ctx = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(ComprobantesCompraDetalleConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ctx != null) {
+            try {
+                String lookupString;
+                if (servletContext != null) {
+                    lookupString = "java:global" + servletContext.getContextPath() + "/" + ComprobantesCompraDetalleFacade.class.getSimpleName();
+                } else {
+                    lookupString = "java:global/" + ComprobantesCompraDetalleFacade.class.getSimpleName();
+                }
+                ejbFacade = (ComprobantesCompraDetalleFacade) ctx.lookup(lookupString);
+            } catch (NamingException ex) {
+                Logger.getLogger(ComprobantesCompraDetalleConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return this.ejbFacade.find(getKey(value));
     }

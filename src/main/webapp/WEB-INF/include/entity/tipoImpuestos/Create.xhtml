@@ -11,23 +11,34 @@
         <p:dialog id="TipoImpuestosCreateDlg" widgetVar="TipoImpuestosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoImpuestosTitle}" closeOnEscape="true">
 
             <h:form id="TipoImpuestosCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{tipoImpuestosController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{tipoImpuestosController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{tipoImpuestosController.selected.descripcion}" 
+                                         title="#{bundle.CreateTipoImpuestosTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateTipoImpuestosRequiredMessage_descripcion}"
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_descripcion}" for="descripcion" />
-                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{tipoImpuestosController.selected.descripcion}" title="#{bundle.CreateTipoImpuestosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateTipoImpuestosRequiredMessage_descripcion}"/>
-
-                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaCreacion}" title="#{bundle.CreateTipoImpuestosTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaActualizacion}" title="#{bundle.CreateTipoImpuestosTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoImpuestosController.saveNew}" value="#{bundle.Save}" update="display,:TipoImpuestosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoImpuestosCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoImpuestosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_valor}" for="valor" />
+                            <p:inputText id="valor" 
+                                         value="#{tipoImpuestosController.selected.valor}" 
+                                         title="#{bundle.CreateTipoImpuestosTitle_valor}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateTipoImpuestosRequiredMessage_valor}"
+                                         size="30"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{tipoImpuestosController.saveNew}" value="#{bundle.Save}" update="display,:TipoImpuestosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoImpuestosCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoImpuestosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -35,3 +46,11 @@
     </ui:composition>
 
 </html>
+
+<!--
+               <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaCreacion}" title="#{bundle.CreateTipoImpuestosTitle_fechaCreacion}"  showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateTipoImpuestosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaActualizacion}" title="#{bundle.CreateTipoImpuestosTitle_fechaActualizacion}"  showOn="button"/>
+-->

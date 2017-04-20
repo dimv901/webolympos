@@ -13,4 +13,4 @@ public class VendedoresController extends AbstractController<Vendedores> {
         super(Vendedores.class);
     }
 
-}
+ }

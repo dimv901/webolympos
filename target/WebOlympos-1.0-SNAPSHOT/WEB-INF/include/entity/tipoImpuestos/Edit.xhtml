@@ -10,27 +10,36 @@
         <p:dialog id="TipoImpuestosEditDlg" widgetVar="TipoImpuestosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTipoImpuestosTitle}" closeOnEscape="true">
 
             <h:form id="TipoImpuestosEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{tipoImpuestosController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoImpuestosController.selected != null}">
 
+                            <p:outputLabel value="#{bundle.EditTipoImpuestosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{tipoImpuestosController.selected.descripcion}" 
+                                         title="#{bundle.EditTipoImpuestosTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditTipoImpuestosRequiredMessage_descripcion}"
+                                         size="100"/>
 
-                        <h:outputLabel value="#{bundle.EditTipoImpuestosLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{tipoImpuestosController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditTipoImpuestosLabel_valor}" for="valor" />
+                            <p:inputText id="valor" 
+                                         value="#{tipoImpuestosController.selected.valor}" 
+                                         title="#{bundle.EditTipoImpuestosTitle_valor}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditTipoImpuestosRequiredMessage_valor}"
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.EditTipoImpuestosLabel_descripcion}" for="descripcion" />
-                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{tipoImpuestosController.selected.descripcion}" title="#{bundle.EditTipoImpuestosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoImpuestosRequiredMessage_descripcion}"/>
-
-                        <p:outputLabel value="#{bundle.EditTipoImpuestosLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaCreacion}" title="#{bundle.EditTipoImpuestosTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditTipoImpuestosLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaActualizacion}" title="#{bundle.EditTipoImpuestosTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoImpuestosController.save}" value="#{bundle.Save}" update="display,:TipoImpuestosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoImpuestosEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoImpuestosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{tipoImpuestosController.save}" value="#{bundle.Save}" update="display,:TipoImpuestosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoImpuestosEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoImpuestosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -38,3 +47,15 @@
     </ui:composition>
 
 </html>
+
+<!--
+<p:outputLabel value="#{bundle.EditTipoImpuestosLabel_fechaCreacion}" for="fechaCreacion" />
+<p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaCreacion}" title="#{bundle.EditTipoImpuestosTitle_fechaCreacion}"  showOn="button"/>
+
+<p:outputLabel value="#{bundle.EditTipoImpuestosLabel_fechaActualizacion}" for="fechaActualizacion" />
+<p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoImpuestosController.selected.fechaActualizacion}" title="#{bundle.EditTipoImpuestosTitle_fechaActualizacion}"  showOn="button"/>
+
+
+                             <h:outputLabel value="#{bundle.EditTipoImpuestosLabel_id}" for="id" />
+                             <h:outputText id="id" value="#{tipoImpuestosController.selected.id}" />
+-->

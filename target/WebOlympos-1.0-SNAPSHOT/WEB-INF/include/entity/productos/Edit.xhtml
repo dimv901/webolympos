@@ -78,7 +78,7 @@
 
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productosController.save}" value="#{bundle.Save}" update="display,:ProductosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductosEditDialog'));"/>
+                    <p:commandButton validateClient="true" actionListener="#{productosController.save}" value="#{bundle.Save}" update="display,:ProductosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductosEditDialog'));"/>
                     <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
 

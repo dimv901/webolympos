@@ -6,27 +6,24 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,10 +38,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Clientes.findByNombreTitular", query = "SELECT c FROM Clientes c WHERE c.nombreTitular = :nombreTitular")
     , @NamedQuery(name = "Clientes.findByCedulaTitular", query = "SELECT c FROM Clientes c WHERE c.cedulaTitular = :cedulaTitular")
     , @NamedQuery(name = "Clientes.findByContactoTitular", query = "SELECT c FROM Clientes c WHERE c.contactoTitular = :contactoTitular")
-    , @NamedQuery(name = "Clientes.findByEmail", query = "SELECT c FROM Clientes c WHERE c.email = :email")
+    , @NamedQuery(name = "Clientes.findByEmailTitular", query = "SELECT c FROM Clientes c WHERE c.emailTitular = :emailTitular")
     , @NamedQuery(name = "Clientes.findByRazonSocial", query = "SELECT c FROM Clientes c WHERE c.razonSocial = :razonSocial")
     , @NamedQuery(name = "Clientes.findByNombreNegocio", query = "SELECT c FROM Clientes c WHERE c.nombreNegocio = :nombreNegocio")
     , @NamedQuery(name = "Clientes.findByRuc", query = "SELECT c FROM Clientes c WHERE c.ruc = :ruc")
+    , @NamedQuery(name = "Clientes.findByEmailNegocio", query = "SELECT c FROM Clientes c WHERE c.emailNegocio = :emailNegocio")
+    , @NamedQuery(name = "Clientes.findByTelefonoNegocio", query = "SELECT c FROM Clientes c WHERE c.telefonoNegocio = :telefonoNegocio")
     , @NamedQuery(name = "Clientes.findByBarrio", query = "SELECT c FROM Clientes c WHERE c.barrio = :barrio")
     , @NamedQuery(name = "Clientes.findByCallePrincipal", query = "SELECT c FROM Clientes c WHERE c.callePrincipal = :callePrincipal")
     , @NamedQuery(name = "Clientes.findByCalleSecundaria", query = "SELECT c FROM Clientes c WHERE c.calleSecundaria = :calleSecundaria")
@@ -53,8 +52,16 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Clientes.findByGeolocalizado", query = "SELECT c FROM Clientes c WHERE c.geolocalizado = :geolocalizado")
     , @NamedQuery(name = "Clientes.findByLatitude", query = "SELECT c FROM Clientes c WHERE c.latitude = :latitude")
     , @NamedQuery(name = "Clientes.findByLongitud", query = "SELECT c FROM Clientes c WHERE c.longitud = :longitud")
+    , @NamedQuery(name = "Clientes.findByFotoUrl", query = "SELECT c FROM Clientes c WHERE c.fotoUrl = :fotoUrl")
     , @NamedQuery(name = "Clientes.findByFechaCreacion", query = "SELECT c FROM Clientes c WHERE c.fechaCreacion = :fechaCreacion")
-    , @NamedQuery(name = "Clientes.findByFechaActualizacion", query = "SELECT c FROM Clientes c WHERE c.fechaActualizacion = :fechaActualizacion")})
+    , @NamedQuery(name = "Clientes.findByFechaActualizacion", query = "SELECT c FROM Clientes c WHERE c.fechaActualizacion = :fechaActualizacion")
+    , @NamedQuery(name = "Clientes.findByLunes", query = "SELECT c FROM Clientes c WHERE c.lunes = :lunes")
+    , @NamedQuery(name = "Clientes.findByMartes", query = "SELECT c FROM Clientes c WHERE c.martes = :martes")
+    , @NamedQuery(name = "Clientes.findByMiercoles", query = "SELECT c FROM Clientes c WHERE c.miercoles = :miercoles")
+    , @NamedQuery(name = "Clientes.findByJueves", query = "SELECT c FROM Clientes c WHERE c.jueves = :jueves")
+    , @NamedQuery(name = "Clientes.findByViernes", query = "SELECT c FROM Clientes c WHERE c.viernes = :viernes")
+    , @NamedQuery(name = "Clientes.findBySabado", query = "SELECT c FROM Clientes c WHERE c.sabado = :sabado")
+    , @NamedQuery(name = "Clientes.findByDomingo", query = "SELECT c FROM Clientes c WHERE c.domingo = :domingo")})
 public class Clientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -75,13 +82,12 @@ public class Clientes implements Serializable {
     private String cedulaTitular;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 30)
     @Column(name = "contacto_titular")
     private String contactoTitular;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 100)
-    @Column(name = "email")
-    private String email;
+    @Column(name = "email_titular")
+    private String emailTitular;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -97,6 +103,12 @@ public class Clientes implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "ruc")
     private String ruc;
+    @Size(max = 100)
+    @Column(name = "email_negocio")
+    private String emailNegocio;
+    @Size(max = 30)
+    @Column(name = "telefono_negocio")
+    private String telefonoNegocio;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -115,30 +127,65 @@ public class Clientes implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "numero_casa")
-    private int numeroCasa;
+    private Integer numeroCasa;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 250)
     @Column(name = "referencia")
     private String referencia;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "geolocalizado")
     private boolean geolocalizado;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "latitude")
     private double latitude;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "longitud")
     private double longitud;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
+    @Basic(optional = false)
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "foto_url")
+    private String fotoUrl;
+    @Basic(optional = false)
+    @Column(name = "tiene_foto")
+    private boolean tieneFoto;
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Column(name = "fecha_actualizacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "lunes")
+    private boolean lunes;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "martes")
+    private boolean martes;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "miercoles")
+    private boolean miercoles;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "jueves")
+    private boolean jueves;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "viernes")
+    private boolean viernes;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "sabado")
+    private boolean sabado;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "domingo")
+    private boolean domingo;
     @JoinColumn(name = "id_circuito", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Circuitos idCircuito;
@@ -151,12 +198,6 @@ public class Clientes implements Serializable {
     @JoinColumn(name = "id_forma_pago", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private FormasPago idFormaPago;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
-    private Collection<Visitas> visitasCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
-    private Collection<ComprobantesVentaCabecera> comprobantesVentaCabeceraCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
-    private Collection<PedidosCabecera> pedidosCabeceraCollection;
 
     public Clientes() {
     }
@@ -165,14 +206,17 @@ public class Clientes implements Serializable {
         this.id = id;
     }
 
-    public Clientes(Integer id, String nombreTitular, String cedulaTitular, String contactoTitular, String razonSocial, String nombreNegocio, String ruc, String barrio, String callePrincipal, String calleSecundaria, int numeroCasa, String referencia, boolean geolocalizado, double latitude, double longitud) {
+    public Clientes(Integer id, String nombreTitular, String cedulaTitular, String contactoTitular, String emailTitular, String razonSocial, String nombreNegocio, String ruc, String emailNegocio, String telefonoNegocio, String barrio, String callePrincipal, String calleSecundaria, Integer numeroCasa, String referencia, boolean geolocalizado, double latitude, double longitud, byte[] foto, String fotoUrl, boolean tieneFoto, Date fechaCreacion, Date fechaActualizacion, boolean lunes, boolean martes, boolean miercoles, boolean jueves, boolean viernes, boolean sabado, boolean domingo, Circuitos idCircuito, Ciudades idCiudad, Departamentos idDepartamento, FormasPago idFormaPago) {
         this.id = id;
         this.nombreTitular = nombreTitular;
         this.cedulaTitular = cedulaTitular;
         this.contactoTitular = contactoTitular;
+        this.emailTitular = emailTitular;
         this.razonSocial = razonSocial;
         this.nombreNegocio = nombreNegocio;
         this.ruc = ruc;
+        this.emailNegocio = emailNegocio;
+        this.telefonoNegocio = telefonoNegocio;
         this.barrio = barrio;
         this.callePrincipal = callePrincipal;
         this.calleSecundaria = calleSecundaria;
@@ -181,7 +225,25 @@ public class Clientes implements Serializable {
         this.geolocalizado = geolocalizado;
         this.latitude = latitude;
         this.longitud = longitud;
+        this.foto = foto;
+        this.fotoUrl = fotoUrl;
+        this.tieneFoto = tieneFoto;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaActualizacion = fechaActualizacion;
+        this.lunes = lunes;
+        this.martes = martes;
+        this.miercoles = miercoles;
+        this.jueves = jueves;
+        this.viernes = viernes;
+        this.sabado = sabado;
+        this.domingo = domingo;
+        this.idCircuito = idCircuito;
+        this.idCiudad = idCiudad;
+        this.idDepartamento = idDepartamento;
+        this.idFormaPago = idFormaPago;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -215,12 +277,12 @@ public class Clientes implements Serializable {
         this.contactoTitular = contactoTitular;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailTitular() {
+        return emailTitular;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailTitular(String emailTitular) {
+        this.emailTitular = emailTitular;
     }
 
     public String getRazonSocial() {
@@ -247,6 +309,22 @@ public class Clientes implements Serializable {
         this.ruc = ruc;
     }
 
+    public String getEmailNegocio() {
+        return emailNegocio;
+    }
+
+    public void setEmailNegocio(String emailNegocio) {
+        this.emailNegocio = emailNegocio;
+    }
+
+    public String getTelefonoNegocio() {
+        return telefonoNegocio;
+    }
+
+    public void setTelefonoNegocio(String telefonoNegocio) {
+        this.telefonoNegocio = telefonoNegocio;
+    }
+
     public String getBarrio() {
         return barrio;
     }
@@ -271,11 +349,11 @@ public class Clientes implements Serializable {
         this.calleSecundaria = calleSecundaria;
     }
 
-    public int getNumeroCasa() {
+    public Integer getNumeroCasa() {
         return numeroCasa;
     }
 
-    public void setNumeroCasa(int numeroCasa) {
+    public void setNumeroCasa(Integer numeroCasa) {
         this.numeroCasa = numeroCasa;
     }
 
@@ -311,6 +389,22 @@ public class Clientes implements Serializable {
         this.longitud = longitud;
     }
 
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
+
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -325,6 +419,62 @@ public class Clientes implements Serializable {
 
     public void setFechaActualizacion(Date fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
+    }
+
+    public boolean getLunes() {
+        return lunes;
+    }
+
+    public void setLunes(boolean lunes) {
+        this.lunes = lunes;
+    }
+
+    public boolean getMartes() {
+        return martes;
+    }
+
+    public void setMartes(boolean martes) {
+        this.martes = martes;
+    }
+
+    public boolean getMiercoles() {
+        return miercoles;
+    }
+
+    public void setMiercoles(boolean miercoles) {
+        this.miercoles = miercoles;
+    }
+
+    public boolean getJueves() {
+        return jueves;
+    }
+
+    public void setJueves(boolean jueves) {
+        this.jueves = jueves;
+    }
+
+    public boolean getViernes() {
+        return viernes;
+    }
+
+    public void setViernes(boolean viernes) {
+        this.viernes = viernes;
+    }
+
+    public boolean getSabado() {
+        return sabado;
+    }
+
+    public void setSabado(boolean sabado) {
+        this.sabado = sabado;
+    }
+
+    public boolean getDomingo() {
+        return domingo;
+    }
+
+    public void setDomingo(boolean domingo) {
+        this.domingo = domingo;
     }
 
     public Circuitos getIdCircuito() {
@@ -359,31 +509,12 @@ public class Clientes implements Serializable {
         this.idFormaPago = idFormaPago;
     }
 
-    @XmlTransient
-    public Collection<Visitas> getVisitasCollection() {
-        return visitasCollection;
+    public boolean isTieneFoto() {
+        return tieneFoto;
     }
 
-    public void setVisitasCollection(Collection<Visitas> visitasCollection) {
-        this.visitasCollection = visitasCollection;
-    }
-
-    @XmlTransient
-    public Collection<ComprobantesVentaCabecera> getComprobantesVentaCabeceraCollection() {
-        return comprobantesVentaCabeceraCollection;
-    }
-
-    public void setComprobantesVentaCabeceraCollection(Collection<ComprobantesVentaCabecera> comprobantesVentaCabeceraCollection) {
-        this.comprobantesVentaCabeceraCollection = comprobantesVentaCabeceraCollection;
-    }
-
-    @XmlTransient
-    public Collection<PedidosCabecera> getPedidosCabeceraCollection() {
-        return pedidosCabeceraCollection;
-    }
-
-    public void setPedidosCabeceraCollection(Collection<PedidosCabecera> pedidosCabeceraCollection) {
-        this.pedidosCabeceraCollection = pedidosCabeceraCollection;
+    public void setTieneFoto(boolean tieneFoto) {
+        this.tieneFoto = tieneFoto;
     }
 
     @Override
@@ -410,5 +541,5 @@ public class Clientes implements Serializable {
     public String toString() {
         return "entities.Clientes[ id=" + id + " ]";
     }
-    
+
 }

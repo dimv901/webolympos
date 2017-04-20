@@ -11,35 +11,30 @@
         <p:dialog id="MovilesViewDlg" widgetVar="MovilesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewMovilesTitle}" closeOnEscape="true">
 
             <h:form id="MovilesViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{movilesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{movilesController.selected != null}">
+                            <h:outputText value="#{bundle.ViewMovilesLabel_id}"/>
+                            <h:outputText value="#{movilesController.selected.id}" title="#{bundle.ViewMovilesTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewMovilesLabel_id}"/>
-                        <h:outputText value="#{movilesController.selected.id}" title="#{bundle.ViewMovilesTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewMovilesLabel_marca}"/>
+                            <h:outputText value="#{movilesController.selected.marca}" title="#{bundle.ViewMovilesTitle_marca}"/>
 
-                        <h:outputText value="#{bundle.ViewMovilesLabel_marca}"/>
-                        <h:outputText value="#{movilesController.selected.marca}" title="#{bundle.ViewMovilesTitle_marca}"/>
+                            <h:outputText value="#{bundle.ViewMovilesLabel_modelo}"/>
+                            <h:outputText value="#{movilesController.selected.modelo}" title="#{bundle.ViewMovilesTitle_modelo}"/>
 
-                        <h:outputText value="#{bundle.ViewMovilesLabel_modelo}"/>
-                        <h:outputText value="#{movilesController.selected.modelo}" title="#{bundle.ViewMovilesTitle_modelo}"/>
+                            <h:outputText value="#{bundle.ViewMovilesLabel_matricula}"/>
+                            <h:outputText value="#{movilesController.selected.matricula}" title="#{bundle.ViewMovilesTitle_matricula}"/>
 
-                        <h:outputText value="#{bundle.ViewMovilesLabel_matricula}"/>
-                        <h:outputText value="#{movilesController.selected.matricula}" title="#{bundle.ViewMovilesTitle_matricula}"/>
-
-                        <h:outputText value="#{bundle.ViewMovilesLabel_fechaCreacion}"/>
-                        <h:outputText value="#{movilesController.selected.fechaCreacion}" title="#{bundle.ViewMovilesTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewMovilesLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{movilesController.selected.fechaActualizacion}" title="#{bundle.ViewMovilesTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('MovilesViewDialog').hide()"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('MovilesViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -47,3 +42,16 @@
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputText value="#{bundle.ViewMovilesLabel_fechaCreacion}"/>
+<h:outputText value="#{movilesController.selected.fechaCreacion}" title="#{bundle.ViewMovilesTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->
+<!--
+<h:outputText value="#{bundle.ViewMovilesLabel_fechaActualizacion}"/>
+<h:outputText value="#{movilesController.selected.fechaActualizacion}" title="#{bundle.ViewMovilesTitle_fechaActualizacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->

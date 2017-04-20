@@ -11,29 +11,24 @@
         <p:dialog id="FormasPagoViewDlg" widgetVar="FormasPagoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewFormasPagoTitle}" closeOnEscape="true">
 
             <h:form id="FormasPagoViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{formasPagoController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{formasPagoController.selected != null}">
+                            <h:outputText value="#{bundle.ViewFormasPagoLabel_id}"/>
+                            <h:outputText value="#{formasPagoController.selected.id}" title="#{bundle.ViewFormasPagoTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewFormasPagoLabel_id}"/>
-                        <h:outputText value="#{formasPagoController.selected.id}" title="#{bundle.ViewFormasPagoTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewFormasPagoLabel_descripcion}"/>
+                            <h:outputText value="#{formasPagoController.selected.descripcion}" title="#{bundle.ViewFormasPagoTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewFormasPagoLabel_descripcion}"/>
-                        <h:outputText value="#{formasPagoController.selected.descripcion}" title="#{bundle.ViewFormasPagoTitle_descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewFormasPagoLabel_fechaCreacion}"/>
-                        <h:outputText value="#{formasPagoController.selected.fechaCreacion}" title="#{bundle.ViewFormasPagoTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewFormasPagoLabel_fechaActalizacion}"/>
-                        <h:outputText value="#{formasPagoController.selected.fechaActalizacion}" title="#{bundle.ViewFormasPagoTitle_fechaActalizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('FormasPagoViewDialog').hide()"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('FormasPagoViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -41,3 +36,15 @@
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputText value="#{bundle.ViewFormasPagoLabel_fechaCreacion}"/>
+<h:outputText value="#{formasPagoController.selected.fechaCreacion}" title="#{bundle.ViewFormasPagoTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+
+<h:outputText value="#{bundle.ViewFormasPagoLabel_fechaActalizacion}"/>
+<h:outputText value="#{formasPagoController.selected.fechaActalizacion}" title="#{bundle.ViewFormasPagoTitle_fechaActalizacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->

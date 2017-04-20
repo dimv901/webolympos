@@ -33,6 +33,8 @@ public abstract class AbstractController<T> implements Serializable {
     private Class<T> itemClass;
     private T selected;
     private Collection<T> items;
+    private Collection<T> filtered;
+
     private LazyEntityDataModel<T> lazyItems;
 
     private enum PersistAction {
@@ -64,6 +66,14 @@ public abstract class AbstractController<T> implements Serializable {
      */
     public void setSelected(T selected) {
         this.selected = selected;
+    }
+
+    public Collection<T> getFiltered() {
+        return filtered;
+    }
+
+    public void setFiltered(Collection<T> filtered) {
+        this.filtered = filtered;
     }
 
     /**
@@ -153,6 +163,7 @@ public abstract class AbstractController<T> implements Serializable {
         if (!isValidationFailed()) {
             items = null; // Invalidate list of items to trigger re-query.
             lazyItems = null; // Invalidate list of lazy items to trigger re-query.
+            filtered = null;
         }
     }
 
@@ -169,6 +180,7 @@ public abstract class AbstractController<T> implements Serializable {
             selected = null; // Remove selection
             items = null; // Invalidate list of items to trigger re-query.
             lazyItems = null; // Invalidate list of lazy items to trigger re-query.
+            filtered = null;
         }
     }
 

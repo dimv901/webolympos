@@ -10,30 +10,47 @@
         <p:dialog id="CircuitosEditDlg" widgetVar="CircuitosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCircuitosTitle}" closeOnEscape="true">
 
             <h:form id="CircuitosEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{circuitosController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{circuitosController.selected != null}">
+                            <!--
+                            <h:outputLabel value="#{bundle.EditCircuitosLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{circuitosController.selected.id}" />
+                            -->
+                            <p:outputLabel value="#{bundle.EditCircuitosLabel_codigo}" for="codigo" />
+                            <p:inputText id="codigo" 
+                                         value="#{circuitosController.selected.codigo}" 
+                                         title="#{bundle.EditCircuitosTitle_codigo}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditCircuitosRequiredMessage_codigo}"
+                                         size="100"/>
 
+                            <p:outputLabel value="#{bundle.EditCircuitosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion"
+                                         value="#{circuitosController.selected.descripcion}" 
+                                         title="#{bundle.EditCircuitosTitle_descripcion}"
+                                         size="100"/>
 
-                        <h:outputLabel value="#{bundle.EditCircuitosLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{circuitosController.selected.id}" />
+                            <!--
+                            <p:outputLabel value="#{bundle.EditCircuitosLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.EditCircuitosTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditCircuitosRequiredMessage_fechaCreacion}" showOn="button"/>
+                            --> 
 
-                        <p:outputLabel value="#{bundle.EditCircuitosLabel_codigo}" for="codigo" />
-                        <p:inputTextarea rows="4" cols="30" id="codigo" value="#{circuitosController.selected.codigo}" title="#{bundle.EditCircuitosTitle_codigo}" required="true" requiredMessage="#{bundle.EditCircuitosRequiredMessage_codigo}"/>
+                            <!--
+                            <p:outputLabel value="#{bundle.EditCircuitosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                            <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.EditCircuitosTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <p:outputLabel value="#{bundle.EditCircuitosLabel_descripcion}" for="descripcion" />
-                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{circuitosController.selected.descripcion}" title="#{bundle.EditCircuitosTitle_descripcion}" />
-
-                        <p:outputLabel value="#{bundle.EditCircuitosLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.EditCircuitosTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditCircuitosRequiredMessage_fechaCreacion}" showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditCircuitosLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.EditCircuitosTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{circuitosController.save}" value="#{bundle.Save}" update="display,:CircuitosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CircuitosEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CircuitosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{circuitosController.save}" value="#{bundle.Save}" update="display,:CircuitosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CircuitosEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CircuitosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

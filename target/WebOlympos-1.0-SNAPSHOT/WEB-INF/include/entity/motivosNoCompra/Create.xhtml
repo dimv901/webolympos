@@ -11,23 +11,35 @@
         <p:dialog id="MotivosNoCompraCreateDlg" widgetVar="MotivosNoCompraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMotivosNoCompraTitle}" closeOnEscape="true">
 
             <h:form id="MotivosNoCompraCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{motivosNoCompraController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{motivosNoCompraController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateMotivosNoCompraLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{motivosNoCompraController.selected.descripcion}" 
+                                         title="#{bundle.CreateMotivosNoCompraTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateMotivosNoCompraRequiredMessage_descripcion}" 
+                                         size="100" />
 
-                        <p:outputLabel value="#{bundle.CreateMotivosNoCompraLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{motivosNoCompraController.selected.descripcion}" title="#{bundle.CreateMotivosNoCompraTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateMotivosNoCompraRequiredMessage_descripcion}" size="150" maxlength="150"/>
-
-                        <p:outputLabel value="#{bundle.CreateMotivosNoCompraLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaCreacion}" title="#{bundle.CreateMotivosNoCompraTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateMotivosNoCompraLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaActualizacion}" title="#{bundle.CreateMotivosNoCompraTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{motivosNoCompraController.saveNew}" value="#{bundle.Save}" update="display,:MotivosNoCompraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MotivosNoCompraCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MotivosNoCompraCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            <!--
+                            <p:outputLabel value="#{bundle.CreateMotivosNoCompraLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaCreacion}" title="#{bundle.CreateMotivosNoCompraTitle_fechaCreacion}"  showOn="button"/>
+                            -->
+                            <!--
+                           <p:outputLabel value="#{bundle.CreateMotivosNoCompraLabel_fechaActualizacion}" for="fechaActualizacion" />
+                           <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{motivosNoCompraController.selected.fechaActualizacion}" title="#{bundle.CreateMotivosNoCompraTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{motivosNoCompraController.saveNew}" value="#{bundle.Save}" update="display,:MotivosNoCompraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MotivosNoCompraCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MotivosNoCompraCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

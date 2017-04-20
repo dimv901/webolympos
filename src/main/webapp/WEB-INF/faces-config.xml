@@ -3,6 +3,9 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+   
+    <name>web_olympos</name>     
+
     <application>
         <resource-bundle>
             <base-name>/Bundle</base-name>
@@ -10,4 +13,17 @@
         </resource-bundle>
         <navigation-handler>org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
     </application>
+          
+    <component>
+        <component-type>org.primefaces.component.OlymposMenu</component-type>
+        <component-class>org.primefaces.olympos.component.menu.OlymposMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.OlymposMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.olympos.component.menu.OlymposMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 </faces-config>

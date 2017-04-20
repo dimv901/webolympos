@@ -11,29 +11,104 @@
         <p:dialog id="ProductosCreateDlg" widgetVar="ProductosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductosTitle}" closeOnEscape="true">
 
             <h:form id="ProductosCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{productosController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{productosController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{productosController.selected.descripcion}" 
+                                         title="#{bundle.CreateProductosTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateProductosRequiredMessage_descripcion}" 
+                                         size="100" />
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_foto}" for="foto" />
-                        <p:inputTextarea rows="4" cols="30" id="foto" value="#{productosController.selected.foto}" title="#{bundle.CreateProductosTitle_foto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_foto}"/>
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_codigoBarra}" for="codigoBarra" />
+                            <p:inputText id="codigoBarra" 
+                                         value="#{productosController.selected.codigoBarra}" 
+                                         title="#{bundle.CreateProductosTitle_codigoBarra}" size="30"/>
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{productosController.selected.descripcion}" title="#{bundle.CreateProductosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_activo}" for="activo" />
+                            <p:inputSwitch id="activo" value="#{productosController.selected.activo}" required="true" offLabel="#{bundle.No}" onLabel="#{bundle.Yes}"/>
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_codigoBarra}" for="codigoBarra" />
-                        <p:inputText id="codigoBarra" value="#{productosController.selected.codigoBarra}" title="#{bundle.CreateProductosTitle_codigoBarra}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_precioCosto}" for="precioCosto" />
+                            <p:inputText id="precioCosto" 
+                                         value="#{productosController.selected.precioCosto}" 
+                                         title="#{bundle.CreateProductosTitle_precioCosto}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateProductosRequiredMessage_precioCosto}"/>
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{productosController.selected.activo}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_activo}"/>
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_precioVenta}" for="precioVenta" />
+                            <p:inputText id="precioVenta" 
+                                         value="#{productosController.selected.precioVenta}" 
+                                         title="#{bundle.CreateProductosTitle_precioVenta}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateProductosRequiredMessage_precioVenta}"/>
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_precioVenta}" for="precioVenta" />
-                        <p:inputText id="precioVenta" value="#{productosController.selected.precioVenta}" title="#{bundle.CreateProductosTitle_precioVenta}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_precioVenta}"/>
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_idProductoFamilia}" for="idProductoFamilia" />
+                            <p:selectOneMenu id="idProductoFamilia" value="#{productosController.selected.idProductoFamilia}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idProductoFamilia}" converter="productoFamiliasConverter">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{productoFamiliasController.items}"
+                                               var="idProductoFamiliaItem"
+                                               itemValue="#{idProductoFamiliaItem}"
+                                               itemLabel="#{idProductoFamiliaItem.descripcion.toString()}"
+                                               />
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_precioCosto}" for="precioCosto" />
-                        <p:inputText id="precioCosto" value="#{productosController.selected.precioCosto}" title="#{bundle.CreateProductosTitle_precioCosto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_precioCosto}"/>
+                            </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_urlImagen}" for="urlImagen" />
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_idProveedor}" for="idProveedor" />
+                            <p:selectOneMenu id="idProveedor" value="#{productosController.selected.idProveedor}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idProveedor}" converter="proveedoresConverter" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{proveedoresController.items}"
+                                               var="idProveedorItem"
+                                               itemValue="#{idProveedorItem}"
+                                               itemLabel="#{idProveedorItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_idTipoImpuesto}" for="idTipoImpuesto" />
+                            <p:selectOneMenu id="idTipoImpuesto" value="#{productosController.selected.idTipoImpuesto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idTipoImpuesto}" converter="tipoImpuestosConverter" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoImpuestosController.items}"
+                                               var="idTipoImpuestoItem"
+                                               itemValue="#{idTipoImpuestoItem}"
+                                               itemLabel="#{idTipoImpuestoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateProductosLabel_foto}" for="idUploadPic" />
+                            <p:fileUpload id="idUploadPic"
+                                          fileUploadListener="#{productosController.handleFileUpload}" 
+                                          value="#{productosController.uploadedFile}" mode="advanced" dragDropSupport="false"
+                                          update="growl" 
+                                          sizeLimit="100000" 
+                                          fileLimit="1" 
+                                          cancelLabel="#{bundle.Cancel}"
+                                          label="#{bundle.Pick}"
+                                          uploadLabel="#{bundle.Upload}"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          invalidFileMessage="#{bundle.ErrorInvalidFileFormat}"/>
+
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true"  actionListener="#{productosController.saveNew}" value="#{bundle.Save}"  styleClass="GreenButton" icon="fa fa-save Fs16 White" update="display,:ProductosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductosCreateDialog'));"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
+<!--
+      <p:outputLabel value="#{bundle.CreateProductosLabel_urlImagen}" for="urlImagen" />
                         <p:inputTextarea rows="4" cols="30" id="urlImagen" value="#{productosController.selected.urlImagen}" title="#{bundle.CreateProductosTitle_urlImagen}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_urlImagen}"/>
 
                         <p:outputLabel value="#{bundle.CreateProductosLabel_fechaCreacion}" for="fechaCreacion" />
@@ -42,47 +117,7 @@
                         <p:outputLabel value="#{bundle.CreateProductosLabel_fechaActualizacion}" for="fechaActualizacion" />
                         <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productosController.selected.fechaActualizacion}" title="#{bundle.CreateProductosTitle_fechaActualizacion}"  showOn="button"/>
 
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_idProductoFamilia}" for="idProductoFamilia" />
-                        <p:selectOneMenu id="idProductoFamilia" value="#{productosController.selected.idProductoFamilia}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idProductoFamilia}" converter="productoFamiliasConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{productoFamiliasController.items}"
-                                           var="idProductoFamiliaItem"
-                                           itemValue="#{idProductoFamiliaItem}"
-                                           itemLabel="#{idProductoFamiliaItem.descripcion.toString()}"
-                                           />
+                        <p:outputLabel value="#{bundle.CreateProductosLabel_foto}" for="foto" />
+                        <p:inputTextarea rows="4" cols="30" id="foto" value="#{productosController.selected.foto}" title="#{bundle.CreateProductosTitle_foto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_foto}"/>
 
-                        </p:selectOneMenu>
-
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_idProveedor}" for="idProveedor" />
-                        <p:selectOneMenu id="idProveedor" value="#{productosController.selected.idProveedor}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idProveedor}" converter="proveedoresConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{proveedoresController.items}"
-                                           var="idProveedorItem"
-                                           itemValue="#{idProveedorItem}"
-                                           itemLabel="#{idProveedorItem.descripcion.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-
-                        <p:outputLabel value="#{bundle.CreateProductosLabel_idTipoImpuesto}" for="idTipoImpuesto" />
-                        <p:selectOneMenu id="idTipoImpuesto" value="#{productosController.selected.idTipoImpuesto}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idTipoImpuesto}" converter="tipoImpuestosConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{tipoImpuestosController.items}"
-                                           var="idTipoImpuestoItem"
-                                           itemValue="#{idTipoImpuestoItem}"
-                                           itemLabel="#{idTipoImpuestoItem.descripcion.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{productosController.saveNew}" value="#{bundle.Save}" update="display,:ProductosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductosCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
-            </h:form>
-
-        </p:dialog>
-
-    </ui:composition>
-
-</html>
+-->

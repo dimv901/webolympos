@@ -11,36 +11,45 @@
         <p:dialog id="CircuitosViewDlg" widgetVar="CircuitosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewCircuitosTitle}" closeOnEscape="true">
 
             <h:form id="CircuitosViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{circuitosController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{circuitosController.selected != null}">
+                            <h:outputText value="#{bundle.ViewCircuitosLabel_id}"/>
+                            <h:outputText value="#{circuitosController.selected.id}" title="#{bundle.ViewCircuitosTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewCircuitosLabel_id}"/>
-                        <h:outputText value="#{circuitosController.selected.id}" title="#{bundle.ViewCircuitosTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewCircuitosLabel_codigo}"/>
+                            <h:outputText value="#{circuitosController.selected.codigo}" title="#{bundle.ViewCircuitosTitle_codigo}"/>
 
-                        <h:outputText value="#{bundle.ViewCircuitosLabel_codigo}"/>
-                        <h:outputText value="#{circuitosController.selected.codigo}" title="#{bundle.ViewCircuitosTitle_codigo}"/>
+                            <h:outputText value="#{bundle.ViewCircuitosLabel_descripcion}"/>
+                            <h:outputText value="#{circuitosController.selected.descripcion}" title="#{bundle.ViewCircuitosTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewCircuitosLabel_descripcion}"/>
-                        <h:outputText value="#{circuitosController.selected.descripcion}" title="#{bundle.ViewCircuitosTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewCircuitosLabel_fechaCreacion}"/>
-                        <h:outputText value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.ViewCircuitosTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <h:outputText value="#{bundle.ViewCircuitosLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.ViewCircuitosTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('CircuitosViewDialog').hide()"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('CircuitosViewDialog').hide()"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
-
         </p:dialog>
 
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputText value="#{bundle.ViewCircuitosLabel_fechaCreacion}"/>
+<h:outputText value="#{circuitosController.selected.fechaCreacion}" title="#{bundle.ViewCircuitosTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->
+<!--
+<h:outputText value="#{bundle.ViewCircuitosLabel_fechaActualizacion}"/>
+<h:outputText value="#{circuitosController.selected.fechaActualizacion}" title="#{bundle.ViewCircuitosTitle_fechaActualizacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+-->

@@ -11,29 +11,25 @@
         <p:dialog id="ProductoFamiliasViewDlg" widgetVar="ProductoFamiliasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewProductoFamiliasTitle}" closeOnEscape="true">
 
             <h:form id="ProductoFamiliasViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{productoFamiliasController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{productoFamiliasController.selected != null}">
+                            <h:outputText value="#{bundle.ViewProductoFamiliasLabel_id}"/>
+                            <h:outputText value="#{productoFamiliasController.selected.id}" title="#{bundle.ViewProductoFamiliasTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewProductoFamiliasLabel_id}"/>
-                        <h:outputText value="#{productoFamiliasController.selected.id}" title="#{bundle.ViewProductoFamiliasTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewProductoFamiliasLabel_descripcion}"/>
+                            <h:outputText value="#{productoFamiliasController.selected.descripcion}" title="#{bundle.ViewProductoFamiliasTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewProductoFamiliasLabel_descripcion}"/>
-                        <h:outputText value="#{productoFamiliasController.selected.descripcion}" title="#{bundle.ViewProductoFamiliasTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewProductoFamiliasLabel_fechaCreacion}"/>
-                        <h:outputText value="#{productoFamiliasController.selected.fechaCreacion}" title="#{bundle.ViewProductoFamiliasTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewProductoFamiliasLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{productoFamiliasController.selected.fechaActualizacion}" title="#{bundle.ViewProductoFamiliasTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('ProductoFamiliasViewDialog').hide()"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('ProductoFamiliasViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -41,3 +37,14 @@
     </ui:composition>
 
 </html>
+<!--
+                  <h:outputText value="#{bundle.ViewProductoFamiliasLabel_fechaCreacion}"/>
+                  <h:outputText value="#{productoFamiliasController.selected.fechaCreacion}" title="#{bundle.ViewProductoFamiliasTitle_fechaCreacion}">
+                      <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                  </h:outputText>
+
+                  <h:outputText value="#{bundle.ViewProductoFamiliasLabel_fechaActualizacion}"/>
+                  <h:outputText value="#{productoFamiliasController.selected.fechaActualizacion}" title="#{bundle.ViewProductoFamiliasTitle_fechaActualizacion}">
+                      <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                  </h:outputText>
+-->

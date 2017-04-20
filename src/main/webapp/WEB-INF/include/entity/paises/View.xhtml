@@ -11,32 +11,27 @@
         <p:dialog id="PaisesViewDlg" widgetVar="PaisesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPaisesTitle}" closeOnEscape="true">
 
             <h:form id="PaisesViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{paisesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{paisesController.selected != null}">
+                            <h:outputText value="#{bundle.ViewPaisesLabel_id}"/>
+                            <h:outputText value="#{paisesController.selected.id}" title="#{bundle.ViewPaisesTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewPaisesLabel_id}"/>
-                        <h:outputText value="#{paisesController.selected.id}" title="#{bundle.ViewPaisesTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewPaisesLabel_descripcion}"/>
+                            <h:outputText value="#{paisesController.selected.descripcion}" title="#{bundle.ViewPaisesTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewPaisesLabel_descripcion}"/>
-                        <h:outputText value="#{paisesController.selected.descripcion}" title="#{bundle.ViewPaisesTitle_descripcion}"/>
+                            <h:outputText value="#{bundle.ViewPaisesLabel_abreviatura}"/>
+                            <h:outputText value="#{paisesController.selected.abreviatura}" title="#{bundle.ViewPaisesTitle_abreviatura}"/>
 
-                        <h:outputText value="#{bundle.ViewPaisesLabel_abreviatura}"/>
-                        <h:outputText value="#{paisesController.selected.abreviatura}" title="#{bundle.ViewPaisesTitle_abreviatura}"/>
-
-                        <h:outputText value="#{bundle.ViewPaisesLabel_fechaCreacion}"/>
-                        <h:outputText value="#{paisesController.selected.fechaCreacion}" title="#{bundle.ViewPaisesTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewPaisesLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{paisesController.selected.fechaActualizacion}" title="#{bundle.ViewPaisesTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('PaisesViewDialog').hide()"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('PaisesViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -44,3 +39,14 @@
     </ui:composition>
 
 </html>
+<!--
+                     <h:outputText value="#{bundle.ViewPaisesLabel_fechaCreacion}"/>
+                     <h:outputText value="#{paisesController.selected.fechaCreacion}" title="#{bundle.ViewPaisesTitle_fechaCreacion}">
+                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                     </h:outputText>
+
+                     <h:outputText value="#{bundle.ViewPaisesLabel_fechaActualizacion}"/>
+                     <h:outputText value="#{paisesController.selected.fechaActualizacion}" title="#{bundle.ViewPaisesTitle_fechaActualizacion}">
+                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                     </h:outputText>
+-->

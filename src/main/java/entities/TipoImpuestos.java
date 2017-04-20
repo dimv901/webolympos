@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoImpuestos.findAll", query = "SELECT t FROM TipoImpuestos t")
     , @NamedQuery(name = "TipoImpuestos.findById", query = "SELECT t FROM TipoImpuestos t WHERE t.id = :id")
     , @NamedQuery(name = "TipoImpuestos.findByDescripcion", query = "SELECT t FROM TipoImpuestos t WHERE t.descripcion = :descripcion")
+    , @NamedQuery(name = "TipoImpuestos.findByValor", query = "SELECT t FROM TipoImpuestos t WHERE t.valor = :valor")
     , @NamedQuery(name = "TipoImpuestos.findByFechaCreacion", query = "SELECT t FROM TipoImpuestos t WHERE t.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "TipoImpuestos.findByFechaActualizacion", query = "SELECT t FROM TipoImpuestos t WHERE t.fechaActualizacion = :fechaActualizacion")})
 public class TipoImpuestos implements Serializable {
@@ -49,9 +50,13 @@ public class TipoImpuestos implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 150)
     @Column(name = "descripcion")
     private String descripcion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "valor")
+    private double valor;
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
@@ -68,9 +73,10 @@ public class TipoImpuestos implements Serializable {
         this.id = id;
     }
 
-    public TipoImpuestos(Integer id, String descripcion) {
+    public TipoImpuestos(Integer id, String descripcion, double valor) {
         this.id = id;
         this.descripcion = descripcion;
+        this.valor = valor;
     }
 
     public Integer getId() {
@@ -87,6 +93,14 @@ public class TipoImpuestos implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     public Date getFechaCreacion() {

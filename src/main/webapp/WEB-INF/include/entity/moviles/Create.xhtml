@@ -11,29 +11,52 @@
         <p:dialog id="MovilesCreateDlg" widgetVar="MovilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMovilesTitle}" closeOnEscape="true">
 
             <h:form id="MovilesCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{movilesController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{movilesController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateMovilesLabel_marca}" for="marca" />
+                            <p:inputText id="marca" 
+                                         value="#{movilesController.selected.marca}" 
+                                         title="#{bundle.CreateMovilesTitle_marca}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateMovilesRequiredMessage_marca}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_marca}" for="marca" />
-                        <p:inputText id="marca" value="#{movilesController.selected.marca}" title="#{bundle.CreateMovilesTitle_marca}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_marca}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.CreateMovilesLabel_modelo}" for="modelo" />
+                            <p:inputText id="modelo"
+                                         value="#{movilesController.selected.modelo}" 
+                                         title="#{bundle.CreateMovilesTitle_modelo}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateMovilesRequiredMessage_modelo}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_modelo}" for="modelo" />
-                        <p:inputText id="modelo" value="#{movilesController.selected.modelo}" title="#{bundle.CreateMovilesTitle_modelo}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_modelo}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.CreateMovilesLabel_matricula}" for="matricula" />
+                            <p:inputText id="matricula" 
+                                         value="#{movilesController.selected.matricula}" 
+                                         title="#{bundle.CreateMovilesTitle_matricula}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateMovilesRequiredMessage_matricula}" 
+                                         size="30" />
 
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_matricula}" for="matricula" />
-                        <p:inputText id="matricula" value="#{movilesController.selected.matricula}" title="#{bundle.CreateMovilesTitle_matricula}" required="true" requiredMessage="#{bundle.CreateMovilesRequiredMessage_matricula}" size="10" maxlength="10"/>
+                            <!--
+                            <p:outputLabel value="#{bundle.CreateMovilesLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaCreacion}" title="#{bundle.CreateMovilesTitle_fechaCreacion}"  showOn="button"/>
+                            -->
+                            <!--
+                           <p:outputLabel value="#{bundle.CreateMovilesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                           <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaActualizacion}" title="#{bundle.CreateMovilesTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaCreacion}" title="#{bundle.CreateMovilesTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateMovilesLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{movilesController.selected.fechaActualizacion}" title="#{bundle.CreateMovilesTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{movilesController.saveNew}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovilesCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovilesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{movilesController.saveNew}" value="#{bundle.Save}" update="display,:MovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MovilesCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MovilesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

@@ -22,6 +22,7 @@ converters\CiudadesConverter.class
 entities\Clientes.class
 entities\FormasPago_.class
 entities\Paises.class
+beans\LoginController.class
 beans\UsuariosMovilesController.class
 beans\VisitasController.class
 entities\TipoComprobantes.class
@@ -129,6 +130,7 @@ entities\ComprobantesCompraCabecera.class
 entities\ComprobantesVentaCabecera.class
 controllers\DepartamentosFacade.class
 beans\ProductosController.class
+utils\EmailValidator.class
 controllers\StockFacade.class
 entities\Visitas.class
 controllers\EntityUtility.class

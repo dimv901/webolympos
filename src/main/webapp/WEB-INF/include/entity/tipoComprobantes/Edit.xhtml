@@ -10,31 +10,40 @@
         <p:dialog id="TipoComprobantesEditDlg" widgetVar="TipoComprobantesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditTipoComprobantesTitle}" closeOnEscape="true">
 
             <h:form id="TipoComprobantesEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{tipoComprobantesController.selected != null}">
+                            <p:outputLabel value="#{bundle.EditTipoComprobantesLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" value="#{tipoComprobantesController.selected.descripcion}" 
+                                         title="#{bundle.EditTipoComprobantesTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditTipoComprobantesRequiredMessage_descripcion}" 
+                                         size="100"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoComprobantesController.selected != null}">
-
-
-                        <h:outputLabel value="#{bundle.EditTipoComprobantesLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{tipoComprobantesController.selected.id}" />
-
-                        <p:outputLabel value="#{bundle.EditTipoComprobantesLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{tipoComprobantesController.selected.descripcion}" title="#{bundle.EditTipoComprobantesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditTipoComprobantesRequiredMessage_descripcion}" size="100" maxlength="100"/>
-
-                        <p:outputLabel value="#{bundle.EditTipoComprobantesLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoComprobantesController.selected.fechaCreacion}" title="#{bundle.EditTipoComprobantesTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditTipoComprobantesLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoComprobantesController.selected.fechaActualizacion}" title="#{bundle.EditTipoComprobantesTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{tipoComprobantesController.save}" value="#{bundle.Save}" update="display,:TipoComprobantesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoComprobantesEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoComprobantesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{tipoComprobantesController.save}" value="#{bundle.Save}" update="display,:TipoComprobantesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoComprobantesEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TipoComprobantesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
-
         </p:dialog>
 
     </ui:composition>
 
 </html>
+<!--
+<p:outputLabel value="#{bundle.EditTipoComprobantesLabel_fechaCreacion}" for="fechaCreacion" />
+<p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoComprobantesController.selected.fechaCreacion}" title="#{bundle.EditTipoComprobantesTitle_fechaCreacion}"  showOn="button"/>
+
+<p:outputLabel value="#{bundle.EditTipoComprobantesLabel_fechaActualizacion}" for="fechaActualizacion" />
+<p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{tipoComprobantesController.selected.fechaActualizacion}" title="#{bundle.EditTipoComprobantesTitle_fechaActualizacion}"  showOn="button"/>
+
+
+                        <h:outputLabel value="#{bundle.EditTipoComprobantesLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{tipoComprobantesController.selected.id}" />
+
+-->

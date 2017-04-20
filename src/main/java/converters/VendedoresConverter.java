@@ -3,6 +3,7 @@ package converters;
 import entities.Vendedores;
 import controllers.VendedoresFacade;
 import beans.util.JsfUtil;
+import controllers.DepartamentosFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.convert.FacesConverter;
@@ -10,6 +11,10 @@ import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
 @FacesConverter(value = "vendedoresConverter")
 public class VendedoresConverter implements Converter {
@@ -21,6 +26,27 @@ public class VendedoresConverter implements Converter {
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
+        }
+
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        Context ctx = null;
+        try {
+            ctx = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(VendedoresConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ctx != null) {
+            try {
+                String lookupString;
+                if (servletContext != null) {
+                    lookupString = "java:global" + servletContext.getContextPath() + "/" + VendedoresFacade.class.getSimpleName();
+                } else {
+                    lookupString = "java:global/" + VendedoresFacade.class.getSimpleName();
+                }
+                ejbFacade = (VendedoresFacade) ctx.lookup(lookupString);
+            } catch (NamingException ex) {
+                Logger.getLogger(VendedoresConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return this.ejbFacade.find(getKey(value));
     }

@@ -10,11 +10,12 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-12T19:43:26")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-04-17T10:40:54")
 @StaticMetamodel(Proveedores.class)
 public class Proveedores_ { 
 
     public static volatile SingularAttribute<Proveedores, String> descripcion;
+    public static volatile SingularAttribute<Proveedores, String> ruc;
     public static volatile CollectionAttribute<Proveedores, ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection;
     public static volatile SingularAttribute<Proveedores, Paises> idPais;
     public static volatile CollectionAttribute<Proveedores, OrdenCompraCabecera> ordenCompraCabeceraCollection;

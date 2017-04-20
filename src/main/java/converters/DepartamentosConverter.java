@@ -10,6 +10,10 @@ import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
 @FacesConverter(value = "departamentosConverter")
 public class DepartamentosConverter implements Converter {
@@ -22,7 +26,28 @@ public class DepartamentosConverter implements Converter {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
-        return this.ejbFacade.find(getKey(value));
+
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        Context ctx = null;
+        try {
+            ctx = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(DepartamentosConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ctx != null) {
+            try {
+                String lookupString;
+                if (servletContext != null) {
+                    lookupString = "java:global" + servletContext.getContextPath() + "/" + DepartamentosFacade.class.getSimpleName();
+                } else {
+                    lookupString = "java:global/" + DepartamentosFacade.class.getSimpleName();
+                }
+                ejbFacade = (DepartamentosFacade) ctx.lookup(lookupString);
+            } catch (NamingException ex) {
+                Logger.getLogger(DepartamentosConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return ejbFacade.find(getKey(value));
     }
 
     java.lang.Integer getKey(String value) {
@@ -32,15 +57,14 @@ public class DepartamentosConverter implements Converter {
     }
 
     String getStringKey(java.lang.Integer value) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(value);
         return sb.toString();
     }
 
     @Override
     public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-        if (object == null
-                || (object instanceof String && ((String) object).length() == 0)) {
+        if (object == null || (object instanceof String && ((String) object).length() == 0)) {
             return null;
         }
         if (object instanceof Departamentos) {

@@ -11,29 +11,24 @@
         <p:dialog id="MotivosNoCompraViewDlg" widgetVar="MotivosNoCompraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewMotivosNoCompraTitle}" closeOnEscape="true">
 
             <h:form id="MotivosNoCompraViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{motivosNoCompraController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{motivosNoCompraController.selected != null}">
+                            <h:outputText value="#{bundle.ViewMotivosNoCompraLabel_id}"/>
+                            <h:outputText value="#{motivosNoCompraController.selected.id}" title="#{bundle.ViewMotivosNoCompraTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewMotivosNoCompraLabel_id}"/>
-                        <h:outputText value="#{motivosNoCompraController.selected.id}" title="#{bundle.ViewMotivosNoCompraTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewMotivosNoCompraLabel_descripcion}"/>
+                            <h:outputText value="#{motivosNoCompraController.selected.descripcion}" title="#{bundle.ViewMotivosNoCompraTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewMotivosNoCompraLabel_descripcion}"/>
-                        <h:outputText value="#{motivosNoCompraController.selected.descripcion}" title="#{bundle.ViewMotivosNoCompraTitle_descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewMotivosNoCompraLabel_fechaCreacion}"/>
-                        <h:outputText value="#{motivosNoCompraController.selected.fechaCreacion}" title="#{bundle.ViewMotivosNoCompraTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewMotivosNoCompraLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{motivosNoCompraController.selected.fechaActualizacion}" title="#{bundle.ViewMotivosNoCompraTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('MotivosNoCompraViewDialog').hide()"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('MotivosNoCompraViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -41,3 +36,15 @@
     </ui:composition>
 
 </html>
+
+<!--
+<h:outputText value="#{bundle.ViewMotivosNoCompraLabel_fechaCreacion}"/>
+<h:outputText value="#{motivosNoCompraController.selected.fechaCreacion}" title="#{bundle.ViewMotivosNoCompraTitle_fechaCreacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText>
+
+<h:outputText value="#{bundle.ViewMotivosNoCompraLabel_fechaActualizacion}"/>
+<h:outputText value="#{motivosNoCompraController.selected.fechaActualizacion}" title="#{bundle.ViewMotivosNoCompraTitle_fechaActualizacion}">
+    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+</h:outputText
+-->

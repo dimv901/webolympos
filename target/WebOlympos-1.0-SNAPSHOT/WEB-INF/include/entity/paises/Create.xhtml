@@ -11,30 +11,51 @@
         <p:dialog id="PaisesCreateDlg" widgetVar="PaisesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePaisesTitle}" closeOnEscape="true">
 
             <h:form id="PaisesCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{paisesController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{paisesController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreatePaisesLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{paisesController.selected.descripcion}" 
+                                         title="#{bundle.CreatePaisesTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreatePaisesRequiredMessage_descripcion}" 
+                                         size="100" />
 
-                        <p:outputLabel value="#{bundle.CreatePaisesLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{paisesController.selected.descripcion}" title="#{bundle.CreatePaisesTitle_descripcion}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <p:outputLabel value="#{bundle.CreatePaisesLabel_abreviatura}" for="abreviatura" />
+                            <p:inputText id="abreviatura" 
+                                         value="#{paisesController.selected.abreviatura}" 
+                                         title="#{bundle.CreatePaisesTitle_abreviatura}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreatePaisesRequiredMessage_abreviatura}"
+                                         size="30"/>
 
-                        <p:outputLabel value="#{bundle.CreatePaisesLabel_abreviatura}" for="abreviatura" />
-                        <p:inputText id="abreviatura" value="#{paisesController.selected.abreviatura}" title="#{bundle.CreatePaisesTitle_abreviatura}" required="true" requiredMessage="#{bundle.CreatePaisesRequiredMessage_abreviatura}" size="3" maxlength="3"/>
-
-                        <p:outputLabel value="#{bundle.CreatePaisesLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{paisesController.selected.fechaCreacion}" title="#{bundle.CreatePaisesTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreatePaisesLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{paisesController.selected.fechaActualizacion}" title="#{bundle.CreatePaisesTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{paisesController.saveNew}" value="#{bundle.Save}" update="display,:PaisesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaisesCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PaisesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{paisesController.saveNew}" value="#{bundle.Save}" styleClass="GreenButton" icon="fa fa-save Fs16 White" update="display,:PaisesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PaisesCreateDialog'));" />
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PaisesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
+
 
         </p:dialog>
 
     </ui:composition>
 
 </html>
+
+<!--
+<p:outputLabel value="#{bundle.CreatePaisesLabel_fechaCreacion}" for="fechaCreacion" />
+<p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{paisesController.selected.fechaCreacion}" title="#{bundle.CreatePaisesTitle_fechaCreacion}"  showOn="button"/>
+-->
+<!--
+<p:outputLabel value="#{bundle.CreatePaisesLabel_fechaActualizacion}" for="fechaActualizacion" />
+<p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{paisesController.selected.fechaActualizacion}" title="#{bundle.CreatePaisesTitle_fechaActualizacion}"  showOn="button"/>
+
+           
+-->

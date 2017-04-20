@@ -1,36 +1,68 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>#{bundle.AppName}</title>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7KMY0qij2lZ-MTjBS8kbt037ZW6bxq7Y"></script>  <h:outputScript name="js/nanoscroller.js" library="olympos-layout" />
+        <h:outputScript name="js/layout.js" library="olympos-layout" />
+        <h:outputScript name="js/spanish.js" library="olympos-layout" />
         <h:outputStylesheet library="css" name="pfcrud.css"/>
         <h:outputScript library="scripts" name="pfcrud.js"/>
+        <ui:insert name="head"/>
     </h:head>
 
-    <h:body>
+    <h:body styleClass="NavyTopbar">
 
-        <p:growl id="growl" life="3000"/>
+        <p:growl id="growl" life="3000" showDetail="true" showSummary="true"/>
 
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="100" header="#{bundle.AppName}">
-                <!-- Menu here. Also a layout and a way to log a user out -->
-                <ui:include src="/WEB-INF/include/appmenu.xhtml"/>
-            </p:layoutUnit>
+        <ui:include src="topbar.xhtml" />
 
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
-            </p:layoutUnit>
+        <!-- LAYOUT CONTAINER -->
 
-            <p:layoutUnit position="center">
-                <ui:insert name="body"/>
-            </p:layoutUnit>
+        <div id="layout-container">
+            <div id="layout-container-row">
 
-        </p:layout>
+                <!-- LAYOUT MENU COVER -->
+                <div id="layout-menu-cover" class="nano Animated03">
+                    <div id="layout-menu-cover-scroll-content" class="nano-content">
 
+                        <ui:include src="layouttabmenu.xhtml" />
+
+                    </div>
+                </div>
+
+                <!-- PORTLETS COVER -->
+                <div id="layout-portlets-cover">
+
+                    <ui:insert name="body">
+
+                    </ui:insert>
+
+                    <!--
+                    <ui:include src="footer.xhtml" />
+                    -->
+                </div>
+
+            </div>
+        </div>
+
+        <h:outputStylesheet name="css/core-layout.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/animate.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/nanoscroller.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-font.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-layout.css" library="olympos-layout" />
     </h:body>
 
 </html>

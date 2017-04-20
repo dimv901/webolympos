@@ -11,43 +11,71 @@
         <p:dialog id="ProveedoresCreateDlg" widgetVar="ProveedoresCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedoresTitle}" closeOnEscape="true">
 
             <h:form id="ProveedoresCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{proveedoresController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{proveedoresController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateProveedoresLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{proveedoresController.selected.descripcion}" 
+                                         title="#{bundle.CreateProveedoresTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateProveedoresRequiredMessage_descripcion}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{proveedoresController.selected.descripcion}" title="#{bundle.CreateProveedoresTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <p:outputLabel value="#{bundle.CreateProveedoresLabel_ruc}" for="ruc" />
+                            <p:inputText id="ruc" 
+                                         value="#{proveedoresController.selected.ruc}" 
+                                         title="#{bundle.CreateProveedoresTitle_ruc}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateProveedoresRequiredMessage_ruc}" 
+                                         size="30"/>
 
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{proveedoresController.selected.telefono}" title="#{bundle.CreateProveedoresTitle_telefono}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_telefono}" size="30" maxlength="30"/>
+                            <p:outputLabel value="#{bundle.CreateProveedoresLabel_telefono}" for="telefono" />
+                            <p:inputMask id="telefono"
+                                         value="#{proveedoresController.selected.telefono}" 
+                                         title="#{bundle.CreateProveedoresTitle_telefono}" 
+                                         required="true"
+                                         requiredMessage="#{bundle.CreateProveedoresRequiredMessage_telefono}" 
+                                         mask="(999) 999-999"  
+                                         size="30"/>
 
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{proveedoresController.selected.direccion}" title="#{bundle.CreateProveedoresTitle_direccion}" size="250" maxlength="250"/>
+                            <p:outputLabel value="#{bundle.CreateProveedoresLabel_direccion}" for="direccion" />
+                            <p:inputText id="direccion" 
+                                         value="#{proveedoresController.selected.direccion}" 
+                                         title="#{bundle.CreateProveedoresTitle_direccion}" 
+                                         size="100" />
 
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{proveedoresController.selected.email}" title="#{bundle.CreateProveedoresTitle_email}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.CreateProveedoresLabel_email}" for="email" />
+                            <p:inputText id="email" 
+                                         value="#{proveedoresController.selected.email}" 
+                                         title="#{bundle.CreateProveedoresTitle_email}" 
+                                         size="30" >
+                                <f:validator validatorId="utils.emailValidator" />
+                            </p:inputText>
 
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{proveedoresController.selected.fechaCreacion}" title="#{bundle.CreateProveedoresTitle_fechaCreacion}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateProveedoresLabel_idPais}" for="idPais" />
+                            <p:selectOneMenu id="idPais" value="#{proveedoresController.selected.idPais}" 
+                                             required="true" 
+                                             requiredMessage="#{bundle.CreateProveedoresRequiredMessage_idPais}" 
+                                             converter="paisesConverter" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{paisesController.items}"
+                                               var="idPaisItem"
+                                               itemValue="#{idPaisItem}"
+                                               itemLabel="#{idPaisItem.descripcion.toString()}"
+                                               />
 
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_fechaActuaizacion}" for="fechaActuaizacion" />
-                        <p:calendar id="fechaActuaizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{proveedoresController.selected.fechaActuaizacion}" title="#{bundle.CreateProveedoresTitle_fechaActuaizacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateProveedoresLabel_idPais}" for="idPais" />
-                        <p:selectOneMenu id="idPais" value="#{proveedoresController.selected.idPais}" required="true" requiredMessage="#{bundle.CreateProveedoresRequiredMessage_idPais}" converter="paisesConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{paisesController.items}"
-                                           var="idPaisItem"
-                                           itemValue="#{idPaisItem}"
-                                           itemLabel="#{idPaisItem.descripcion.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedoresController.saveNew}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProveedoresCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProveedoresCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton actionListener="#{proveedoresController.saveNew}" value="#{bundle.Save}" update="display,:ProveedoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProveedoresCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProveedoresCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -55,3 +83,12 @@
     </ui:composition>
 
 </html>
+
+
+<!--
+<p:outputLabel value="#{bundle.CreateProveedoresLabel_fechaCreacion}" for="fechaCreacion" />
+<p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{proveedoresController.selected.fechaCreacion}" title="#{bundle.CreateProveedoresTitle_fechaCreacion}"  showOn="button"/>
+
+<p:outputLabel value="#{bundle.CreateProveedoresLabel_fechaActuaizacion}" for="fechaActuaizacion" />
+<p:calendar id="fechaActuaizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{proveedoresController.selected.fechaActuaizacion}" title="#{bundle.CreateProveedoresTitle_fechaActuaizacion}"  showOn="button"/>
+-->

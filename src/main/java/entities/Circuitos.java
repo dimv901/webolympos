@@ -50,22 +50,18 @@ public class Circuitos implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 10)
     @Column(name = "codigo")
     private String codigo;
-    @Size(max = 2147483647)
+    @Size(max = 150)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Column(name = "fecha_actualizacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCircuito")
-    private Collection<Vendedores> vendedoresCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCircuito")
     private Collection<Clientes> clientesCollection;
 
@@ -76,10 +72,9 @@ public class Circuitos implements Serializable {
         this.id = id;
     }
 
-    public Circuitos(Integer id, String codigo, Date fechaCreacion) {
+    public Circuitos(Integer id, String codigo) {
         this.id = id;
         this.codigo = codigo;
-        this.fechaCreacion = fechaCreacion;
     }
 
     public Integer getId() {
@@ -120,15 +115,6 @@ public class Circuitos implements Serializable {
 
     public void setFechaActualizacion(Date fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
-    }
-
-    @XmlTransient
-    public Collection<Vendedores> getVendedoresCollection() {
-        return vendedoresCollection;
-    }
-
-    public void setVendedoresCollection(Collection<Vendedores> vendedoresCollection) {
-        this.vendedoresCollection = vendedoresCollection;
     }
 
     @XmlTransient

@@ -11,34 +11,47 @@
         <p:dialog id="CiudadesCreateDlg" widgetVar="CiudadesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCiudadesTitle}" closeOnEscape="true">
 
             <h:form id="CiudadesCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{ciudadesController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{ciudadesController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateCiudadesLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" value="#{ciudadesController.selected.descripcion}" title="#{bundle.CreateCiudadesTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateCiudadesRequiredMessage_descripcion}" size="150" maxlength="150"/>
 
-                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{ciudadesController.selected.descripcion}" title="#{bundle.CreateCiudadesTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateCiudadesRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <!--
+                            <p:outputLabel value="#{bundle.CreateCiudadesLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.CreateCiudadesTitle_fechaCreacion}"  showOn="button"/>
+                            -->
 
-                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.CreateCiudadesTitle_fechaCreacion}"  showOn="button"/>
+                            <!--
+                           <p:outputLabel value="#{bundle.CreateCiudadesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                           <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.CreateCiudadesTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
 
-                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.CreateCiudadesTitle_fechaActualizacion}"  showOn="button"/>
+                            <p:outputLabel value="#{bundle.CreateCiudadesLabel_idDepartamento}" for="idDepartamento" />
+                            <p:selectOneMenu id="idDepartamento" 
+                                             value="#{ciudadesController.selected.idDepartamento}" 
+                                             required="true" 
+                                             requiredMessage="#{bundle.CreateCiudadesRequiredMessage_idDepartamento}" 
+                                             converter="departamentosConverter"
+                                             filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{departamentosController.items}"
+                                               var="idDepartamentoItem"
+                                               itemValue="#{idDepartamentoItem}"
+                                               itemLabel="#{idDepartamentoItem.descripcion.toString()}"
+                                               />
 
-                        <p:outputLabel value="#{bundle.CreateCiudadesLabel_idDepartamento}" for="idDepartamento" />
-                        <p:selectOneMenu id="idDepartamento" value="#{ciudadesController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.CreateCiudadesRequiredMessage_idDepartamento}" converter="departamentosConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{departamentosController.items}"
-                                           var="idDepartamentoItem"
-                                           itemValue="#{idDepartamentoItem}"
-                                           itemLabel="#{idDepartamentoItem.descripcion.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{ciudadesController.saveNew}" value="#{bundle.Save}" update="display,:CiudadesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadesCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{ciudadesController.saveNew}" value="#{bundle.Save}" update="display,:CiudadesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadesCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

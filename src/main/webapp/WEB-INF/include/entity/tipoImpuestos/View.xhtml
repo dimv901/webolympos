@@ -11,17 +11,34 @@
         <p:dialog id="TipoImpuestosViewDlg" widgetVar="TipoImpuestosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewTipoImpuestosTitle}" closeOnEscape="true">
 
             <h:form id="TipoImpuestosViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoImpuestosController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoImpuestosController.selected != null}">
+                            <h:outputText value="#{bundle.ViewTipoImpuestosLabel_id}"/>
+                            <h:outputText value="#{tipoImpuestosController.selected.id}" 
+                                          title="#{bundle.ViewTipoImpuestosTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewTipoImpuestosLabel_id}"/>
-                        <h:outputText value="#{tipoImpuestosController.selected.id}" title="#{bundle.ViewTipoImpuestosTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewTipoImpuestosLabel_descripcion}"/>
+                            <h:outputText value="#{tipoImpuestosController.selected.descripcion}" 
+                                          title="#{bundle.ViewTipoImpuestosTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewTipoImpuestosLabel_descripcion}"/>
-                        <h:outputText value="#{tipoImpuestosController.selected.descripcion}" title="#{bundle.ViewTipoImpuestosTitle_descripcion}"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <h:outputText value="#{bundle.ViewTipoImpuestosLabel_fechaCreacion}"/>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('TipoImpuestosViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+
+</html>
+<!--
+      <h:outputText value="#{bundle.ViewTipoImpuestosLabel_fechaCreacion}"/>
                         <h:outputText value="#{tipoImpuestosController.selected.fechaCreacion}" title="#{bundle.ViewTipoImpuestosTitle_fechaCreacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
@@ -30,14 +47,4 @@
                         <h:outputText value="#{tipoImpuestosController.selected.fechaActualizacion}" title="#{bundle.ViewTipoImpuestosTitle_fechaActualizacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('TipoImpuestosViewDialog').hide()"/>
-                </h:panelGroup>
-
-            </h:form>
-
-        </p:dialog>
-
-    </ui:composition>
-
-</html>
+-->

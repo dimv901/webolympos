@@ -11,23 +11,35 @@
         <p:dialog id="DepartamentosCreateDlg" widgetVar="DepartamentosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDepartamentosTitle}" closeOnEscape="true">
 
             <h:form id="DepartamentosCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{departamentosController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{departamentosController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                            <p:outputLabel value="#{bundle.CreateDepartamentosLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{departamentosController.selected.descripcion}" 
+                                         title="#{bundle.CreateDepartamentosTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateDepartamentosRequiredMessage_descripcion}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.CreateDepartamentosLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{departamentosController.selected.descripcion}" title="#{bundle.CreateDepartamentosTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateDepartamentosRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <!--
+                            <p:outputLabel value="#{bundle.CreateDepartamentosLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{departamentosController.selected.fechaCreacion}" title="#{bundle.CreateDepartamentosTitle_fechaCreacion}"  showOn="button"/>
+    
+                            <p:outputLabel value="#{bundle.CreateDepartamentosLabel_fechaActualizacion}" for="fechaActualizacion" />
+                            <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{departamentosController.selected.fechaActualizacion}" title="#{bundle.CreateDepartamentosTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <p:outputLabel value="#{bundle.CreateDepartamentosLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{departamentosController.selected.fechaCreacion}" title="#{bundle.CreateDepartamentosTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateDepartamentosLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{departamentosController.selected.fechaActualizacion}" title="#{bundle.CreateDepartamentosTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{departamentosController.saveNew}" value="#{bundle.Save}" update="display,:DepartamentosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DepartamentosCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DepartamentosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{departamentosController.saveNew}" value="#{bundle.Save}" update="display,:DepartamentosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DepartamentosCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DepartamentosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

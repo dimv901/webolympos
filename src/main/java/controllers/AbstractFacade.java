@@ -8,6 +8,7 @@ package controllers;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
@@ -41,6 +42,28 @@ public abstract class AbstractFacade<T> {
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
+    }
+
+    public List<T> findListByParam(String param, Object obj) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        q.setParameter(param, obj);
+        return q.getResultList();
+    }
+
+    public Object findByParam(String param, Object obj) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        q.setParameter(param, obj);
+        return q.getSingleResult();
+    }
+
+    public Query getNamedQuery(String name, Class<T> entityClass) {
+        javax.persistence.Query q = getEntityManager().createNamedQuery(name, entityClass);
+        return q;
     }
 
     public List<T> findAll() {
@@ -196,5 +219,5 @@ public abstract class AbstractFacade<T> {
         }
         return expression;
     }
-    
+
 }

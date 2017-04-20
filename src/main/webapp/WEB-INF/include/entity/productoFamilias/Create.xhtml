@@ -11,23 +11,33 @@
         <p:dialog id="ProductoFamiliasCreateDlg" widgetVar="ProductoFamiliasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductoFamiliasTitle}" closeOnEscape="true">
 
             <h:form id="ProductoFamiliasCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{productoFamiliasController.selected != null}">
+                        <p:panelGrid columns="1" columnClasses="column">
 
-                <h:panelGroup id="display" rendered="#{productoFamiliasController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
-
-                        <p:outputLabel value="#{bundle.CreateProductoFamiliasLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{productoFamiliasController.selected.descripcion}" title="#{bundle.CreateProductoFamiliasTitle_descripcion}" required="true" requiredMessage="#{bundle.CreateProductoFamiliasRequiredMessage_descripcion}" size="150" maxlength="150"/>
-
-                        <p:outputLabel value="#{bundle.CreateProductoFamiliasLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaCreacion}" title="#{bundle.CreateProductoFamiliasTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateProductoFamiliasRequiredMessage_fechaCreacion}" showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.CreateProductoFamiliasLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaActualizacion}" title="#{bundle.CreateProductoFamiliasTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{productoFamiliasController.saveNew}" value="#{bundle.Save}" update="display,:ProductoFamiliasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductoFamiliasCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoFamiliasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            <p:outputLabel value="#{bundle.CreateProductoFamiliasLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{productoFamiliasController.selected.descripcion}" 
+                                         title="#{bundle.CreateProductoFamiliasTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.CreateProductoFamiliasRequiredMessage_descripcion}" 
+                                         size="100"/>
+                            <!--
+                            <p:outputLabel value="#{bundle.CreateProductoFamiliasLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaCreacion}" title="#{bundle.CreateProductoFamiliasTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.CreateProductoFamiliasRequiredMessage_fechaCreacion}" showOn="button"/>
+    
+                            <p:outputLabel value="#{bundle.CreateProductoFamiliasLabel_fechaActualizacion}" for="fechaActualizacion" />
+                            <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaActualizacion}" title="#{bundle.CreateProductoFamiliasTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{productoFamiliasController.saveNew}" value="#{bundle.Save}" update="display,:ProductoFamiliasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductoFamiliasCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoFamiliasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

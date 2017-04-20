@@ -10,27 +10,29 @@
         <p:dialog id="ProductoFamiliasEditDlg" widgetVar="ProductoFamiliasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditProductoFamiliasTitle}" closeOnEscape="true">
 
             <h:form id="ProductoFamiliasEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{productoFamiliasController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{productoFamiliasController.selected != null}">
 
 
-                        <h:outputLabel value="#{bundle.EditProductoFamiliasLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{productoFamiliasController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditProductoFamiliasLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{productoFamiliasController.selected.descripcion}" 
+                                         title="#{bundle.EditProductoFamiliasTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditProductoFamiliasRequiredMessage_descripcion}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.EditProductoFamiliasLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{productoFamiliasController.selected.descripcion}" title="#{bundle.EditProductoFamiliasTitle_descripcion}" required="true" requiredMessage="#{bundle.EditProductoFamiliasRequiredMessage_descripcion}" size="150" maxlength="150"/>
-
-                        <p:outputLabel value="#{bundle.EditProductoFamiliasLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaCreacion}" title="#{bundle.EditProductoFamiliasTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditProductoFamiliasRequiredMessage_fechaCreacion}" showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditProductoFamiliasLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaActualizacion}" title="#{bundle.EditProductoFamiliasTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{productoFamiliasController.save}" value="#{bundle.Save}" update="display,:ProductoFamiliasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductoFamiliasEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoFamiliasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{productoFamiliasController.save}" value="#{bundle.Save}" update="display,:ProductoFamiliasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ProductoFamiliasEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ProductoFamiliasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -38,3 +40,14 @@
     </ui:composition>
 
 </html>
+<!--
+                      <p:outputLabel value="#{bundle.EditProductoFamiliasLabel_fechaCreacion}" for="fechaCreacion" />
+                      <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaCreacion}" title="#{bundle.EditProductoFamiliasTitle_fechaCreacion}" required="true" requiredMessage="#{bundle.EditProductoFamiliasRequiredMessage_fechaCreacion}" showOn="button"/>
+
+                      <p:outputLabel value="#{bundle.EditProductoFamiliasLabel_fechaActualizacion}" for="fechaActualizacion" />
+                      <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{productoFamiliasController.selected.fechaActualizacion}" title="#{bundle.EditProductoFamiliasTitle_fechaActualizacion}"  showOn="button"/>
+-->
+<!--
+<h:outputLabel value="#{bundle.EditProductoFamiliasLabel_id}" for="id" />
+<h:outputText id="id" value="#{productoFamiliasController.selected.id}" />
+-->

@@ -10,50 +10,83 @@
         <p:dialog id="VendedoresEditDlg" widgetVar="VendedoresEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditVendedoresTitle}" closeOnEscape="true">
 
             <h:form id="VendedoresEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{vendedoresController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{vendedoresController.selected != null}">
 
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_nombre}" for="nombre" />
+                            <p:inputText id="nombre"
+                                         value="#{vendedoresController.selected.nombre}" 
+                                         title="#{bundle.EditVendedoresTitle_nombre}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditVendedoresRequiredMessage_nombre}" 
+                                         size="100"/>
 
-                        <h:outputLabel value="#{bundle.EditVendedoresLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{vendedoresController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_apellido}" for="apellido" />
+                            <p:inputText id="apellido"
+                                         value="#{vendedoresController.selected.apellido}" 
+                                         title="#{bundle.EditVendedoresTitle_apellido}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditVendedoresRequiredMessage_apellido}" 
+                                         size="100"/>
 
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_nombre}" for="nombre" />
-                        <p:inputText id="nombre" value="#{vendedoresController.selected.nombre}" title="#{bundle.EditVendedoresTitle_nombre}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_nombre}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_cedula}" for="cedula" />
+                            <p:inputText id="cedula"
+                                         value="#{vendedoresController.selected.cedula}" 
+                                         title="#{bundle.EditVendedoresTitle_cedula}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditVendedoresRequiredMessage_cedula}" 
+                                         size="30" />
 
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_cedula}" for="cedula" />
-                        <p:inputText id="cedula" value="#{vendedoresController.selected.cedula}" title="#{bundle.EditVendedoresTitle_cedula}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_cedula}" size="30" maxlength="30"/>
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_activo}" for="activo" />
+                            <p:inputSwitch id="activo" 
+                                           value="#{vendedoresController.selected.activo}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.EditVendedoresRequiredMessage_activo}"
+                                           onLabel="#{bundle.Yes}"
+                                           offLabel="#{bundle.No}"/>
 
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{vendedoresController.selected.activo}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_activo}"/>
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_android}" for="android" />
+                            <p:inputSwitch id="android" 
+                                           value="#{vendedoresController.selected.android}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.EditVendedoresRequiredMessage_android}"
+                                           onLabel="#{bundle.Yes}"
+                                           offLabel="#{bundle.No}"/>
 
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_android}" for="android" />
-                        <p:selectBooleanCheckbox id="android" value="#{vendedoresController.selected.android}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_android}"/>
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_telefonoContacto}" for="telefonoContacto" />
+                            <p:inputMask id="telefonoContacto"
+                                         value="#{vendedoresController.selected.telefonoContacto}" 
+                                         title="#{bundle.EditVendedoresTitle_telefonoContacto}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditVendedoresRequiredMessage_telefonoContacto}" 
+                                         mask="(9999) 999-999"  
+                                         size="30"/>
 
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_telefonoContacto}" for="telefonoContacto" />
-                        <p:inputText id="telefonoContacto" value="#{vendedoresController.selected.telefonoContacto}" title="#{bundle.EditVendedoresTitle_telefonoContacto}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_telefonoContacto}" size="10" maxlength="10"/>
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_idCircuito}" for="idCircuito" />
+                            <p:selectOneMenu id="idCircuito" value="#{vendedoresController.selected.idCircuito}"
+                                             required="true" 
+                                             requiredMessage="#{bundle.EditVendedoresRequiredMessage_idCircuito}" 
+                                             converter="circuitosConverter" 
+                                             filter="true" 
+                                             filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{circuitosController.items}"
+                                               var="idCircuitoItem"
+                                               itemValue="#{idCircuitoItem}"
+                                               itemLabel="#{idCircuitoItem.descripcion.toString()}"/>
 
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{vendedoresController.selected.fechaCreacion}" title="#{bundle.EditVendedoresTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{vendedoresController.selected.fechaActualizacion}" title="#{bundle.EditVendedoresTitle_fechaActualizacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditVendedoresLabel_idCircuito}" for="idCircuito" />
-                        <p:selectOneMenu id="idCircuito" value="#{vendedoresController.selected.idCircuito}" required="true" requiredMessage="#{bundle.EditVendedoresRequiredMessage_idCircuito}" converter="circuitosConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{circuitosController.items}"
-                                           var="idCircuitoItem"
-                                           itemValue="#{idCircuitoItem}"
-                                           itemLabel="#{idCircuitoItem.descripcion.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{vendedoresController.save}" value="#{bundle.Save}" update="display,:VendedoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VendedoresEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VendedoresEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton  validateClient="true" actionListener="#{vendedoresController.save}" value="#{bundle.Save}" update="display,:VendedoresListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('VendedoresEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('VendedoresEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -61,3 +94,16 @@
     </ui:composition>
 
 </html>
+
+<!--
+
+
+                            <h:outputLabel value="#{bundle.EditVendedoresLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{vendedoresController.selected.id}" />
+
+  <p:outputLabel value="#{bundle.EditVendedoresLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{vendedoresController.selected.fechaCreacion}" title="#{bundle.EditVendedoresTitle_fechaCreacion}"  showOn="button"/>
+
+                            <p:outputLabel value="#{bundle.EditVendedoresLabel_fechaActualizacion}" for="fechaActualizacion" />
+                            <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{vendedoresController.selected.fechaActualizacion}" title="#{bundle.EditVendedoresTitle_fechaActualizacion}"  showOn="button"/>
+-->

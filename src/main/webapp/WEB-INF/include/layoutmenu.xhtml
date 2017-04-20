@@ -1,0 +1,148 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:po="http://primefaces.org/olympos">
+
+    <h:form id="menuform">
+        <po:menu widgetVar="OlymposMenu" >
+            <p:submenu id="om_dashboards" label="#{bundle.SubMenuLabelConfiguraciones}">
+                <p:menuitem id="om_db_landing" value="#{bundle.MenuUsuariosWebLabel}" icon="icon-users24" outcome="/usuariosWeb/index"/>
+                <p:menuitem id="om_db_sc" value="#{bundle.MenuCircuitosLabel}" icon="icon-code22" outcome="/circuitos/index"/>
+                <p:submenu id="om_db_location_b" label="#{bundle.SubMenuLabelUbicaciones}" icon="icon-facebook30">
+                    <p:menuitem id="om_countries_b" value="#{bundle.MenuPaisesLabel}" icon="icon-add54" outcome="/paises/index"/>
+                    <p:menuitem id="om_department_b" value="#{bundle.MenuDepartamentosLabel}" icon="icon-add54" outcome="/departamentos/index"/>
+                    <p:menuitem id="om_citites_b" value="#{bundle.MenuCiudadesLabel}" icon="icon-add54" outcome="/ciudades/index"/>
+                </p:submenu>
+
+                <p:menuitem id="om_pagos_b" value="#{bundle.MenuFormasPagoLabel}" icon="icon-dollar136" outcome="/formasPago/index"/>
+                <p:menuitem id="om_no_venta_b" value="#{bundle.MenuMotivosNoVentaLabel}" icon="icon-close7" outcome="/motivosNoCompra/index"/>
+                <p:menuitem id="om_tipos_comprobantes_b" value="#{bundle.MenuTiposComprobantesLabel}" icon="icon-document126" outcome="/tipoComprobantes/index"/>
+                <p:menuitem id="om_moviles_b" value="#{bundle.MenuMovilesLabel}" icon="fa fa-truck" outcome="/moviles/index"/>
+                <p:menuitem id="om_product_families_b" value="#{bundle.MenuFamiliaProductosLabel}" icon="fa fa-cubes" outcome="/productoFamilias/index"/>
+                <p:menuitem id="om_products_b" value="#{bundle.MenuProductosLabel}" icon="fa fa-product-hunt" outcome="/productos/index" />  
+                <p:menuitem id="om_delivery_b" value="#{bundle.MenuRepartidoresLabel}" icon="fa fa-motorcycle" outcome="/repartidores/index" />  
+                <p:menuitem id="om_providers_b" value="#{bundle.MenuProveedoresLabel}" icon="fa fa-dropbox" outcome="/proveedores/index" />  
+                <p:menuitem id="om_salesmen_b" value="#{bundle.MenuVendedoresLabel}" icon="icon-businessman233" outcome="/vendedores/index" />  
+                <p:menuitem id="om_clients_b" value="#{bundle.MenuClientesLabel}" icon="fa fa-users" outcome="/clientes/index" />  
+                <p:menuitem id="om_tax_type_b" value="#{bundle.MenuTipoImpuestosLabel}" icon="fa fa-percent" outcome="/tipoImpuestos/index" />  
+
+            </p:submenu>
+
+        </po:menu>
+    </h:form>
+
+</ui:composition>
+
+<!--
+    <p:submenu id="om_menuoptcolor" label="MENU AND COLOR OPTIONS">
+        <p:menuitem id="om_def" url="#" value="Default Menu Option" icon="icon-list3" onclick="PF('OlymposMenu').changeBodyClass('');return false;"/>
+        <p:menuitem id="om_popup" url="#" value="Popup Menu Option" icon="icon-window32" onclick="PF('OlymposMenu').changeBodyClass('PopupMenu');return false;"/>
+        <p:menuitem id="om_slim" url="#" value="Slim Menu Option" icon="icon-list3" onclick="PF('OlymposMenu').changeBodyClass('SlimMenu');return false;"/>
+        <p:submenu id="om_colors" label="Color Options" icon="icon-blood10">
+            <p:menuitem id="om_bg_blue" url="#" value="Blue Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('BlueTopbar');return false;"/>
+            <p:menuitem id="om_bg_navy" url="#" value="Navy Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('NavyTopbar');return false;"/>
+            <p:menuitem id="om_bg_leaden" url="#" value="Leaden Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('LeadenTopbar');return false;"/>
+            <p:menuitem id="om_bg_red" url="#" value="Red Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('RedTopbar');return false;"/>
+            <p:menuitem id="om_bg_green" url="#" value="Green Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('GreenTopbar');return false;"/>
+            <p:menuitem id="om_bg_yellow" url="#" value="Yellow Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('YellowTopbar');return false;"/>
+            <p:menuitem id="om_bg_orange" url="#" value="Orange Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('OrangeTopbar');return false;"/>
+            <p:menuitem id="om_bg_purple" url="#" value="Purple Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('PurpleTopbar');return false;"/>
+            <p:menuitem id="om_bg_aqua" url="#" value="Aqua Color" icon="icon-chemistry10" onclick="PF('OlymposMenu').changeBodyClass('AquaTopbar');return false;"/>
+        </p:submenu>
+    </p:submenu>
+-->
+
+<!--
+            <p:submenu id="om_theme" label="OLYMPOS THEME">
+     <p:menuitem id="om_sample" value="Sample Page" icon="icon-document126"  />
+     <p:menuitem id="om_forms" value="Form Elements" icon="icon-checking1"  />
+     <p:menuitem id="om_data" value="Data Components" icon="icon-time32"  />
+     <p:menuitem id="om_datatable" value="DataTable" icon="icon-notebook74"  />
+     <p:menuitem id="om_panels" value="Panels" icon="icon-browsers5"  />
+     <p:menuitem id="om_overlays" value="Overlays" icon="icon-music-files"  />
+     <p:menuitem id="om_menus" value="Menus" icon="icon-hierarchical8"  />
+     <p:menuitem id="om_messages" value="Messages" icon="icon-speech-bubble7"  />
+     <p:menuitem id="om_charts" value="Charts" icon="icon-arrow68"  />
+     <p:menuitem id="om_fileupload" value="FileUpload" icon="icon-statistic"  />
+     <p:menuitem id="om_misc" value="Misc" icon="icon-medical55"  />
+ </p:submenu>
+-->
+<!--
+     <p:submenu id="om_default" label="DEFAULT PAGES">
+                <p:menuitem id="om_empty" value="Empty Page" icon="icon-add173"  />
+                <p:menuitem id="om_login" value="Login Page" icon="icon-check61"  />
+                <p:menuitem id="om_error" value="Error Page" icon="icon-electronic58"  />
+                <p:menuitem id="om_404" value="404 Page" icon="icon-bandage"  />
+                <p:menuitem id="om_access" value="Access Denied Page" icon="icon-virtual2"  />
+            </p:submenu>
+-->
+<!--
+            <p:submenu id="om_hierarchy" label="MENU HIERARCHY">
+                <p:submenu id="om_sm1" label="Submenu 1" icon="icon-add5">
+                    <p:submenu id="om_sm11" label="Submenu 1.1" icon="icon-add5">
+                        <p:submenu id="om_sm111" label="Submenu 1.1.1" icon="icon-add5">
+                            <p:menuitem id="om_lnk1111" value="Link 1" icon="icon-link21" url="#" />
+                            <p:menuitem id="om_lnk1112" value="Link 2" icon="icon-link21" url="#" />
+                            <p:menuitem id="om_lnk1113" value="Link 3" icon="icon-link21" url="#" />
+                        </p:submenu>
+                    </p:submenu>
+                    <p:menuitem id="om_lnk12" value="Submenu 1.2" icon="icon-link21" url="#" />
+                    <p:menuitem id="om_lnk13" value="Submenu 1.3" icon="icon-link21" url="#" />
+                </p:submenu>
+                <p:submenu id="om_sm2" label="Submenu 2" icon="icon-add5">
+                    <p:submenu id="om_21" label="Submenu 2.1" icon="icon-add5">
+                        <p:submenu id="om_211" label="Submenu 2.1.1" icon="icon-add5">
+                            <p:menuitem id="om_lnk2111" value="Link 1" icon="icon-link21" url="#" />
+                            <p:menuitem id="om_lnk2112" value="Link 2" icon="icon-link21" url="#" />
+                            <p:menuitem id="om_lnk2113" value="Link 3" icon="icon-link21" url="#" />
+                        </p:submenu>
+                    </p:submenu>
+                </p:submenu>
+            </p:submenu>
+-->
+<!--
+        <p:submenu id="om_fonticon" label="FONT ICON">
+                <p:menuitem id="om_icons" value="Font Icons" icon="icon-planet23"  />
+            </p:submenu>
+         <p:menuitem id="om_clients_b" value="#{bundle.MenuClientesLabel}" icon="icon-male238" outcome="/clientes/index"/>
+-->
+<!--
+       <p:submenu id="om_docs" label="DOCUMENTATION">
+                <p:submenu id="om_docs_core" label="Core CSS Docs" icon="icon-doc2">
+                    <p:menuitem id="om_docs_1" value="Installation" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_2" value="Menus" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_3" value="Responsive Mode" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_4" value="ContainerX" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_5" value="Flex Boxes" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_6" value="WidX" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_7" value="Selection" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_8" value="Visibility" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_9" value="Displaying" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_10" value="Positioning" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_11" value="Underline" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_12" value="Floating" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_13" value="Overflows" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_14" value="Empty Boxes" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_15" value="Opacity" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_16" value="Text Aligning" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_17" value="Box Sizing" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_18" value="Font Size" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_19" value="Font Weights" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_20" value="Transitions" icon="icon-doc2"  />
+                </p:submenu>
+                <p:submenu id="om_docs_layout" label="Layout CSS Docs" icon="icon-doc2">
+                    <p:menuitem id="om_docs_21" value="LESS" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_22" value="Cards" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_23" value="Text Colors" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_24" value="Background Colors" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_25" value="Borders" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_26" value="Separators" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_27" value="Effects" icon="icon-doc2"  />
+                    <p:menuitem id="om_docs_28" value="Headings" icon="icon-doc2"  />
+                </p:submenu>
+            </p:submenu>
+
+-->

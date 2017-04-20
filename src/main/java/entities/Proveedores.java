@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Proveedores.findAll", query = "SELECT p FROM Proveedores p")
     , @NamedQuery(name = "Proveedores.findById", query = "SELECT p FROM Proveedores p WHERE p.id = :id")
+    , @NamedQuery(name = "Proveedores.findByRuc", query = "SELECT p FROM Proveedores p WHERE p.ruc = :ruc")
     , @NamedQuery(name = "Proveedores.findByDescripcion", query = "SELECT p FROM Proveedores p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "Proveedores.findByTelefono", query = "SELECT p FROM Proveedores p WHERE p.telefono = :telefono")
     , @NamedQuery(name = "Proveedores.findByDireccion", query = "SELECT p FROM Proveedores p WHERE p.direccion = :direccion")
@@ -52,6 +53,11 @@ public class Proveedores implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "ruc")
+    private String ruc;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 150)
@@ -75,15 +81,11 @@ public class Proveedores implements Serializable {
     @Column(name = "fecha_actuaizacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActuaizacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
-    private Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection;
     @JoinColumn(name = "id_pais", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Paises idPais;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
     private Collection<Productos> productosCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
-    private Collection<OrdenCompraCabecera> ordenCompraCabeceraCollection;
 
     public Proveedores() {
     }
@@ -92,8 +94,9 @@ public class Proveedores implements Serializable {
         this.id = id;
     }
 
-    public Proveedores(Integer id, String descripcion, String telefono) {
+    public Proveedores(Integer id, String ruc, String descripcion, String telefono) {
         this.id = id;
+        this.ruc = ruc;
         this.descripcion = descripcion;
         this.telefono = telefono;
     }
@@ -104,6 +107,14 @@ public class Proveedores implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
     }
 
     public String getDescripcion() {
@@ -154,15 +165,6 @@ public class Proveedores implements Serializable {
         this.fechaActuaizacion = fechaActuaizacion;
     }
 
-    @XmlTransient
-    public Collection<ComprobantesCompraCabecera> getComprobantesCompraCabeceraCollection() {
-        return comprobantesCompraCabeceraCollection;
-    }
-
-    public void setComprobantesCompraCabeceraCollection(Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection) {
-        this.comprobantesCompraCabeceraCollection = comprobantesCompraCabeceraCollection;
-    }
-
     public Paises getIdPais() {
         return idPais;
     }
@@ -178,15 +180,6 @@ public class Proveedores implements Serializable {
 
     public void setProductosCollection(Collection<Productos> productosCollection) {
         this.productosCollection = productosCollection;
-    }
-
-    @XmlTransient
-    public Collection<OrdenCompraCabecera> getOrdenCompraCabeceraCollection() {
-        return ordenCompraCabeceraCollection;
-    }
-
-    public void setOrdenCompraCabeceraCollection(Collection<OrdenCompraCabecera> ordenCompraCabeceraCollection) {
-        this.ordenCompraCabeceraCollection = ordenCompraCabeceraCollection;
     }
 
     @Override

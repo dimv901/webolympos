@@ -1,6 +1,7 @@
 package beans;
 
 import entities.Paises;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
@@ -13,4 +14,9 @@ public class PaisesController extends AbstractController<Paises> {
         super(Paises.class);
     }
 
+    public String pageCreate(){
+        return "WEB-INF/include/entity/paises/Create.xhtml";
+    }
+
+    
 }

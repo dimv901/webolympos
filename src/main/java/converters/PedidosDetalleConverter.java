@@ -3,6 +3,7 @@ package converters;
 import entities.PedidosDetalle;
 import controllers.PedidosDetalleFacade;
 import beans.util.JsfUtil;
+import controllers.DepartamentosFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.convert.FacesConverter;
@@ -10,6 +11,10 @@ import javax.inject.Inject;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
 @FacesConverter(value = "pedidosDetalleConverter")
 public class PedidosDetalleConverter implements Converter {
@@ -22,6 +27,27 @@ public class PedidosDetalleConverter implements Converter {
         if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
             return null;
         }
+
+        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
+        Context ctx = null;
+        try {
+            ctx = new InitialContext();
+        } catch (NamingException ex) {
+            Logger.getLogger(PedidosDetalleConverter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ctx != null) {
+            try {
+                String lookupString;
+                if (servletContext != null) {
+                    lookupString = "java:global" + servletContext.getContextPath() + "/" + PedidosDetalleFacade.class.getSimpleName();
+                } else {
+                    lookupString = "java:global/" + PedidosDetalleFacade.class.getSimpleName();
+                }
+                ejbFacade = (PedidosDetalleFacade) ctx.lookup(lookupString);
+            } catch (NamingException ex) {
+                Logger.getLogger(PedidosDetalleConverter.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return this.ejbFacade.find(getKey(value));
     }
 
@@ -32,7 +58,7 @@ public class PedidosDetalleConverter implements Converter {
     }
 
     String getStringKey(java.lang.Integer value) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(value);
         return sb.toString();
     }

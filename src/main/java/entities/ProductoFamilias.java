@@ -52,8 +52,6 @@ public class ProductoFamilias implements Serializable {
     @Size(min = 1, max = 150)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
@@ -70,10 +68,9 @@ public class ProductoFamilias implements Serializable {
         this.id = id;
     }
 
-    public ProductoFamilias(Integer id, String descripcion, Date fechaCreacion) {
+    public ProductoFamilias(Integer id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
-        this.fechaCreacion = fechaCreacion;
     }
 
     public Integer getId() {

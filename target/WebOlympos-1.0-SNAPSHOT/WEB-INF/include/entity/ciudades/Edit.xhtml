@@ -10,38 +10,44 @@
         <p:dialog id="CiudadesEditDlg" widgetVar="CiudadesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditCiudadesTitle}" closeOnEscape="true">
 
             <h:form id="CiudadesEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{ciudadesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ciudadesController.selected != null}">
+                            <!--
+                            <h:outputLabel value="#{bundle.EditCiudadesLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{ciudadesController.selected.id}" />
+                            --> 
+                            <p:outputLabel value="#{bundle.EditCiudadesLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" value="#{ciudadesController.selected.descripcion}" title="#{bundle.EditCiudadesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditCiudadesRequiredMessage_descripcion}" size="150" maxlength="150"/>
 
+                            <!--
+                            <p:outputLabel value="#{bundle.EditCiudadesLabel_fechaCreacion}" for="fechaCreacion" />
+                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.EditCiudadesTitle_fechaCreacion}"  showOn="button"/>
+    
+                            <p:outputLabel value="#{bundle.EditCiudadesLabel_fechaActualizacion}" for="fechaActualizacion" />
+                            <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.EditCiudadesTitle_fechaActualizacion}"  showOn="button"/>
+                            -->
 
-                        <h:outputLabel value="#{bundle.EditCiudadesLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{ciudadesController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditCiudadesLabel_idDepartamento}" for="idDepartamento" />
+                            <p:selectOneMenu id="idDepartamento" value="#{ciudadesController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.EditCiudadesRequiredMessage_idDepartamento}" converter="departamentosConverter" filter="true" filterMatchMode="contains">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{departamentosController.items}"
+                                               var="idDepartamentoItem"
+                                               itemValue="#{idDepartamentoItem}"
+                                               itemLabel="#{idDepartamentoItem.descripcion.toString()}"
+                                               />
 
-                        <p:outputLabel value="#{bundle.EditCiudadesLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{ciudadesController.selected.descripcion}" title="#{bundle.EditCiudadesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditCiudadesRequiredMessage_descripcion}" size="150" maxlength="150"/>
-
-                        <p:outputLabel value="#{bundle.EditCiudadesLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaCreacion}" title="#{bundle.EditCiudadesTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditCiudadesLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{ciudadesController.selected.fechaActualizacion}" title="#{bundle.EditCiudadesTitle_fechaActualizacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditCiudadesLabel_idDepartamento}" for="idDepartamento" />
-                        <p:selectOneMenu id="idDepartamento" value="#{ciudadesController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.EditCiudadesRequiredMessage_idDepartamento}" converter="departamentosConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{departamentosController.items}"
-                                           var="idDepartamentoItem"
-                                           itemValue="#{idDepartamentoItem}"
-                                           itemLabel="#{idDepartamentoItem.descripcion.toString()}"
-                                           />
-
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{ciudadesController.save}" value="#{bundle.Save}" update="display,:CiudadesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadesEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{ciudadesController.save}" value="#{bundle.Save}" update="display,:CiudadesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('CiudadesEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CiudadesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
