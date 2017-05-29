@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,9 +57,13 @@ public class Stock implements Serializable {
     @Column(name = "fecha_actualizacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
+    //@JoinColumn(name = "id_producto", referencedColumnName = "id")
+    //@ManyToOne(optional = false)
+    //private Productos idProducto;
+    //@OneToOne
     @JoinColumn(name = "id_producto", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Productos idProducto;
+    @OneToOne
+    private Productos stock;
 
     public Stock() {
     }
@@ -102,14 +109,13 @@ public class Stock implements Serializable {
         this.fechaActualizacion = fechaActualizacion;
     }
 
-    public Productos getIdProducto() {
+    /*public Productos getIdProducto() {
         return idProducto;
     }
 
     public void setIdProducto(Productos idProducto) {
         this.idProducto = idProducto;
-    }
-
+    }*/
     @Override
     public int hashCode() {
         int hash = 0;
@@ -134,5 +140,13 @@ public class Stock implements Serializable {
     public String toString() {
         return "entities.Stock[ id=" + id + " ]";
     }
-    
+
+    public Productos getStock() {
+        return stock;
+    }
+
+    public void setStock(Productos stock) {
+        this.stock = stock;
+    }
+
 }

@@ -60,8 +60,6 @@ public class TipoComprobantes implements Serializable {
     private Date fechaActualizacion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
     private Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoComprobante")
-    private Collection<ComprobantesVentaCabecera> comprobantesVentaCabeceraCollection;
 
     public TipoComprobantes() {
     }
@@ -114,15 +112,6 @@ public class TipoComprobantes implements Serializable {
 
     public void setComprobantesCompraCabeceraCollection(Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection) {
         this.comprobantesCompraCabeceraCollection = comprobantesCompraCabeceraCollection;
-    }
-
-    @XmlTransient
-    public Collection<ComprobantesVentaCabecera> getComprobantesVentaCabeceraCollection() {
-        return comprobantesVentaCabeceraCollection;
-    }
-
-    public void setComprobantesVentaCabeceraCollection(Collection<ComprobantesVentaCabecera> comprobantesVentaCabeceraCollection) {
-        this.comprobantesVentaCabeceraCollection = comprobantesVentaCabeceraCollection;
     }
 
     @Override

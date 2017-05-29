@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -99,6 +101,16 @@ public class Productos implements Serializable {
     @JoinColumn(name = "id_tipo_impuesto", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private TipoImpuestos idTipoImpuesto;
+    @OneToOne(mappedBy = "stock", cascade=CascadeType.REMOVE)
+    private Stock stock;
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
 
     public Productos() {
     }
@@ -243,15 +255,14 @@ public class Productos implements Serializable {
             return false;
         }
         Productos other = (Productos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
         return "entities.Productos[ id=" + id + " ]";
     }
+
     
+
 }

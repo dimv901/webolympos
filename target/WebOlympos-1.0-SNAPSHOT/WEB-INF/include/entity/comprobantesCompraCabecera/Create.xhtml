@@ -8,57 +8,229 @@
 
     <ui:composition>
 
-        <p:dialog id="ComprobantesCompraCabeceraCreateDlg" widgetVar="ComprobantesCompraCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateComprobantesCompraCabeceraTitle}" closeOnEscape="true">
+        <p:dialog id="ComprobantesCompraCabeceraCreateDlg" widgetVar="ComprobantesCompraCabeceraCreateDialog" modal="true" draggable="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateComprobantesCompraCabeceraTitle}" closeOnEscape="true">
 
             <h:form id="ComprobantesCompraCabeceraCreateForm">
+                <p:panel>
+                    <h:panelGroup id="display" rendered="#{comprobantesCompraCabeceraController.selected != null}">
+                        <p:tabView id="ComprasView">
+                            <p:tab id="ComprasTab1" title="#{bundle.TabHeaderComprasPrefixCabecera}">
+                                <p:panel id="cabecera" >
 
-                <h:panelGroup id="display" rendered="#{comprobantesCompraCabeceraController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                                    <p:panelGrid columns="2" columnClasses="column">
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalComprobante}" for="totalComprobante" />
-                        <p:inputText id="totalComprobante" value="#{comprobantesCompraCabeceraController.selected.totalComprobante}" title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalComprobante}" required="true" requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_totalComprobante}"/>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_idProveedor}" for="idProveedor" />
+                                        <p:selectOneMenu id="idProveedor" 
+                                                         value="#{comprobantesCompraCabeceraController.selected.idProveedor}" 
+                                                         required="true" 
+                                                         requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_idProveedor}" 
+                                                         converter="proveedoresConverter"
+                                                         filter="true" 
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{proveedoresController.items}"
+                                                           var="idProveedorItem"
+                                                           itemValue="#{idProveedorItem}"
+                                                           itemLabel="#{idProveedorItem.descripcion.toString()}"
+                                                           />
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalIva10}" for="totalIva10" />
-                        <p:inputText id="totalIva10" value="#{comprobantesCompraCabeceraController.selected.totalIva10}" title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalIva10}" required="true" requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_totalIva10}"/>
+                                        </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalIva5}" for="totalIva5" />
-                        <p:inputText id="totalIva5" value="#{comprobantesCompraCabeceraController.selected.totalIva5}" title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalIva5}" required="true" requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_totalIva5}"/>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_idTipoComprobante}" for="idTipoComprobante" />
+                                        <p:selectOneMenu id="idTipoComprobante"
+                                                         value="#{comprobantesCompraCabeceraController.selected.idTipoComprobante}" 
+                                                         required="true" 
+                                                         requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_idTipoComprobante}" 
+                                                         converter="tipoComprobantesConverter"
+                                                         filter="true" 
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{tipoComprobantesController.items}"
+                                                           var="idTipoComprobanteItem"
+                                                           itemValue="#{idTipoComprobanteItem}"
+                                                           itemLabel="#{idTipoComprobanteItem.descripcion.toString()}"
+                                                           />
+                                        </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalExentas}" for="totalExentas" />
-                        <p:inputText id="totalExentas" value="#{comprobantesCompraCabeceraController.selected.totalExentas}" title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalExentas}" required="true" requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_totalExentas}"/>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_numeroComprobante}"
+                                                       for="numeroComprobante" />
+                                        <p:inputMask id="numeroComprobante"
+                                                     size="30"
+                                                     value="#{comprobantesCompraCabeceraController.selected.numeroComprobante}"
+                                                     title="#{bundle.CreateComprobantesCompraCabeceraTitle_numeroComprobante}"
+                                                     required="true" 
+                                                     mask="999-999-9999999"
+                                                     requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_numeroComprobante}" />
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{comprobantesCompraCabeceraController.selected.fechaCreacion}" title="#{bundle.CreateComprobantesCompraCabeceraTitle_fechaCreacion}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_fechaComprobante}" for="fechaComprobante" />
+                                        <p:calendar id="fechaComprobante" 
+                                                    value="#{comprobantesCompraCabeceraController.selected.fechaComprobante}" 
+                                                    title="#{bundle.ComprasDatosComprobanteTitle_fechaComprobante}" 
+                                                    required="true" 
+                                                    requiredMessage="#{bundle.ComprasDatosComprobanteMessage_fechaComprobante}" 
+                                                    size="30"
+                                                    autocomplete="true"
+                                                    maxlength="30"
+                                                    pattern="dd/MM/yyyy"
+                                                    locale="es"
+                                                    placeholder="DD/MM/YYYY"
+                                                    showOn="button" />
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{comprobantesCompraCabeceraController.selected.fechaActualizacion}" title="#{bundle.CreateComprobantesCompraCabeceraTitle_fechaActualizacion}"  showOn="button"/>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalComprobante}" for="totalComprobante" />
+                                        <p:inputNumber id="totalComprobante"
+                                                       value="#{comprobantesCompraCabeceraController.selected.totalComprobante}" 
+                                                       title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalComprobante}" 
+                                                       required="true" 
+                                                       requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_totalComprobante}"
+                                                       validatorMessage="#{bundle.ErrorMontoInvalido}"
+                                                       decimalSeparator="," thousandSeparator=".">
+                                            <f:validateDoubleRange minimum="1" />
+                                        </p:inputNumber>
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_idProveedor}" for="idProveedor" />
-                        <p:selectOneMenu id="idProveedor" value="#{comprobantesCompraCabeceraController.selected.idProveedor}" required="true" requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_idProveedor}" converter="proveedoresConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{proveedoresController.items}"
-                                           var="idProveedorItem"
-                                           itemValue="#{idProveedorItem}"
-                                           itemLabel="#{idProveedorItem.descripcion.toString()}"
-                                           />
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalExentas}" for="totalExentas" />
+                                        <p:inputNumber id="totalExentas" 
+                                                       value="#{comprobantesCompraCabeceraController.selected.totalExentas}" 
+                                                       title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalExentas}" 
+                                                       decimalSeparator="," thousandSeparator="."/>
 
-                        </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalGravadas10}" for="totalGravada10" />
+                                        <p:inputNumber id="totalGravada10" 
+                                                       value="#{comprobantesCompraCabeceraController.selected.totalGravadas10}" 
+                                                       title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalGravadas10}" 
+                                                       decimalSeparator="," thousandSeparator="."/>
 
-                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_idTipoComprobante}" for="idTipoComprobante" />
-                        <p:selectOneMenu id="idTipoComprobante" value="#{comprobantesCompraCabeceraController.selected.idTipoComprobante}" required="true" requiredMessage="#{bundle.CreateComprobantesCompraCabeceraRequiredMessage_idTipoComprobante}" converter="tipoComprobantesConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{tipoComprobantesController.items}"
-                                           var="idTipoComprobanteItem"
-                                           itemValue="#{idTipoComprobanteItem}"
-                                           itemLabel="#{idTipoComprobanteItem.descripcion.toString()}"
-                                           />
 
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{comprobantesCompraCabeceraController.saveNew}" value="#{bundle.Save}" update="display,:ComprobantesCompraCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ComprobantesCompraCabeceraCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ComprobantesCompraCabeceraCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalGravadas5}" for="totalGravada5" />
+                                        <p:inputNumber id="totalGravada5" 
+                                                       value="#{comprobantesCompraCabeceraController.selected.totalGravadas5}" 
+                                                       title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalGravadas5}" 
+                                                       decimalSeparator="," thousandSeparator="."/>
 
+                                                  <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalIva10}" for="totalIva10" />
+                                        <p:inputNumber id="totalIva10" 
+                                                       value="#{comprobantesCompraCabeceraController.selected.totalIva10}" 
+                                                       title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalIva10}" 
+                                                       decimalSeparator="," thousandSeparator="."/>
+                            
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="ComprasTab2" title="#{bundle.TabHeaderComprasPrefixDetalle}">
+                                <p:panel id="detalle">
+                                    <h:panelGrid id="grid" columns="1" columnClasses="columns" >
+                                        <p:outputLabel value="#{bundle.ComprasDatosComprobanteLabel_producto}" for="idProducto" />
+                                        <h:panelGrid columns="2"  >
+                                            <p:selectOneMenu id="idProducto" 
+                                                             value="#{comprobantesCompraCabeceraController.comprasItemDetalle.producto}" 
+                                                             converter="productosConverter"
+                                                             filter="true" 
+                                                             filterMatchMode="contains">
+                                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                                <f:selectItems value="#{comprobantesCompraCabeceraController.productoList}"
+                                                               var="idProducto"
+                                                               itemValue="#{idProducto}"
+                                                               itemLabel="#{idProducto.codigoBarra.toString()}"/>
+                                                <p:ajax event="valueChange" immediate="true" process="@this" update="producto" />
+                                            </p:selectOneMenu>
+                                            <p:outputLabel id="producto" value="#{comprobantesCompraCabeceraController.comprasItemDetalle.producto.descripcion}" for="idProducto" style="margin-left: 10px;"/>
+                                        </h:panelGrid>
+
+
+                                        <p:outputLabel value="#{bundle.ComprasDatosComprobanteLabel_precio}" for="precioUnitario" />
+                                        <p:inputNumber id="precioUnitario" 
+                                                       value="#{comprobantesCompraCabeceraController.comprasItemDetalle.precioUnitario}" 
+                                                       title="#{bundle.ComprasDatosComprobanteTitle_precio}"
+                                                       size="30"
+                                                       decimalSeparator="," thousandSeparator="."
+                                                       validatorMessage="#{bundle.ErrorMontoInvalido}">
+                                            <f:validateDoubleRange minimum="1" />
+                                        </p:inputNumber>
+
+                                        <p:outputLabel value="#{bundle.ComprasDatosComprobanteLabel_cantidad}" for="cantidad" />
+                                        <p:inputNumber id="cantidad" 
+                                                       value="#{comprobantesCompraCabeceraController.comprasItemDetalle.cantidad}"
+                                                       title="#{bundle.ComprasDatosComprobanteLabel_cantidad}"
+                                                       size="30"
+                                                       decimalSeparator="," thousandSeparator="."
+                                                       validatorMessage="#{bundle.ErrorCantidadInvalida}">
+                                            <f:validateDoubleRange minimum="1" />
+                                        </p:inputNumber>
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="#{bundle.Add}" styleClass="GreenButton" icon="fa fa-plus Fs16 White">
+                                            <p:ajax event="click" listener="#{comprobantesCompraCabeceraController.agregarItemADetalle}" update="datalist, growl, detalle"  process="@parent" />
+                                        </p:commandButton>
+                                    </div>
+                                </p:panel>
+                                <h:panelGroup>
+                                    <p:dataTable  id="datalist"
+                                                  value="#{comprobantesCompraCabeceraController.comprasDetalleList}"
+                                                  var="item"
+                                                  paginator="true"
+                                                  paginatorPosition="bottom"
+                                                  rows="10"
+                                                  rowsPerPageTemplate="10,20,30"
+                                                  emptyMessage="#{bundle.ErrorEmptyDetail}"
+                                                  reflow="true">
+
+
+                                        <p:column sortBy="#{item.producto.codigoBarra}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelCodigo}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.producto.codigoBarra}"/>
+                                        </p:column>
+
+
+                                        <p:column sortBy="#{item.producto.descripcion}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelDescripcion}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.producto.descripcion}"/>
+                                        </p:column>
+
+                                        <p:column sortBy="#{item.precioUnitario}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelPrecioUnitario}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.precioUnitario}"/>
+                                        </p:column>
+
+                                        <p:column sortBy="#{item.cantidad}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelCantidad}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.cantidad}"/>
+                                        </p:column>
+
+                                        <p:column sortBy="#{item.importe}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelImporte}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.importe}"/>
+                                        </p:column>
+
+                                        <p:column>
+                                            <p:commandButton title="#{bundle.Delete}"
+                                                             styleClass="RedButton" 
+                                                             icon="fa fa-remove Fs16 White"
+                                                             actionListener="#{comprobantesCompraCabeceraController.eliminarItem(item)}"
+                                                             process="@this"
+                                                             update="datalist"/>
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </h:panelGroup>
+                            </p:tab>
+                        </p:tabView>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{comprobantesCompraCabeceraController.saveNew}" value="#{bundle.Save}" update="display,:ComprobantesCompraCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ComprobantesCompraCabeceraCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ComprobantesCompraCabeceraCreateDialog').hide()" update="display" process="@form" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>
@@ -66,3 +238,19 @@
     </ui:composition>
 
 </html>
+<!--
+     <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_fechaCreacion}" for="fechaCreacion" />
+                        <p:calendar id="fechaCreacion" 
+                                    pattern="MM/dd/yyyy HH:mm:ss" 
+                                    value="#{comprobantesCompraCabeceraController.selected.fechaCreacion}" 
+                                    title="#{bundle.CreateComprobantesCompraCabeceraTitle_fechaCreacion}"  
+                                    showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_fechaActualizacion}" for="fechaActualizacion" />
+                        <p:calendar id="fechaActualizacion" 
+                                    pattern="MM/dd/yyyy HH:mm:ss" 
+                                    value="#{comprobantesCompraCabeceraController.selected.fechaActualizacion}" 
+                                    title="#{bundle.CreateComprobantesCompraCabeceraTitle_fechaActualizacion}" 
+                                    showOn="button"/>
+
+-->

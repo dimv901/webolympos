@@ -32,21 +32,29 @@
                             <p:inputSwitch id="activo" value="#{productosController.selected.activo}" required="true" offLabel="#{bundle.No}" onLabel="#{bundle.Yes}"/>
 
                             <p:outputLabel value="#{bundle.CreateProductosLabel_precioCosto}" for="precioCosto" />
-                            <p:inputText id="precioCosto" 
-                                         value="#{productosController.selected.precioCosto}" 
-                                         title="#{bundle.CreateProductosTitle_precioCosto}" 
-                                         required="true" 
-                                         requiredMessage="#{bundle.CreateProductosRequiredMessage_precioCosto}"/>
+                            <p:inputNumber id="precioCosto" 
+                                           value="#{productosController.selected.precioCosto}" 
+                                           title="#{bundle.CreateProductosTitle_precioCosto}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.CreateProductosRequiredMessage_precioCosto}"
+                                           validatorMessage="#{bundle.ErrorMontoInvalido}"
+                                           decimalSeparator="," thousandSeparator="."> 
+                                <f:validateDoubleRange minimum="1" />
+                            </p:inputNumber>
 
                             <p:outputLabel value="#{bundle.CreateProductosLabel_precioVenta}" for="precioVenta" />
-                            <p:inputText id="precioVenta" 
-                                         value="#{productosController.selected.precioVenta}" 
-                                         title="#{bundle.CreateProductosTitle_precioVenta}" 
-                                         required="true" 
-                                         requiredMessage="#{bundle.CreateProductosRequiredMessage_precioVenta}"/>
+                            <p:inputNumber id="precioVenta" 
+                                           value="#{productosController.selected.precioVenta}" 
+                                           title="#{bundle.CreateProductosTitle_precioVenta}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.CreateProductosRequiredMessage_precioVenta}"
+                                           validatorMessage="#{bundle.ErrorMontoInvalido}"
+                                           decimalSeparator="," thousandSeparator="."> 
+                                <f:validateDoubleRange minimum="1" />
+                            </p:inputNumber>
 
                             <p:outputLabel value="#{bundle.CreateProductosLabel_idProductoFamilia}" for="idProductoFamilia" />
-                            <p:selectOneMenu id="idProductoFamilia" value="#{productosController.selected.idProductoFamilia}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idProductoFamilia}" converter="productoFamiliasConverter">
+                            <p:selectOneMenu id="idProductoFamilia" value="#{productosController.selected.idProductoFamilia}" required="true" requiredMessage="#{bundle.CreateProductosRequiredMessage_idProductoFamilia}" converter="productoFamiliasConverter" filter="true" filterMatchMode="contains">
                                 <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                 <f:selectItems value="#{productoFamiliasController.items}"
                                                var="idProductoFamiliaItem"
@@ -77,6 +85,8 @@
                                                />
 
                             </p:selectOneMenu>
+
+
 
                             <p:outputLabel value="#{bundle.CreateProductosLabel_foto}" for="idUploadPic" />
                             <p:fileUpload id="idUploadPic"

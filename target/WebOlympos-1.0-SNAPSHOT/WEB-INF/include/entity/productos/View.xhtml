@@ -4,39 +4,117 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition>
 
         <p:dialog id="ProductosViewDlg" widgetVar="ProductosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewProductosTitle}" closeOnEscape="true">
 
             <h:form id="ProductosViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{productosController.selected != null}">
+                        <p:tabView id="ProductosTabView">
+                            <p:tab id="productos1" title="#{bundle.TabHeaderProductPrefixInfo}">
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_id}"/>
-                        <h:outputText value="#{productosController.selected.id}" title="#{bundle.ViewProductosTitle_id}"/>
+                                <p:panelGrid columns="2" columnClasses="column" rendered="#{productosController.selected != null}">
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_foto}"/>
-                        <h:outputText value="#{productosController.selected.foto}" title="#{bundle.ViewProductosTitle_foto}"/>
+                                    <h:outputText value="#{bundle.ViewProductosLabel_id}"/>
+                                    <h:outputText value="#{productosController.selected.id}" title="#{bundle.ViewProductosTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_descripcion}"/>
-                        <h:outputText value="#{productosController.selected.descripcion}" title="#{bundle.ViewProductosTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_codigoBarra}"/>
-                        <h:outputText value="#{productosController.selected.codigoBarra}" title="#{bundle.ViewProductosTitle_codigoBarra}"/>
+                                    <h:outputText value="#{bundle.ViewProductosLabel_descripcion}"/>
+                                    <h:outputText value="#{productosController.selected.descripcion}" title="#{bundle.ViewProductosTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_activo}"/>
-                        <h:selectBooleanCheckbox id="activo" value="#{productosController.selected.activo}" title="#{bundle.EditProductosTitle_activo}" required="true" requiredMessage="#{bundle.EditProductosRequiredMessage_activo}" disabled="true"/>
+                                    <h:outputText value="#{bundle.ViewProductosLabel_codigoBarra}"/>
+                                    <h:outputText value="#{productosController.selected.codigoBarra}" title="#{bundle.ViewProductosTitle_codigoBarra}"/>
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_precioVenta}"/>
-                        <h:outputText value="#{productosController.selected.precioVenta}" title="#{bundle.ViewProductosTitle_precioVenta}"/>
+                                    <h:outputText value="#{bundle.ViewProductosLabel_activo}"/>
+                                    <p:inputSwitch id="activo"
+                                                   value="#{productosController.selected.activo}" 
+                                                   required="true" 
+                                                   requiredMessage="#{bundle.EditProductosRequiredMessage_activo}" 
+                                                   disabled="true"
+                                                   onLabel="#{bundle.Yes}"
+                                                   offLabel="#{bundle.No}"/>
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_precioCosto}"/>
-                        <h:outputText value="#{productosController.selected.precioCosto}" title="#{bundle.ViewProductosTitle_precioCosto}"/>
+                                    <h:outputText value="#{bundle.ViewProductosLabel_precioVenta}"/>
+                                    <h:outputText value="#{productosController.selected.precioVenta}" title="#{bundle.ViewProductosTitle_precioVenta}"/>
 
-                        <h:outputText value="#{bundle.ViewProductosLabel_urlImagen}"/>
+                                    <h:outputText value="#{bundle.ViewProductosLabel_precioCosto}"/>
+                                    <h:outputText value="#{productosController.selected.precioCosto}" title="#{bundle.ViewProductosTitle_precioCosto}"/>
+
+                                    <h:outputText value="#{bundle.ViewProductosLabel_stock}"/>
+                                    <h:outputText value="#{productosController.selected.stock.cantidad}" title="#{bundle.ViewProductosTitle_stock}"/>
+
+                                    <h:outputText value="#{bundle.ViewProductosLabel_idProductoFamilia}"/>
+                                    <h:outputText value="#{productosController.selected.idProductoFamilia.descripcion}"/>
+
+                                    <h:outputText value="#{bundle.ViewProductosLabel_idProveedor}"/>
+                                    <h:outputText value="#{productosController.selected.idProveedor.descripcion}"/>
+
+                                    <h:outputText value="#{bundle.ViewProductosLabel_idTipoImpuesto}"/>
+                                    <h:outputText value="#{productosController.selected.idTipoImpuesto.descripcion}"/>
+                                </p:panelGrid>
+                            </p:tab>
+
+
+                            <p:tab id="productos2" title="#{bundle.TabHeaderProductPrefixImage}">
+
+                                <c:if test="#{productosController.selected.tieneFoto==false}">
+                                    <div class="Wid80 MarAuto">
+                                        <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
+                                            <div class="Wid50 MarAuto WidAutoOnMobile">
+                                                <div class="Card ui-fluid ShadowEffect">
+                                                    <div class="Container100">
+                                                        <i class="icon-camera89 Fs100 Red"></i>
+                                                    </div>
+                                                    <div class="Container100 FontLatoBlack Fs30 Red">
+                                                        #{bundle.ErrorNoPictureProducto}
+                                                    </div>
+                                                    <div class="EmptyBox10"></div>
+                                                    <div class="Separator"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="#{productosController.selected.tieneFoto==true}">
+                                    <div  align="center">
+                                        <p:graphicImage  cache="false" 
+                                                         stream="false" 
+                                                         value="#{productosController.picture}" 
+                                                         style="width:100%;" >
+                                        </p:graphicImage>
+                                    </div>
+                                </c:if>
+
+                            </p:tab>
+
+
+                        </p:tabView>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('ProductosViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
+
+<!--
+    <h:outputText value="#{bundle.ViewProductosLabel_foto}"/>
+                            <h:outputText value="#{productosController.selected.foto}" title="#{bundle.ViewProductosTitle_foto}"/>
+
+  <h:outputText value="#{bundle.ViewProductosLabel_urlImagen}"/>
                         <h:outputText value="#{productosController.selected.urlImagen}" title="#{bundle.ViewProductosTitle_urlImagen}"/>
 
                         <h:outputText value="#{bundle.ViewProductosLabel_fechaCreacion}"/>
@@ -48,23 +126,4 @@
                         <h:outputText value="#{productosController.selected.fechaActualizacion}" title="#{bundle.ViewProductosTitle_fechaActualizacion}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewProductosLabel_idProductoFamilia}"/>
-                        <h:outputText value="#{productosController.selected.idProductoFamilia.descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewProductosLabel_idProveedor}"/>
-                        <h:outputText value="#{productosController.selected.idProveedor.descripcion}"/>
-
-                        <h:outputText value="#{bundle.ViewProductosLabel_idTipoImpuesto}"/>
-                        <h:outputText value="#{productosController.selected.idTipoImpuesto.descripcion}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('ProductosViewDialog').hide()"/>
-                </h:panelGroup>
-
-            </h:form>
-
-        </p:dialog>
-
-    </ui:composition>
-
-</html>
+-->

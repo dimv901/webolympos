@@ -21,6 +21,7 @@ controllers\PaisesFacade.class
 converters\CiudadesConverter.class
 entities\Clientes.class
 entities\FormasPago_.class
+beans\ComprasController.class
 entities\Paises.class
 beans\LoginController.class
 beans\UsuariosMovilesController.class
@@ -83,6 +84,7 @@ entities\ProductoFamilias.class
 converters\OrdenCompraCabeceraConverter.class
 beans\ProveedoresController.class
 entities\ComprobantesCompraDetalle_.class
+beans\util\ComprasDetalle.class
 converters\PedidosDetalleConverter.class
 converters\ComprobantesCompraCabeceraConverter.class
 beans\RepartidoresController.class

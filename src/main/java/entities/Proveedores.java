@@ -85,7 +85,7 @@ public class Proveedores implements Serializable {
     @ManyToOne(optional = false)
     private Paises idPais;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
-    private Collection<Productos> productosCollection;
+    private Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection;
 
     public Proveedores() {
     }
@@ -174,12 +174,12 @@ public class Proveedores implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Productos> getProductosCollection() {
-        return productosCollection;
+    public Collection<ComprobantesCompraCabecera> getComprobantesCompraCabeceraCollection() {
+        return comprobantesCompraCabeceraCollection;
     }
 
-    public void setProductosCollection(Collection<Productos> productosCollection) {
-        this.productosCollection = productosCollection;
+    public void setComprobantesCompraCabeceraCollection(Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection) {
+        this.comprobantesCompraCabeceraCollection = comprobantesCompraCabeceraCollection;
     }
 
     @Override

@@ -1,5 +1,6 @@
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\OrdenCompraCabeceraConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\ComprobantesVentaDetalle.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ComprasController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\LoginController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Moviles.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\MotivosNoCompraFacade.java
@@ -119,6 +120,7 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\Circuit
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\UsuariosMovilesFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Paises.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\FormasPagoController.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\util\ComprasDetalle.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\OrdenCompraDetalleController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Departamentos.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\PedidosDetalleController.java

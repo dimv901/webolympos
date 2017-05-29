@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -37,12 +38,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ComprobantesCompraCabecera.findAll", query = "SELECT c FROM ComprobantesCompraCabecera c")
     , @NamedQuery(name = "ComprobantesCompraCabecera.findById", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.id = :id")
+    , @NamedQuery(name = "ComprobantesCompraCabecera.findByNumeroComprobante", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.numeroComprobante = :numeroComprobante")
     , @NamedQuery(name = "ComprobantesCompraCabecera.findByTotalComprobante", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.totalComprobante = :totalComprobante")
+    , @NamedQuery(name = "ComprobantesCompraCabecera.findByTotalGravadas10", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.totalGravadas10 = :totalGravadas10")
     , @NamedQuery(name = "ComprobantesCompraCabecera.findByTotalIva10", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.totalIva10 = :totalIva10")
+    , @NamedQuery(name = "ComprobantesCompraCabecera.findByTotalGravadas5", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.totalGravadas5 = :totalGravadas5")
     , @NamedQuery(name = "ComprobantesCompraCabecera.findByTotalIva5", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.totalIva5 = :totalIva5")
     , @NamedQuery(name = "ComprobantesCompraCabecera.findByTotalExentas", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.totalExentas = :totalExentas")
+    , @NamedQuery(name = "ComprobantesCompraCabecera.findByFechaActualizacion", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.fechaActualizacion = :fechaActualizacion")
     , @NamedQuery(name = "ComprobantesCompraCabecera.findByFechaCreacion", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.fechaCreacion = :fechaCreacion")
-    , @NamedQuery(name = "ComprobantesCompraCabecera.findByFechaActualizacion", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.fechaActualizacion = :fechaActualizacion")})
+    , @NamedQuery(name = "ComprobantesCompraCabecera.findByFechaComprobante", query = "SELECT c FROM ComprobantesCompraCabecera c WHERE c.fechaComprobante = :fechaComprobante")})
 public class ComprobantesCompraCabecera implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,12 +58,25 @@ public class ComprobantesCompraCabecera implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "numero_comprobante")
+    private String numeroComprobante;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "total_comprobante")
     private double totalComprobante;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "total_gravadas_10")
+    private double totalGravadas10;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "total_iva_10")
     private double totalIva10;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "total_gravadas_5")
+    private double totalGravadas5;
     @Basic(optional = false)
     @NotNull
     @Column(name = "total_iva_5")
@@ -67,12 +85,17 @@ public class ComprobantesCompraCabecera implements Serializable {
     @NotNull
     @Column(name = "total_exentas")
     private double totalExentas;
-    @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCreacion;
     @Column(name = "fecha_actualizacion")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
+    @Column(name = "fecha_creacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaCreacion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha_comprobante")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaComprobante;
     @JoinColumn(name = "id_proveedor", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Proveedores idProveedor;
@@ -89,12 +112,16 @@ public class ComprobantesCompraCabecera implements Serializable {
         this.id = id;
     }
 
-    public ComprobantesCompraCabecera(Integer id, double totalComprobante, double totalIva10, double totalIva5, double totalExentas) {
+    public ComprobantesCompraCabecera(Integer id, String numeroComprobante, double totalComprobante, double totalGravadas10, double totalIva10, double totalGravadas5, double totalIva5, double totalExentas, Date fechaComprobante) {
         this.id = id;
+        this.numeroComprobante = numeroComprobante;
         this.totalComprobante = totalComprobante;
+        this.totalGravadas10 = totalGravadas10;
         this.totalIva10 = totalIva10;
+        this.totalGravadas5 = totalGravadas5;
         this.totalIva5 = totalIva5;
         this.totalExentas = totalExentas;
+        this.fechaComprobante = fechaComprobante;
     }
 
     public Integer getId() {
@@ -105,6 +132,14 @@ public class ComprobantesCompraCabecera implements Serializable {
         this.id = id;
     }
 
+    public String getNumeroComprobante() {
+        return numeroComprobante;
+    }
+
+    public void setNumeroComprobante(String numeroComprobante) {
+        this.numeroComprobante = numeroComprobante;
+    }
+
     public double getTotalComprobante() {
         return totalComprobante;
     }
@@ -113,12 +148,28 @@ public class ComprobantesCompraCabecera implements Serializable {
         this.totalComprobante = totalComprobante;
     }
 
+    public double getTotalGravadas10() {
+        return totalGravadas10;
+    }
+
+    public void setTotalGravadas10(double totalGravadas10) {
+        this.totalGravadas10 = totalGravadas10;
+    }
+
     public double getTotalIva10() {
         return totalIva10;
     }
 
     public void setTotalIva10(double totalIva10) {
         this.totalIva10 = totalIva10;
+    }
+
+    public double getTotalGravadas5() {
+        return totalGravadas5;
+    }
+
+    public void setTotalGravadas5(double totalGravadas5) {
+        this.totalGravadas5 = totalGravadas5;
     }
 
     public double getTotalIva5() {
@@ -137,6 +188,14 @@ public class ComprobantesCompraCabecera implements Serializable {
         this.totalExentas = totalExentas;
     }
 
+    public Date getFechaActualizacion() {
+        return fechaActualizacion;
+    }
+
+    public void setFechaActualizacion(Date fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -145,12 +204,21 @@ public class ComprobantesCompraCabecera implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Date getFechaActualizacion() {
-        return fechaActualizacion;
+    public Date getFechaComprobante() {
+        return fechaComprobante;
     }
 
-    public void setFechaActualizacion(Date fechaActualizacion) {
-        this.fechaActualizacion = fechaActualizacion;
+    public void setFechaComprobante(Date fechaComprobante) {
+        this.fechaComprobante = fechaComprobante;
+    }
+
+    @XmlTransient
+    public Collection<ComprobantesCompraDetalle> getComprobantesCompraDetalleCollection() {
+        return comprobantesCompraDetalleCollection;
+    }
+
+    public void setComprobantesCompraDetalleCollection(Collection<ComprobantesCompraDetalle> comprobantesCompraDetalleCollection) {
+        this.comprobantesCompraDetalleCollection = comprobantesCompraDetalleCollection;
     }
 
     public Proveedores getIdProveedor() {
@@ -167,15 +235,6 @@ public class ComprobantesCompraCabecera implements Serializable {
 
     public void setIdTipoComprobante(TipoComprobantes idTipoComprobante) {
         this.idTipoComprobante = idTipoComprobante;
-    }
-
-    @XmlTransient
-    public Collection<ComprobantesCompraDetalle> getComprobantesCompraDetalleCollection() {
-        return comprobantesCompraDetalleCollection;
-    }
-
-    public void setComprobantesCompraDetalleCollection(Collection<ComprobantesCompraDetalle> comprobantesCompraDetalleCollection) {
-        this.comprobantesCompraDetalleCollection = comprobantesCompraDetalleCollection;
     }
 
     @Override
@@ -202,5 +261,5 @@ public class ComprobantesCompraCabecera implements Serializable {
     public String toString() {
         return "entities.ComprobantesCompraCabecera[ id=" + id + " ]";
     }
-    
+
 }
