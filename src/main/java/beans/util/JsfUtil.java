@@ -26,7 +26,7 @@ public class JsfUtil {
     }
 
     public static void addErrorMessage(String msg) {
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_FATAL, msg, msg);
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
         FacesContext.getCurrentInstance().validationFailed(); // Invalidate JSF page if we raise an error message
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventarioDetalleViewDlg" widgetVar="InventarioDetalleViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewInventarioDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="InventarioDetalleViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{inventarioDetalleController.selected != null}">
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_id}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.id}" title="#{bundle.ViewInventarioDetalleTitle_id}"/>
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_cantidadActual}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.cantidadActual}" title="#{bundle.ViewInventarioDetalleTitle_cantidadActual}"/>
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_cantidadRegistrada}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.cantidadRegistrada}" title="#{bundle.ViewInventarioDetalleTitle_cantidadRegistrada}"/>
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_cantidadDiferencia}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.cantidadDiferencia}" title="#{bundle.ViewInventarioDetalleTitle_cantidadDiferencia}"/>
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_idCabecera}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.idCabecera.id}"/>
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_idProductoFamilia}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.idProductoFamilia.descripcion}"/>
+
+                        <h:outputText value="#{bundle.ViewInventarioDetalleLabel_idProducto}"/>
+                        <h:outputText value="#{inventarioDetalleController.selected.idProducto.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PF('InventarioDetalleViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

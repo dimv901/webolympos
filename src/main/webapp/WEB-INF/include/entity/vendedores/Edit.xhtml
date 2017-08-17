@@ -70,7 +70,9 @@
                                              requiredMessage="#{bundle.EditVendedoresRequiredMessage_idCircuito}" 
                                              converter="circuitosConverter" 
                                              filter="true" 
-                                             filterMatchMode="contains">
+                                             filterMatchMode="contains"
+                                             valueChangeListener="#{vendedoresController.onCircuitoChange}">
+                                <p:ajax update="growl" process="@this"/>
                                 <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                 <f:selectItems value="#{circuitosController.items}"
                                                var="idCircuitoItem"

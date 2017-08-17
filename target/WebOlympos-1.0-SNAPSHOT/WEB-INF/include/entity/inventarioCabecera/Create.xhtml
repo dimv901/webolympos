@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventarioCabeceraCreateDlg" widgetVar="InventarioCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInventarioCabeceraTitle}" closeOnEscape="true">
+
+            <h:form id="InventarioCabeceraCreateForm">
+
+                   <p:panel style="width: 600px;">
+                    <h:panelGroup id="display" rendered="#{inventarioCabeceraController.selected != null}">
+                        <p:pickList id="pickList" 
+                                    value="#{inventarioCabeceraController.dualListItems}" 
+                                    var="familias"
+                                    itemLabel="#{familias.descripcion}"
+                                    itemValue="#{familias}"
+                                    showSourceControls="true" 
+                                    showTargetControls="true" 
+                                    showSourceFilter="true" 
+                                    showTargetFilter="true" 
+                                    converter="productoFamiliasConverter" 
+                                    responsive="true">
+                            <f:facet name="sourceCaption">FAMILIA DESDE</f:facet>
+                            <f:facet name="targetCaption">FAMILIA HASTA</f:facet>
+
+                            <p:ajax event="transfer" listener="#{inventarioCabeceraController.onTransfer}" />
+                        </p:pickList>
+
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{inventarioCabeceraController.saveNew}" value="#{bundle.Save}" update="display,:InventarioCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InventarioCabeceraCreateDialog'));"  styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InventarioCabeceraCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

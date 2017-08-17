@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InventarioDetalleCreateDlg" widgetVar="InventarioDetalleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInventarioDetalleTitle}" closeOnEscape="true">
+
+            <h:form id="InventarioDetalleCreateForm">
+
+                <h:panelGroup id="display" rendered="#{inventarioDetalleController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{inventarioDetalleController.selected.id}" title="#{bundle.CreateInventarioDetalleTitle_id}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_id}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_cantidadActual}" for="cantidadActual" />
+                        <p:inputText id="cantidadActual" value="#{inventarioDetalleController.selected.cantidadActual}" title="#{bundle.CreateInventarioDetalleTitle_cantidadActual}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_cantidadActual}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_cantidadRegistrada}" for="cantidadRegistrada" />
+                        <p:inputText id="cantidadRegistrada" value="#{inventarioDetalleController.selected.cantidadRegistrada}" title="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_cantidadRegistrada}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_cantidadDiferencia}" for="cantidadDiferencia" />
+                        <p:inputText id="cantidadDiferencia" value="#{inventarioDetalleController.selected.cantidadDiferencia}" title="#{bundle.CreateInventarioDetalleTitle_cantidadDiferencia}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_cantidadDiferencia}"/>
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_idCabecera}" for="idCabecera" />
+                        <p:selectOneMenu id="idCabecera" value="#{inventarioDetalleController.selected.idCabecera}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_idCabecera}" converter="inventarioCabeceraConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{inventarioCabeceraController.items}"
+                                           var="idCabeceraItem"
+                                           itemValue="#{idCabeceraItem}"
+                                           itemLabel="#{idCabeceraItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_idProductoFamilia}" for="idProductoFamilia" />
+                        <p:selectOneMenu id="idProductoFamilia" value="#{inventarioDetalleController.selected.idProductoFamilia}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_idProductoFamilia}" converter="productoFamiliasConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoFamiliasController.items}"
+                                           var="idProductoFamiliaItem"
+                                           itemValue="#{idProductoFamiliaItem}"
+                                           itemLabel="#{idProductoFamiliaItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateInventarioDetalleLabel_idProducto}" for="idProducto" />
+                        <p:selectOneMenu id="idProducto" value="#{inventarioDetalleController.selected.idProducto}" required="true" requiredMessage="#{bundle.CreateInventarioDetalleRequiredMessage_idProducto}" converter="productosConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productosController.items}"
+                                           var="idProductoItem"
+                                           itemValue="#{idProductoItem}"
+                                           itemLabel="#{idProductoItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{inventarioDetalleController.saveNew}" value="#{bundle.Save}" update="display,:InventarioDetalleListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InventarioDetalleCreateDialog'));"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('InventarioDetalleCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

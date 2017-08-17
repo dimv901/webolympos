@@ -5,6 +5,7 @@ import entities.Productos;
 import entities.Stock;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,7 +21,6 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.imageio.ImageIO;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.imgscalr.Scalr;
 import org.primefaces.event.FileUploadEvent;
@@ -102,11 +102,14 @@ public class ProductosController extends AbstractController<Productos> {
         try {
             InputStream input = uploadedFile.getInputstream();
             BufferedImage scaledImage = Scalr.resize(ImageIO.read(input), 400);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
             String filename = getSelected().getCodigoBarra();
             String extension = ".jpg";
             File f = new File(filePath + filename + extension);
             ImageIO.write(scaledImage, "jpeg", f);
-            // FileUtils.copyInputStreamToFile(ImageIO. input, f);
+            ImageIO.write(scaledImage, "jpg", baos);
+            byte[] bytes = baos.toByteArray();
+            getSelected().setFoto(bytes);
             createImage = true;
         } catch (IOException ex) {
             Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);

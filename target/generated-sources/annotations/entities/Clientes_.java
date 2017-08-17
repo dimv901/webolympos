@@ -9,7 +9,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.6.4.v20160829-rNA", date="2017-05-28T18:46:58")
+@Generated(value="EclipseLink-2.6.4.v20160829-rNA", date="2017-08-16T23:45:36")
 @StaticMetamodel(Clientes.class)
 public class Clientes_ { 
 
@@ -17,7 +17,6 @@ public class Clientes_ {
     public static volatile SingularAttribute<Clientes, Boolean> domingo;
     public static volatile SingularAttribute<Clientes, Boolean> miercoles;
     public static volatile SingularAttribute<Clientes, String> emailTitular;
-    public static volatile SingularAttribute<Clientes, Double> latitude;
     public static volatile SingularAttribute<Clientes, Boolean> martes;
     public static volatile SingularAttribute<Clientes, Circuitos> idCircuito;
     public static volatile SingularAttribute<Clientes, String> contactoTitular;
@@ -31,6 +30,7 @@ public class Clientes_ {
     public static volatile SingularAttribute<Clientes, Boolean> lunes;
     public static volatile SingularAttribute<Clientes, String> telefonoNegocio;
     public static volatile SingularAttribute<Clientes, String> barrio;
+    public static volatile SingularAttribute<Clientes, Double> latitud;
     public static volatile SingularAttribute<Clientes, FormasPago> idFormaPago;
     public static volatile SingularAttribute<Clientes, String> callePrincipal;
     public static volatile SingularAttribute<Clientes, Integer> numeroCasa;

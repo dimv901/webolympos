@@ -1,6 +1,5 @@
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\OrdenCompraCabeceraConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\ComprobantesVentaDetalle.java
-C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ComprasController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\LoginController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Moviles.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\MotivosNoCompraFacade.java
@@ -16,11 +15,14 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\C
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\CiudadesController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\PedidosCabeceraController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Stock.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\utils\Database.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\util\JsfUtil.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\OrdenCompraCabeceraFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\ComprobantesCompraCabeceraConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\EmpresaFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\ComprobantesVentaDetalleFacade.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ReportConfigUtil.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\InventarioCabeceraController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Clientes.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ClientesController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\TipoComprobantes.java
@@ -30,8 +32,12 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\Mo
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\MotivosNoCompraController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\VendedoresController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\VisitasFacade.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ReportsBean.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\RepartosConverter.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\InventarioCabeceraConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\LazyEntityDataModel.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\InventarioDetalleController.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\HomeController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\UsuariosMovilesController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\PedidosCabeceraFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Circuitos.java
@@ -47,10 +53,15 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\De
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ComprobantesVentaDetalleController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\EmpresaController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\FormasPago.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\InventarioDetalleFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\RepartidoresConverter.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\InventarioCabecera.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\UsuariosWebController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\ComprobantesCompraCabecera.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\MotivosNoCompraConverter.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\InventarioDetalle.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\utils\SessionUtils.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\util\PedidosItemDetalle.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\EntityUtility.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\UsuariosWeb.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\OrdenCompraDetalleConverter.java
@@ -58,6 +69,8 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\Cl
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\UsuariosMoviles.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\StockFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\MovimientoStockController.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ResumeController.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\utils\AuthFilter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ComprobantesVentaCabeceraController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\MovimientoStockFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\PedidosCabecera.java
@@ -81,6 +94,7 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\Us
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\StockConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\RepartidoresController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\RepartosController.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\AbstractReportBean.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\TipoImpuestos.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Vendedores.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\ComprobantesCompraDetalleFacade.java
@@ -114,6 +128,7 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\OrdenCo
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\ProveedoresConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\ComprobantesVentaCabeceraFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Repartos.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\InventarioCabeceraFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\OrdenCompraDetalleFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\controllers\ProductosFacade.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\CircuitosController.java
@@ -125,6 +140,7 @@ C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\OrdenCo
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\Departamentos.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\PedidosDetalleController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\entities\OrdenCompraCabecera.java
+C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\InventarioDetalleConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\VisitasConverter.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\beans\ComprobantesCompraCabeceraController.java
 C:\Users\Diego\Documents\NetBeansProjects\WebOlympos\src\main\java\converters\ComprobantesVentaCabeceraConverter.java

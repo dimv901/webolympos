@@ -135,7 +135,14 @@
                             <p:tab id="ClientesTab3" title="#{bundle.TabHeaderClientsPrefixLocation}">
                                 <p:panelGrid columns="1" columnClasses="column">
                                     <p:outputLabel value="#{bundle.EditClientesLabel_idDepartamento}" for="idDepartamento" />
-                                    <p:selectOneMenu id="idDepartamento" value="#{clientesController.selected.idDepartamento}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idDepartamento}" converter="departamentosConverter" filter="true" filterMatchMode="contains">
+                                    <p:selectOneMenu id="idDepartamento" 
+                                                     value="#{clientesController.selected.idDepartamento}" 
+                                                     required="true" 
+                                                     requiredMessage="#{bundle.CreateClientesRequiredMessage_idDepartamento}" 
+                                                     converter="departamentosConverter" filter="true" 
+                                                     filterMatchMode="contains"
+                                                     valueChangeListener="#{clientesController.onDepartamentoChange}">
+                                        <p:ajax update="idCiudad" process="@this"/>
                                         <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                         <f:selectItems value="#{departamentosController.items}"
                                                        var="idDepartamentoItem"

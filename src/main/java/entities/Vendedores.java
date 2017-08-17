@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Vendedores.findByCedula", query = "SELECT v FROM Vendedores v WHERE v.cedula = :cedula")
     , @NamedQuery(name = "Vendedores.findByActivo", query = "SELECT v FROM Vendedores v WHERE v.activo = :activo")
     , @NamedQuery(name = "Vendedores.findByAndroid", query = "SELECT v FROM Vendedores v WHERE v.android = :android")
+    , @NamedQuery(name = "Vendedores.findByCircuito", query = "SELECT v FROM Vendedores v WHERE v.idCircuito = :idCircuito")
     , @NamedQuery(name = "Vendedores.findByTelefonoContacto", query = "SELECT v FROM Vendedores v WHERE v.telefonoContacto = :telefonoContacto")
     , @NamedQuery(name = "Vendedores.findByFechaCreacion", query = "SELECT v FROM Vendedores v WHERE v.fechaCreacion = :fechaCreacion")
     , @NamedQuery(name = "Vendedores.findByFechaActualizacion", query = "SELECT v FROM Vendedores v WHERE v.fechaActualizacion = :fechaActualizacion")})
@@ -87,6 +88,10 @@ public class Vendedores implements Serializable {
     @JoinColumn(name = "id_circuito", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Circuitos idCircuito;
+    @NotNull
+    @Size(min = 1, max = 250)
+    @Column(name = "descripcion")
+    private String descripcion;
 
     public Vendedores() {
     }
@@ -203,6 +208,14 @@ public class Vendedores implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override

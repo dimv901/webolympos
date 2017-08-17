@@ -12,55 +12,70 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
-        <title>PrimeFaces Olympos</title>
+        <title>Olympos</title>
         <ui:insert name="head" />
     </h:head>
 
-    <h:body styleClass="AquaBack">
+    <h:body styleClass="NavyBack">
 
-        <div class="Wid70 MarAuto">
-            <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
+        <h:form>
+            <p:growl id="growl" autoUpdate="true" showSummary="true" showDetail="true" life="3000"/>
+            <div class="Wid70 MarAuto">
+                <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
 
-                <div class="Wid70 MarAuto WidAutoOnMobile">
-                    <div class="EmptyBox30"></div>
-                    <div class="Container50 Responsive50">
-                        <a href="dashboard-supplychain.xhtml" class="DispBlock Fleft FloatNoneOnMobile"><h:graphicImage name="images/logo.svg" library="olympos-layout" style="height:25px;"/></a>
-                    </div>
-                    <div class="Container50 Responsive50">
-                        <p:commandButton type="button" value="Create Free Account" styleClass="OrangeButton Fright FloatNoneOnMobile"/>
-                    </div>
-                    <div class="EmptyBox10 ShowOnMobile"></div>
-
-                    <div class="EmptyBox100 ShowOnDesktop"></div>
-                    <div class="EmptyBox20 ShowOnMobile"></div>
-
-                    <div class="Wid100 FontLatoRegular White Fs18">Welcome Back, Please Login Here !</div>
-                    <div class="EmptyBox30"></div>
-                    <div class="Card ui-fluid ShadowEffect">
-                        <div class="Container100">
-                            <p:inputText placeholder="E-Mail Address" style="padding:15px !important;"/>
+                    <div class="Wid70 MarAuto WidAutoOnMobile">
+                        <div class="EmptyBox30"></div>
+                        <div class="Container100 Responsive100">
+                            <h:graphicImage name="images/logo.svg" library="olympos-layout" style="height:50px;"/>
                         </div>
-                        <div class="Container100">
-                            <p:password placeholder="Password" style="padding:15px !important;"/>
-                        </div>
-                        <div class="Container100 TexAlLeft">
+                        <div class="EmptyBox10 ShowOnMobile"></div>
+                        <div class="EmptyBox10 ShowOnDesktop"></div>
+                        <div class="EmptyBox20 ShowOnMobile"></div>
+
+                        <div class="Wid100 FontLatoRegular White Fs18">Bienvenido, Por favor identifíquese !</div>
+                        <div class="EmptyBox30"></div>
+                        <div class="Card ui-fluid ShadowEffect">
+                            <div class="Container100">
+                                <p:inputText placeholder="Usuario" required="true" requiredMessage="Por favor ingrese el usuario" value="#{loginController.usuario}" style="padding:15px !important;"/>
+                            </div>
+                            <div class="Container100">
+                                <p:password placeholder="Password" required="true" requiredMessage="Por favor ingrese el password" value="#{loginController.password}" style="padding:15px !important;"/>
+                            </div>
+
+                            <div class="EmptyBox20"></div>
+                            <div class="Container100">
+                                <p:commandButton validateClient="true" value="Ingresar" ajax="true" actionListener="#{loginController.doLogin}" styleClass="GreenButton" update="growl"/>
+                            </div>
+
                             <div class="EmptyBox10"></div>
-                            <p:selectManyCheckbox layout="responsive" columns="1">
-                                <f:selectItem itemLabel="Remember Me" itemValue="Remember Me" />
-                            </p:selectManyCheckbox>
+                            <div class="Separator"></div>
+                            <div class="EmptyBox10"></div>
+
+
+                            <div class="EmptyBox10"></div>
                         </div>
+
                         <div class="EmptyBox20"></div>
-                        <div class="Container100">
-                            <p:commandButton type="button" value="Sign In" styleClass="GreenButton"/>
-                        </div>
+                        <div class="EmptyBox30"></div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <style>.ui-button-text, .ui-button-text-only .ui-button-text{padding:15px !important; transition:none !important;}</style>
 
-                        <div class="EmptyBox10"></div>
-                        <div class="Separator"></div>
-                        <div class="EmptyBox10"></div>
+        <h:outputStylesheet name="css/core-layout.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/animate.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-layout.css" library="olympos-layout" />
+        <h:outputStylesheet name="css/olympos-font.css" library="olympos-layout" />
+    </h:body>
 
-                        <span class="DispBlock OvHidden FontLatoBold Fs16 Leaden">Or Sign In</span>
-                        <div class="EmptyBox10"></div>
-                        <div class="Container50 Responsive100">
+</html>
+
+<!--
+ <div class="Wid100 FontLatoRegular Fs12 TransparentWhite"> <i class="fa fa-copyright DispInlBlock"></i> PrimeFaces Olympos Theme And Layout <br/>All rights reserved.</div>
+
+  <div class="Container50 Responsive100">
                             <p:commandButton type="button" icon="fa fa-facebook Fs16" value="With Facebook" styleClass="NavyButton White"/>
                         </div>
                         <div class="Container50 Responsive100">
@@ -72,22 +87,19 @@
                         <div class="Container50 Responsive100">
                             <p:commandButton type="button" icon="fa fa-linkedin Fs16" value="With Linkedin" styleClass="AquaButton White"/>
                         </div>
+
+    <div class="Container100 TexAlLeft">
+                            <div class="EmptyBox10"></div>
+                            <p:selectManyCheckbox layout="responsive" columns="1">
+                                <f:selectItem itemLabel="Remember Me" itemValue="Remember Me" />
+                            </p:selectManyCheckbox>
+                        </div>
+
+              <div class="Container50 Responsive50">
+                        <a href="dashboard-supplychain.xhtml" class="DispBlock Fleft FloatNoneOnMobile"><h:graphicImage name="images/logo.svg" library="olympos-layout" style="height:25px;"/></a>
                     </div>
-
-                    <div class="EmptyBox20"></div>
-                    <div class="Wid100 FontLatoRegular Fs12 TransparentWhite"> <i class="fa fa-copyright DispInlBlock"></i> PrimeFaces Olympos Theme And Layout <br/>All rights reserved.</div>
-                    <div class="EmptyBox30"></div>
-                </div>
-            </div>
-        </div>
-
-        <style>.ui-button-text, .ui-button-text-only .ui-button-text{padding:15px !important; transition:none !important;}</style>
-
-        <h:outputStylesheet name="css/core-layout.css" library="olympos-layout" />
-        <h:outputStylesheet name="css/font-awesome.css" library="olympos-layout" />
-        <h:outputStylesheet name="css/animate.css" library="olympos-layout" />
-        <h:outputStylesheet name="css/olympos-layout.css" library="olympos-layout" />
-        <h:outputStylesheet name="css/olympos-font.css" library="olympos-layout" />
-    </h:body>
-
-</html>
+                    <div class="Container50 Responsive50">
+                        <p:commandButton type="button" value="Create Free Account" styleClass="OrangeButton Fright FloatNoneOnMobile"/>
+                    </div>
+       <span class="DispBlock OvHidden FontLatoBold Fs16 Leaden">Or Sign In</span>
+-->

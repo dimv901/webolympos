@@ -7,10 +7,12 @@ import controllers.StockFacade;
 import entities.ComprobantesCompraCabecera;
 import entities.ComprobantesCompraDetalle;
 import entities.Productos;
+import entities.Proveedores;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -46,6 +48,14 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
         comprasItemDetalle = new ComprasDetalle();
     }
 
+    @Override
+    public ComprobantesCompraCabecera prepareCreate(ActionEvent event) {
+        comprasDetalleList = new ArrayList<>();
+        producto = new Productos();
+        comprasItemDetalle = new ComprasDetalle();
+        return super.prepareCreate(event); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Productos getProducto() {
         return producto;
     }
@@ -59,6 +69,10 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
             productoList = ejbProductos.findAll();
         }
         return productoList;
+    }
+
+    public void setProductoList(List<Productos> mlist) {
+        productoList = mlist;
     }
 
     public ComprobantesCompraDetalle getComprobantesCompraDetalle() {
@@ -177,7 +191,8 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
             try {
                 for (ComprasDetalle dt : comprasDetalleList) {
                     Productos p = ejbProductos.find(dt.getProducto().getId());
-                    p.getStock().setCantidad(dt.getCantidad());
+                    double currentStock = p.getStock().getCantidad() + dt.getCantidad();
+                    p.getStock().setCantidad(currentStock);
                     p.getStock().setFechaActualizacion(new Date());
                     ejbStock.edit(p.getStock());
                 }
@@ -191,13 +206,15 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
     public List<ComprasDetalle> getComprasDetalleView() {
         comprasDetalleView = new ArrayList<>();
         if (getSelected() != null) {
-            for (ComprobantesCompraDetalle dt : getSelected().getComprobantesCompraDetalleCollection()) {
-                ComprasDetalle cmp = new ComprasDetalle();
-                cmp.setCantidad(dt.getCantidad());
-                cmp.setImporte(dt.getImporte());
-                cmp.setPrecioUnitario(dt.getPrecio());
-                cmp.setProducto(ejbProductos.find(dt.getIdProducto()));
-                comprasDetalleView.add(cmp);
+            if (getSelected().getComprobantesCompraDetalleCollection() != null) {
+                for (ComprobantesCompraDetalle dt : getSelected().getComprobantesCompraDetalleCollection()) {
+                    ComprasDetalle cmp = new ComprasDetalle();
+                    cmp.setCantidad(dt.getCantidad());
+                    cmp.setImporte(dt.getImporte());
+                    cmp.setPrecioUnitario(dt.getPrecio());
+                    cmp.setProducto(ejbProductos.find(dt.getIdProducto()));
+                    comprasDetalleView.add(cmp);
+                }
             }
         }
         return comprasDetalleView;
@@ -205,6 +222,11 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
 
     public void setComprasDetalleView(List<ComprasDetalle> comprasDetalleView) {
         this.comprasDetalleView = comprasDetalleView;
+    }
+
+    public void onProveedorChange(ValueChangeEvent event) {
+        Proveedores p = (Proveedores) event.getNewValue();
+        setProductoList(new ArrayList<>(p.getIdProducto()));
     }
 
 }

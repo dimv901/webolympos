@@ -5,14 +5,71 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/include/template.xhtml">
 
-    <ui:define name="content">
+    <ui:define name="body">
         <div class="Container100">
             <div class="Card TexAlCenter">
-                <h1 class="BigTopic">Empty Page</h1>
-                <span class="gray">Use this page to start from scratch and place your custom content.</span>
+                <div class="Container100 NoIndent " id="pricingtables" style=" padding:0px 3rem;">
+
+                    <div class="EmptyBox50"></div>
+
+                    <h1 class="FontLatoBold Fs26 Navy TexAlCenter">Resumen del Día</h1>
+
+                    <div class="EmptyBox30"></div>
+
+                    <div class="SeparatorFull"></div>
+
+
+
+                    <div class="Container50 Responsive50 Flex">
+                        <div class="Card OrangeBack White Zoom1point05x">
+                            <div class="EmptyBox10"></div>
+                            <div class="Container60 NoIndent Responsive100">
+                                <i class="icon-shopping226 White Fs60 Fleft MarRight10 MarBot10"></i>
+                                <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">PEDIDOS DEL DIA</span><br/>
+                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.orderTodayQuantity}</span>
+                            </div>
+
+                            <div class="EmptyBox10"></div>
+                        </div>
+                    </div>
+
+                    <div class="Container50 Responsive50 Flex">
+                        <div class="Card Zoom1point05x PurpleBack White">
+                            <div class="EmptyBox10"></div>
+                            <div class="Container60 NoIndent Responsive100">
+                                <i class="fa fa-money White Fs60 Fleft MarRight10 MarBot10"></i>
+                                <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">INGRESOS DEL DIA</span><br/>
+                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.revenueTodayAmount}</span>
+                            </div>
+
+                            <div class="EmptyBox10"></div>
+                        </div>
+                    </div>
+                    <div class="Container50 Responsive50 Flex">
+                        <div class="Card Zoom1point05x Card GreenBack White">
+                            <div class="EmptyBox10"></div>
+                            <div class="Container60 NoIndent Responsive100">
+                                <i class="fa fa-users White Fs60 Fleft MarRight10 MarBot10"></i>
+                                <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">CLIENTES ACTIVOS</span><br/>
+                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.activeQuantityClients}</span>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                        </div>
+                    </div>
+                    <div class="Container50 Responsive50 Flex">
+                        <div class="Card Zoom1point05x AquaBack White">
+                            <div class="EmptyBox10"></div>
+                            <div class="Container60 NoIndent Responsive100">
+                                <i class="icon-user106 White Fs60 Fleft MarRight10 MarBot10"></i>
+                                <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">VENDEDORES ACTIVOS</span><br/>
+                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.activeQuantitySalesmen}</span>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </ui:define>
 
 </ui:composition>

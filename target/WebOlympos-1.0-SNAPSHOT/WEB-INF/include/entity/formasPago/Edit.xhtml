@@ -15,9 +15,6 @@
                         <p:panelGrid  columns="1" columnClasses="column" rendered="#{formasPagoController.selected != null}">
 
 
-                            <h:outputLabel value="#{bundle.EditFormasPagoLabel_id}" for="id" />
-                            <h:outputText id="id" value="#{formasPagoController.selected.id}" />
-
                             <p:outputLabel value="#{bundle.EditFormasPagoLabel_descripcion}" for="descripcion" />
                             <p:inputText id="descripcion" 
                                          value="#{formasPagoController.selected.descripcion}" 
@@ -26,21 +23,14 @@
                                          requiredMessage="#{bundle.EditFormasPagoRequiredMessage_descripcion}" 
                                          size="100"/>
 
-                            <!--
-                            <p:outputLabel value="#{bundle.EditFormasPagoLabel_fechaCreacion}" for="fechaCreacion" />
-                            <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{formasPagoController.selected.fechaCreacion}" title="#{bundle.EditFormasPagoTitle_fechaCreacion}"  showOn="button"/>
-                            -->
 
-                            <!--
-                           <p:outputLabel value="#{bundle.EditFormasPagoLabel_fechaActalizacion}" for="fechaActalizacion" />
-                           <p:calendar id="fechaActalizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{formasPagoController.selected.fechaActalizacion}" title="#{bundle.EditFormasPagoTitle_fechaActalizacion}"  showOn="button"/>
-                            -->
                         </p:panelGrid>
                     </h:panelGroup>
                     <f:facet name="footer">
                         <div align="right">
                             <p:commandButton validateClient="true" actionListener="#{formasPagoController.save}" value="#{bundle.Save}" update="display,:FormasPagoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('FormasPagoEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
-                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('FormasPagoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" icon="fa fa-remove Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('FormasPagoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"  styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+
                         </div>
                     </f:facet>
                 </p:panel>
@@ -49,5 +39,16 @@
         </p:dialog>
 
     </ui:composition>
+    <!--
+                          
+                          <h:outputLabel value="#{bundle.EditFormasPagoLabel_id}" for="id" />
+                          <h:outputText id="id" value="#{formasPagoController.selected.id}" />
+                          <p:outputLabel value="#{bundle.EditFormasPagoLabel_fechaCreacion}" for="fechaCreacion" />
+                          <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{formasPagoController.selected.fechaCreacion}" title="#{bundle.EditFormasPagoTitle_fechaCreacion}"  showOn="button"/>
+    -->
 
+    <!--
+   <p:outputLabel value="#{bundle.EditFormasPagoLabel_fechaActalizacion}" for="fechaActalizacion" />
+   <p:calendar id="fechaActalizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{formasPagoController.selected.fechaActalizacion}" title="#{bundle.EditFormasPagoTitle_fechaActalizacion}"  showOn="button"/>
+    -->
 </html>

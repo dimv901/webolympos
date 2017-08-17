@@ -11,51 +11,96 @@
         <p:dialog id="PedidosCabeceraViewDlg" widgetVar="PedidosCabeceraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewPedidosCabeceraTitle}" closeOnEscape="true">
 
             <h:form id="PedidosCabeceraViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:tabView id="PedidosView">
+                            <p:tab id="PedidosTab1" title="#{bundle.TabHeaderPedidosPrefixCabecera}">
+                                <p:panelGrid columns="2" columnClasses="column" rendered="#{pedidosCabeceraController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{pedidosCabeceraController.selected != null}">
+                                    <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_idCliente}"/>
+                                    <h:outputText value="#{pedidosCabeceraController.selected.idCliente.nombreNegocio}"/>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_id}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.id}" title="#{bundle.ViewPedidosCabeceraTitle_id}"/>
+                                    <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_importe}"/>
+                                    <h:outputText value="#{pedidosCabeceraController.selected.importe}" title="#{bundle.ViewPedidosCabeceraTitle_importe}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_importe}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.importe}" title="#{bundle.ViewPedidosCabeceraTitle_importe}"/>
+                                    <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaCreacion}"/>
+                                    <h:outputText value="#{pedidosCabeceraController.selected.fechaCreacion}" title="#{bundle.ViewPedidosCabeceraTitle_fechaCreacion}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_latitud}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.latitud}" title="#{bundle.ViewPedidosCabeceraTitle_latitud}"/>
+                                 
+                                    <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_idVendedor}"/>
+                                    <h:outputText value="#{pedidosCabeceraController.selected.idVendedor.descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_longitud}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.longitud}" title="#{bundle.ViewPedidosCabeceraTitle_longitud}"/>
+                                    <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_estado}"/>
+                                    <h:outputText value="#{pedidosCabeceraController.selected.estado}" title="#{bundle.ViewPedidosCabeceraTitle_estado}"/>
+                                </p:panelGrid>
+                            </p:tab>
+                            <p:tab id="PedidosTab2" title="#{bundle.TabHeaderPedidosPrefixDetalle}">
+                                <h:panelGroup>
+                                    <p:dataTable  id="datalist"
+                                                  value="#{pedidosCabeceraController.pedidosDetalleView}"
+                                                  var="item"
+                                                  paginator="true"
+                                                  paginatorPosition="bottom"
+                                                  rows="10"
+                                                  rowsPerPageTemplate="10,20,30"
+                                                  emptyMessage="#{bundle.ErrorEmptyDetail}"
+                                                  reflow="true"
+                                                  rendered="#{pedidosCabeceraController.pedidosDetalleView.size()>0}">
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_estado}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.estado}" title="#{bundle.ViewPedidosCabeceraTitle_estado}"/>
+                                        <p:column sortBy="#{item.producto.codigoBarra}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelCodigo}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.producto.codigoBarra}"/>
+                                        </p:column>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaPedido}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.fechaPedido}" title="#{bundle.ViewPedidosCabeceraTitle_fechaPedido}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
+                                        <p:column sortBy="#{item.producto.descripcion}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelDescripcion}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.producto.descripcion}"/>
+                                        </p:column>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaCreacion}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.fechaCreacion}" title="#{bundle.ViewPedidosCabeceraTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
+                                        <p:column sortBy="#{item.precioUnitario}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelPrecioUnitario}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.precioUnitario}">
+                                                <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                            </h:outputText>
+                                        </p:column>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.fechaActualizacion}" title="#{bundle.ViewPedidosCabeceraTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
+                                        <p:column sortBy="#{item.cantidad}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelCantidad}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.cantidad}"/>
+                                        </p:column>
 
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_idCliente}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.idCliente.id}"/>
-
-                        <h:outputText value="#{bundle.ViewPedidosCabeceraLabel_idVendedor}"/>
-                        <h:outputText value="#{pedidosCabeceraController.selected.idVendedor.id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('PedidosCabeceraViewDialog').hide()"/>
-                </h:panelGroup>
-
+                                        <p:column sortBy="#{item.importe}" >
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelImporte}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.importe}"> 
+                                                <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                            </h:outputText>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGroup>
+                            </p:tab>
+                        </p:tabView>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('PedidosCabeceraViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
-
         </p:dialog>
 
     </ui:composition>

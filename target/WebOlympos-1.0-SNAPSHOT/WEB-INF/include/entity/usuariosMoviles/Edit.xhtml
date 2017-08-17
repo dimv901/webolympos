@@ -10,39 +10,59 @@
         <p:dialog id="UsuariosMovilesEditDlg" widgetVar="UsuariosMovilesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditUsuariosMovilesTitle}" closeOnEscape="true">
 
             <h:form id="UsuariosMovilesEditForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid  columns="1" columnClasses="column" rendered="#{usuariosMovilesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuariosMovilesController.selected != null}">
+                            <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_descripcion}" for="descripcion" />
+                            <p:inputText id="descripcion" 
+                                         value="#{usuariosMovilesController.selected.descripcion}" 
+                                         title="#{bundle.EditUsuariosMovilesTitle_descripcion}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_descripcion}" 
+                                         size="100"/>
 
+                            <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_usuario}" for="usuario" />
+                            <p:inputText id="usuario" 
+                                         value="#{usuariosMovilesController.selected.usuario}" 
+                                         title="#{bundle.EditUsuariosMovilesTitle_usuario}" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_usuario}" 
+                                         size="100"/>
 
-                        <h:outputLabel value="#{bundle.EditUsuariosMovilesLabel_id}" for="id" />
-                        <h:outputText id="id" value="#{usuariosMovilesController.selected.id}" />
+                            <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_password}" for="password" />
+                            <p:inputText  id="password" 
+                                          value="#{usuariosMovilesController.selected.password}" 
+                                          title="#{bundle.EditUsuariosMovilesTitle_password}" 
+                                          required="true"
+                                          type="password"
+                                          requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_password}"
+                                          size="100"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_descripcion}" for="descripcion" />
-                        <p:inputText id="descripcion" value="#{usuariosMovilesController.selected.descripcion}" title="#{bundle.EditUsuariosMovilesTitle_descripcion}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_descripcion}" size="150" maxlength="150"/>
+                            <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_activo}" for="activo" />
+                            <p:inputSwitch id="activo" 
+                                           value="#{usuariosMovilesController.selected.activo}"  
+                                           requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_activo}"
+                                           offLabel="#{bundle.No}" 
+                                           onLabel="#{bundle.Yes}"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_usuario}" for="usuario" />
-                        <p:inputText id="usuario" value="#{usuariosMovilesController.selected.usuario}" title="#{bundle.EditUsuariosMovilesTitle_usuario}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_usuario}" size="100" maxlength="100"/>
+                            <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_resetPassword}" for="resetPassword" />
+                            <p:inputSwitch id="resetPassword" 
+                                           value="#{usuariosMovilesController.selected.resetPassword}" 
+                                           requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_resetPassword}"
+                                           offLabel="#{bundle.No}" 
+                                           onLabel="#{bundle.Yes}"/>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_password}" for="password" />
-                        <p:inputTextarea rows="4" cols="30" id="password" value="#{usuariosMovilesController.selected.password}" title="#{bundle.EditUsuariosMovilesTitle_password}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_password}"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_activo}" for="activo" />
-                        <p:selectBooleanCheckbox id="activo" value="#{usuariosMovilesController.selected.activo}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_activo}"/>
-
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_resetPassword}" for="resetPassword" />
-                        <p:selectBooleanCheckbox id="resetPassword" value="#{usuariosMovilesController.selected.resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_resetPassword}"/>
-
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosMovilesController.selected.fechaCreacion}" title="#{bundle.EditUsuariosMovilesTitle_fechaCreacion}"  showOn="button"/>
-
-                        <p:outputLabel value="#{bundle.EditUsuariosMovilesLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuariosMovilesController.selected.fechaActualizacion}" title="#{bundle.EditUsuariosMovilesTitle_fechaActualizacion}"  showOn="button"/>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuariosMovilesController.save}" value="#{bundle.Save}" update="display,:UsuariosMovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosMovilesEditDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuariosMovilesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton actionListener="#{usuariosMovilesController.save}" value="#{bundle.Save}" update="display,:UsuariosMovilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosMovilesEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('UsuariosMovilesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

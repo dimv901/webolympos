@@ -5,130 +5,97 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
+    <div class="Container100 ui-fluid">
+        <div class="Card">
 
-    <h:form id="PedidosCabeceraListForm">
+            <div class="SeparatorFull"></div>
 
-        <p:panel header="#{bundle.ListPedidosCabeceraTitle}">
-            <p:dataTable id="datalist"
-                         value="#{pedidosCabeceraController.items}"
-                         lazy="false"
-                         rowKey="#{item.id}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30"
-                         selectionMode="single"
-                         selection="#{pedidosCabeceraController.selected}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{pedidosCabeceraController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.id}"  <<< Remove this line
-                -->
+            <h:form id="PedidosCabeceraListForm">
+
+                <p:panel header="#{bundle.ListPedidosCabeceraTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{pedidosCabeceraController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.id}"
+                                 var="item"
+                                 paginator="true"
+                                 rows="10"
+                                 paginatorPosition="bottom"
+                                 rowsPerPageTemplate="10,20,30"
+                                 selectionMode="single"
+                                 selection="#{pedidosCabeceraController.selected}"
+                                 reflow="true"
+                                 filteredValue="#{pedidosCabeceraController.filtered}"
+                                 widgetVar="table"
+                                 emptyMessage="#{bundle.EmptyMessage}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{pedidosCabeceraController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.id}"  <<< Remove this line
+                        -->
+
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,deleteButton"/>
+
+                        <p:column sortBy="#{item.idCliente.id}" filterBy="#{item.idCliente.id}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosCabeceraTitle_idCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente.nombreNegocio}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.idVendedor.id}" filterBy="#{item.idVendedor.id}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosCabeceraTitle_idVendedor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idVendedor.descripcion}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosCabeceraTitle_estado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estado}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCreacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"  />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column sortBy="#{item.importe}" >
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPedidosCabeceraTitle_importe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.importe}">
+                                <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                            </h:outputText>
+                        </p:column>
 
 
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="createButton" value="#{bundle.Create}" actionListener="#{pedidosCabeceraController.prepareCreate}" update=":PedidosCabeceraCreateForm" oncomplete="PF('PedidosCabeceraCreateDialog').show()" style="width: 100px;" styleClass="GreenButton" icon="fa fa-plus Fs16 White"/>
+                                <p:commandButton id="viewButton"   value="#{bundle.View}" update=":PedidosCabeceraViewForm" oncomplete="PF('PedidosCabeceraViewDialog').show()" disabled="#{empty pedidosCabeceraController.selected}" style="width: 100px;" styleClass="AquaButton" icon="fa fa-search Fs16 White"/>
 
+                                <p:commandButton id="deleteButton" value="#{bundle.Delete}" actionListener="#{pedidosCabeceraController.delete}" update=":growl,datalist" disabled="#{empty pedidosCabeceraController.selected}" style="width: 100px;" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                            </div>
+                        </f:facet>
 
-                <p:column sortBy="#{item.importe}" filterBy="#{item.importe}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_importe}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.importe}"/>
-                </p:column>
+                    </p:dataTable>
 
-
-                <p:column sortBy="#{item.latitud}" filterBy="#{item.latitud}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_latitud}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.latitud}"/>
-                </p:column>
-
-                <!--
-                                    <p:column sortBy="#{item.longitud}" filterBy="#{item.longitud}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_longitud}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.longitud}"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.estado}" filterBy="#{item.estado}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_estado}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.estado}"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.fechaPedido}" filterBy="#{item.fechaPedido}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaPedido}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.fechaPedido}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaCreacion}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.fechaCreacion}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaActualizacion}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.fechaActualizacion}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                        </h:outputText>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.idCliente.id}" filterBy="#{item.idCliente.id}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_idCliente}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.idCliente.id}"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.idVendedor.id}" filterBy="#{item.idVendedor.id}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListPedidosCabeceraTitle_idVendedor}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.idVendedor.id}"/>
-                                    </p:column>
-                -->
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{pedidosCabeceraController.prepareCreate}" update=":PedidosCabeceraCreateForm" oncomplete="PF('PedidosCabeceraCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PedidosCabeceraViewForm" oncomplete="PF('PedidosCabeceraViewDialog').show()" disabled="#{empty pedidosCabeceraController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PedidosCabeceraEditForm" oncomplete="PF('PedidosCabeceraEditDialog').show()" disabled="#{empty pedidosCabeceraController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{pedidosCabeceraController.delete}" update=":growl,datalist" disabled="#{empty pedidosCabeceraController.selected}"/>
-                    </div>
-                </f:facet>
-
-            </p:dataTable>
-
-        </p:panel>
-    </h:form>
-
+                </p:panel>
+            </h:form>
+        </div>
+    </div>
 </ui:composition>
+
+<!--                                 <p:commandButton id="editButton"   value="#{bundle.Edit}" update=":PedidosCabeceraEditForm" oncomplete="PF('PedidosCabeceraEditDialog').show()" disabled="#{empty pedidosCabeceraController.selected}" style="width: 100px;" styleClass="NavyButton" icon="fa fa-edit Fs16 White"/> -->

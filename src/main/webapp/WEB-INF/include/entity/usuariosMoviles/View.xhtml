@@ -11,41 +11,46 @@
         <p:dialog id="UsuariosMovilesViewDlg" widgetVar="UsuariosMovilesViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewUsuariosMovilesTitle}" closeOnEscape="true">
 
             <h:form id="UsuariosMovilesViewForm">
+                <p:panel>
+                    <h:panelGroup id="display">
+                        <p:panelGrid columns="2" columnClasses="column" rendered="#{usuariosMovilesController.selected != null}">
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuariosMovilesController.selected != null}">
+                            <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_id}"/>
+                            <h:outputText value="#{usuariosMovilesController.selected.id}" title="#{bundle.ViewUsuariosMovilesTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_id}"/>
-                        <h:outputText value="#{usuariosMovilesController.selected.id}" title="#{bundle.ViewUsuariosMovilesTitle_id}"/>
+                            <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_descripcion}"/>
+                            <h:outputText value="#{usuariosMovilesController.selected.descripcion}" title="#{bundle.ViewUsuariosMovilesTitle_descripcion}"/>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_descripcion}"/>
-                        <h:outputText value="#{usuariosMovilesController.selected.descripcion}" title="#{bundle.ViewUsuariosMovilesTitle_descripcion}"/>
+                            <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_usuario}"/>
+                            <h:outputText value="#{usuariosMovilesController.selected.usuario}" title="#{bundle.ViewUsuariosMovilesTitle_usuario}"/>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_usuario}"/>
-                        <h:outputText value="#{usuariosMovilesController.selected.usuario}" title="#{bundle.ViewUsuariosMovilesTitle_usuario}"/>
+                            <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_activo}"/>
+                            <p:inputSwitch id="activo"
+                                           value="#{usuariosMovilesController.selected.activo}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_activo}" 
+                                           disabled="true"
+                                           offLabel="#{bundle.No}" 
+                                           onLabel="#{bundle.Yes}"/>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_password}"/>
-                        <h:outputText value="#{usuariosMovilesController.selected.password}" title="#{bundle.ViewUsuariosMovilesTitle_password}"/>
+                            <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_resetPassword}"/>
+                            <p:inputSwitch id="resetPassword" value="#{usuariosMovilesController.selected.resetPassword}" 
+                                           required="true" 
+                                           requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_resetPassword}" 
+                                           disabled="true"
+                                           offLabel="#{bundle.No}" 
+                                           onLabel="#{bundle.Yes}"/>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_activo}"/>
-                        <h:selectBooleanCheckbox id="activo" value="#{usuariosMovilesController.selected.activo}" title="#{bundle.EditUsuariosMovilesTitle_activo}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_activo}" disabled="true"/>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_resetPassword}"/>
-                        <h:selectBooleanCheckbox id="resetPassword" value="#{usuariosMovilesController.selected.resetPassword}" title="#{bundle.EditUsuariosMovilesTitle_resetPassword}" required="true" requiredMessage="#{bundle.EditUsuariosMovilesRequiredMessage_resetPassword}" disabled="true"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
 
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_fechaCreacion}"/>
-                        <h:outputText value="#{usuariosMovilesController.selected.fechaCreacion}" title="#{bundle.ViewUsuariosMovilesTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-
-                        <h:outputText value="#{bundle.ViewUsuariosMovilesLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{usuariosMovilesController.selected.fechaActualizacion}" title="#{bundle.ViewUsuariosMovilesTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('UsuariosMovilesViewDialog').hide()"/>
-                </h:panelGroup>
-
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('UsuariosMovilesViewDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

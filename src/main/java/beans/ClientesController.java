@@ -1,14 +1,19 @@
 package beans;
 
+import entities.Ciudades;
 import entities.Clientes;
+import entities.Departamentos;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.apache.commons.io.IOUtils;
@@ -27,6 +32,7 @@ public class ClientesController extends AbstractController<Clientes> {
     private MapModel model = new DefaultMapModel();
     private Marker marker;
     private StreamedContent picture;
+    private List<Ciudades> listaCiudades;
 
     public Marker getMarker() {
         return marker;
@@ -43,7 +49,7 @@ public class ClientesController extends AbstractController<Clientes> {
 
     public MapModel getModel() {
         if (getSelected().getGeolocalizado() == true) {
-            model.addOverlay(new Marker(new LatLng(getSelected().getLatitude(), getSelected().getLongitud()), getSelected().getNombreNegocio()));
+            model.addOverlay(new Marker(new LatLng(getSelected().getLatitud(), getSelected().getLongitud()), getSelected().getNombreNegocio()));
         }
         return model;
     }
@@ -79,6 +85,19 @@ public class ClientesController extends AbstractController<Clientes> {
 
     public void setPicture(StreamedContent picture) {
         this.picture = picture;
+    }
+
+    public void onDepartamentoChange(ValueChangeEvent event) {
+        Departamentos d = (Departamentos) event.getNewValue();
+        setListaCiudades(new ArrayList<>(d.getCiudadesCollection()));
+    }
+
+    public List<Ciudades> getListaCiudades() {
+        return listaCiudades;
+    }
+
+    public void setListaCiudades(List<Ciudades> listaCiudades) {
+        this.listaCiudades = listaCiudades;
     }
 
 }

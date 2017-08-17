@@ -101,9 +101,9 @@ public class Productos implements Serializable {
     @JoinColumn(name = "id_tipo_impuesto", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private TipoImpuestos idTipoImpuesto;
-    @OneToOne(mappedBy = "stock", cascade=CascadeType.REMOVE)
+    @OneToOne(mappedBy = "stock", cascade = CascadeType.REMOVE)
     private Stock stock;
-
+ 
     public Stock getStock() {
         return stock;
     }
@@ -262,7 +262,5 @@ public class Productos implements Serializable {
     public String toString() {
         return "entities.Productos[ id=" + id + " ]";
     }
-
-    
 
 }

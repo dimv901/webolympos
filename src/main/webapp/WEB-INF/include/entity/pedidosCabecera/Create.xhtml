@@ -8,62 +8,152 @@
 
     <ui:composition>
 
-        <p:dialog id="PedidosCabeceraCreateDlg" widgetVar="PedidosCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosCabeceraTitle}" closeOnEscape="true">
+        <p:dialog id="PedidosCabeceraCreateDlg" widgetVar="PedidosCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosCabeceraTitle}" closeOnEscape="true"  rendered="#{pedidosCabeceraController.vendedor!= null}">
 
             <h:form id="PedidosCabeceraCreateForm">
+                <p:panel >
+                    <h:panelGroup id="display" rendered="#{pedidosCabeceraController.selected != null}">
+                        <p:tabView id="PedidosView">
+                            <p:tab id="Pedidos1" title="#{bundle.TabHeaderPedidosPrefixCabecera}">
+                                <p:panel id="detalle" >
+                                    <h:panelGrid columns="1" >
+                                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_idCliente}" for="idCliente" />
+                                        <p:selectOneMenu id="idCliente" value="#{pedidosCabeceraController.selected.idCliente}"
+                                                         required="true"
+                                                         requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_idCliente}" 
+                                                         converter="clientesConverter" 
+                                                         filter="true" 
+                                                         filterMatchMode="contains" >
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{clientesController.items}"
+                                                           var="idClienteItem"
+                                                           itemValue="#{idClienteItem}"
+                                                           itemLabel="#{idClienteItem.nombreNegocio.toString()}"
+                                                           />
 
-                <h:panelGroup id="display" rendered="#{pedidosCabeceraController.selected != null}">
-                    <p:panelGrid columns="2" columnClasses="column">
+                                        </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_importe}" for="importe" />
-                        <p:inputText id="importe" value="#{pedidosCabeceraController.selected.importe}" title="#{bundle.CreatePedidosCabeceraTitle_importe}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_importe}"/>
+                                        <p:outputLabel value="#{bundle.ComprasDatosComprobanteLabel_producto}" for="idProducto" />
+                                        <p:selectOneMenu id="idProducto" 
+                                                         value="#{pedidosCabeceraController.pedidosItemDetalle.producto}" 
+                                                         converter="productosConverter"
+                                                         filter="true" 
+                                                         filterMatchMode="contains">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{pedidosCabeceraController.productoList}"
+                                                           var="idProducto"
+                                                           itemValue="#{idProducto}"
+                                                           itemLabel="#{idProducto.descripcion.toString()}"/>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_latitud}" for="latitud" />
-                        <p:inputText id="latitud" value="#{pedidosCabeceraController.selected.latitud}" title="#{bundle.CreatePedidosCabeceraTitle_latitud}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_latitud}"/>
+                                        </p:selectOneMenu>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_longitud}" for="longitud" />
-                        <p:inputText id="longitud" value="#{pedidosCabeceraController.selected.longitud}" title="#{bundle.CreatePedidosCabeceraTitle_longitud}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_longitud}"/>
+                                        <p:outputLabel value="#{bundle.ComprasDatosComprobanteLabel_cantidad}" for="cantidad" />
+                                        <p:inputNumber id="cantidad" 
+                                                       value="#{pedidosCabeceraController.pedidosItemDetalle.cantidad}"
+                                                       title="#{bundle.ComprasDatosComprobanteLabel_cantidad}"
+                                                       size="30"
+                                                       decimalSeparator="," thousandSeparator="."
+                                                       validatorMessage="#{bundle.ErrorCantidadInvalida}">
+                                            <f:validateDoubleRange minimum="1" />
+                                        </p:inputNumber>
+                                    </h:panelGrid>
+                                    <div align="left">
+                                        <p:commandButton value="#{bundle.Add}" styleClass="GreenButton" icon="fa fa-plus Fs16 White">
+                                            <p:ajax event="click" listener="#{pedidosCabeceraController.agregarItemADetalle}" update="datalist, growl, detalle"  process="@parent" />
+                                        </p:commandButton>
+                                    </div>
+                                </p:panel>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_estado}" for="estado" />
-                        <p:inputTextarea rows="4" cols="30" id="estado" value="#{pedidosCabeceraController.selected.estado}" title="#{bundle.CreatePedidosCabeceraTitle_estado}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_estado}"/>
+                                <h:panelGroup>
+                                    <p:panel style="width: 800px;">
+                                        <p:dataTable  id="datalist"
+                                                      value="#{pedidosCabeceraController.pedidosDetalleList}"
+                                                      var="item"
+                                                      paginator="true"
+                                                      paginatorPosition="bottom"
+                                                      rows="10"
+                                                      rowsPerPageTemplate="10,20,30"
+                                                      emptyMessage="#{bundle.ErrorEmptyDetail}"
+                                                      reflow="true">
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_fechaPedido}" for="fechaPedido" />
-                        <p:calendar id="fechaPedido" pattern="MM/dd/yyyy HH:mm:ss" value="#{pedidosCabeceraController.selected.fechaPedido}" title="#{bundle.CreatePedidosCabeceraTitle_fechaPedido}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_fechaPedido}" showOn="button"/>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_fechaCreacion}" for="fechaCreacion" />
-                        <p:calendar id="fechaCreacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{pedidosCabeceraController.selected.fechaCreacion}" title="#{bundle.CreatePedidosCabeceraTitle_fechaCreacion}"  showOn="button"/>
+                                            <p:column sortBy="#{item.producto.codigoBarra}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelCodigo}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.producto.codigoBarra}"/>
+                                            </p:column>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_fechaActualizacion}" for="fechaActualizacion" />
-                        <p:calendar id="fechaActualizacion" pattern="MM/dd/yyyy HH:mm:ss" value="#{pedidosCabeceraController.selected.fechaActualizacion}" title="#{bundle.CreatePedidosCabeceraTitle_fechaActualizacion}"  showOn="button"/>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_idCliente}" for="idCliente" />
-                        <p:selectOneMenu id="idCliente" value="#{pedidosCabeceraController.selected.idCliente}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_idCliente}" converter="clientesConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{clientesController.items}"
-                                           var="idClienteItem"
-                                           itemValue="#{idClienteItem}"
-                                           itemLabel="#{idClienteItem.id.toString()}"
-                                           />
+                                            <p:column sortBy="#{item.producto.descripcion}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelDescripcion}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.producto.descripcion}"/>
+                                            </p:column>
 
-                        </p:selectOneMenu>
+                                            <p:column sortBy="#{item.precioUnitario}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelPrecioUnitario}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.producto.precioVenta}">
+                                                    <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                                </h:outputText>
+                                            </p:column>
 
-                        <p:outputLabel value="#{bundle.CreatePedidosCabeceraLabel_idVendedor}" for="idVendedor" />
-                        <p:selectOneMenu id="idVendedor" value="#{pedidosCabeceraController.selected.idVendedor}" required="true" requiredMessage="#{bundle.CreatePedidosCabeceraRequiredMessage_idVendedor}" converter="vendedoresConverter">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{vendedoresController.items}"
-                                           var="idVendedorItem"
-                                           itemValue="#{idVendedorItem}"
-                                           itemLabel="#{idVendedorItem.id.toString()}"
-                                           />
+                                            <p:column sortBy="#{item.cantidad}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelCantidad}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.cantidad}"/>
+                                            </p:column>
 
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{pedidosCabeceraController.saveNew}" value="#{bundle.Save}" update="display,:PedidosCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PedidosCabeceraCreateDialog'));"/>
-                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PedidosCabeceraCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                </h:panelGroup>
 
+                                            <p:column sortBy="#{item.producto.stock.cantidad}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelStock}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.producto.stock.cantidad}"/>
+                                            </p:column>
+
+                                            <p:column sortBy="#{item.importe}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelImporte}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.importe}"> 
+                                                    <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                                </h:outputText>
+                                            </p:column>
+
+
+                                            <p:column width="50">
+                                                <p:commandButton title="#{bundle.Delete}"
+                                                                 styleClass="RedButton" 
+                                                                 icon="fa fa-remove Fs16 White"
+                                                                 actionListener="#{pedidosCabeceraController.eliminarItem(item)}"
+                                                                 process="@this"
+                                                                 update="datalist, datalist:total"/>
+                                            </p:column>
+
+                                            <f:facet name="footer">
+                                                <h:outputText id="total" value="Total:  #{pedidosCabeceraController.totalPedido} Gs." class="FontBold FontLatoBlack">
+                                                    <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                                </h:outputText>
+                                            </f:facet>
+                                        </p:dataTable>
+                                    </p:panel>
+                                </h:panelGroup>
+                            </p:tab>
+                        </p:tabView>
+                    </h:panelGroup>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton validateClient="true" actionListener="#{pedidosCabeceraController.saveNew}" value="#{bundle.Save}" update="display,:PedidosCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PedidosCabeceraCreateDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('PedidosCabeceraCreateDialog').hide()" update="display" process="@form" immediate="true" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
-
         </p:dialog>
 
     </ui:composition>

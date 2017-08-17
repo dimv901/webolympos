@@ -6,10 +6,11 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.6.4.v20160829-rNA", date="2017-05-28T18:46:57")
+@Generated(value="EclipseLink-2.6.4.v20160829-rNA", date="2017-08-16T23:45:36")
 @StaticMetamodel(Vendedores.class)
 public class Vendedores_ { 
 
+    public static volatile SingularAttribute<Vendedores, String> descripcion;
     public static volatile SingularAttribute<Vendedores, String> cedula;
     public static volatile SingularAttribute<Vendedores, String> apellido;
     public static volatile SingularAttribute<Vendedores, Boolean> android;

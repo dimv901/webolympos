@@ -86,6 +86,8 @@ public class Proveedores implements Serializable {
     private Paises idPais;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
     private Collection<ComprobantesCompraCabecera> comprobantesCompraCabeceraCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProveedor")
+    private Collection<Productos> idProducto;
 
     public Proveedores() {
     }
@@ -174,6 +176,15 @@ public class Proveedores implements Serializable {
     }
 
     @XmlTransient
+    public Collection<Productos> getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(Collection<Productos> idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    @XmlTransient
     public Collection<ComprobantesCompraCabecera> getComprobantesCompraCabeceraCollection() {
         return comprobantesCompraCabeceraCollection;
     }
@@ -206,5 +217,5 @@ public class Proveedores implements Serializable {
     public String toString() {
         return "entities.Proveedores[ id=" + id + " ]";
     }
-    
+
 }

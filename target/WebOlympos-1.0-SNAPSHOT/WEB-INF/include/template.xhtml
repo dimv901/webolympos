@@ -18,6 +18,7 @@
         <h:outputScript name="js/layout.js" library="olympos-layout" />
         <h:outputScript name="js/spanish.js" library="olympos-layout" />
         <h:outputStylesheet library="css" name="pfcrud.css"/>
+        <h:outputStylesheet library="css" name="pcustom.css"/>
         <h:outputScript library="scripts" name="pfcrud.js"/>
         <ui:insert name="head"/>
     </h:head>
@@ -63,6 +64,66 @@
         <h:outputStylesheet name="css/olympos-font.css" library="olympos-layout" />
         <h:outputStylesheet name="css/font-awesome.css" library="olympos-layout" />
         <h:outputStylesheet name="css/olympos-layout.css" library="olympos-layout" />
+
+        <script type="text/javascript">
+            function setSize() {
+                $(".ui-dialog").css({
+                    "width": 300,
+                    "height": 200,
+                    "left": "50%",
+                    "top": "50%",
+                    "margin-left": -150,
+                    "margin-top": -100
+                });
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var menuWrapper = $('#layout-menu-cover'),
+                        menuPopupButton = $('#mobile-menu-btn'),
+                        layoutTabmenu = $('#layout-tab-menu'),
+                        layoutSubmenus = menuWrapper.find('.layout-tab-submenu'),
+                        layoutMenuClick = false;
+
+                $(".nano").nanoScroller({flash: true});
+
+                // open layout tab menu sub menus
+                layoutTabmenu.find('a').on('click', function () {
+                    layoutTabmenu.find('li a').removeClass('active');
+                    $(this).addClass('active');
+                    layoutSubmenus.removeClass('active');
+                    $('#' + String($(this).attr('rel'))).addClass('active');
+                });
+
+                // show and hide popup main menu when click a menu button
+                menuPopupButton.off('click.popupMenubutton').on('click.popupMenubutton', function (e) {
+                    layoutMenuClick = true;
+
+                    if (menuWrapper.hasClass('active')) {
+                        $(this).removeClass('active');
+                        menuWrapper.removeClass('active');
+                    } else {
+                        $(this).addClass('active');
+                        menuWrapper.addClass('active');
+                    }
+                    e.preventDefault();
+                });
+
+                menuWrapper.on('click', function () {
+                    layoutMenuClick = true;
+                });
+
+                this.clickNS = 'click.' + this.id;
+                $(document.body).off(this.clickNS).on(this.clickNS, function (e) {
+                    if (!layoutMenuClick) {
+                        menuPopupButton.removeClass('active');
+                        menuWrapper.removeClass('active');
+                    }
+
+                    layoutMenuClick = false;
+                });
+            });
+        </script>
     </h:body>
 
 </html>

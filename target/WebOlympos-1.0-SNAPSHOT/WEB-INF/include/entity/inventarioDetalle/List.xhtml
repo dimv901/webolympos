@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="InventarioDetalleListForm">
+
+        <p:panel header="#{bundle.ListInventarioDetalleTitle}">
+            <p:dataTable id="datalist"
+                         value="#{inventarioDetalleController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30"
+                         selectionMode="single"
+                         selection="#{inventarioDetalleController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{inventarioDetalleController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListInventarioDetalleTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidadActual}" filterBy="#{item.cantidadActual}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListInventarioDetalleTitle_cantidadActual}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidadActual}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.cantidadRegistrada}" filterBy="#{item.cantidadRegistrada}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListInventarioDetalleTitle_cantidadRegistrada}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cantidadRegistrada}"/>
+                </p:column>
+
+                <!--
+                                    <p:column sortBy="#{item.cantidadDiferencia}" filterBy="#{item.cantidadDiferencia}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListInventarioDetalleTitle_cantidadDiferencia}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.cantidadDiferencia}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idCabecera.id}" filterBy="#{item.idCabecera.id}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListInventarioDetalleTitle_idCabecera}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idCabecera.id}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idProductoFamilia.descripcion}" filterBy="#{item.idProductoFamilia.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListInventarioDetalleTitle_idProductoFamilia}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idProductoFamilia.descripcion}"/>
+                                    </p:column>
+                -->
+                <!--
+                                    <p:column sortBy="#{item.idProducto.descripcion}" filterBy="#{item.idProducto.descripcion}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListInventarioDetalleTitle_idProducto}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.idProducto.descripcion}"/>
+                                    </p:column>
+                -->
+                <f:facet name="footer">
+                    <div class="footer-section">
+                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{inventarioDetalleController.prepareCreate}" update=":InventarioDetalleCreateForm" oncomplete="PF('InventarioDetalleCreateDialog').show()"/>
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":InventarioDetalleViewForm" oncomplete="PF('InventarioDetalleViewDialog').show()" disabled="#{empty inventarioDetalleController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":InventarioDetalleEditForm" oncomplete="PF('InventarioDetalleEditDialog').show()" disabled="#{empty inventarioDetalleController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{inventarioDetalleController.delete}" update=":growl,datalist" disabled="#{empty inventarioDetalleController.selected}"/>
+                    </div>
+                </f:facet>
+
+            </p:dataTable>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

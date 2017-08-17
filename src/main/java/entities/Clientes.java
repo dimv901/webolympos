@@ -50,7 +50,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Clientes.findByNumeroCasa", query = "SELECT c FROM Clientes c WHERE c.numeroCasa = :numeroCasa")
     , @NamedQuery(name = "Clientes.findByReferencia", query = "SELECT c FROM Clientes c WHERE c.referencia = :referencia")
     , @NamedQuery(name = "Clientes.findByGeolocalizado", query = "SELECT c FROM Clientes c WHERE c.geolocalizado = :geolocalizado")
-    , @NamedQuery(name = "Clientes.findByLatitude", query = "SELECT c FROM Clientes c WHERE c.latitude = :latitude")
+    , @NamedQuery(name = "Clientes.findByLatitud", query = "SELECT c FROM Clientes c WHERE c.latitud = :latitud")
     , @NamedQuery(name = "Clientes.findByLongitud", query = "SELECT c FROM Clientes c WHERE c.longitud = :longitud")
     , @NamedQuery(name = "Clientes.findByFotoUrl", query = "SELECT c FROM Clientes c WHERE c.fotoUrl = :fotoUrl")
     , @NamedQuery(name = "Clientes.findByFechaCreacion", query = "SELECT c FROM Clientes c WHERE c.fechaCreacion = :fechaCreacion")
@@ -136,8 +136,8 @@ public class Clientes implements Serializable {
     @Column(name = "geolocalizado")
     private boolean geolocalizado;
     @Basic(optional = false)
-    @Column(name = "latitude")
-    private double latitude;
+    @Column(name = "latitud")
+    private double latitud;
     @Basic(optional = false)
     @Column(name = "longitud")
     private double longitud;
@@ -206,7 +206,7 @@ public class Clientes implements Serializable {
         this.id = id;
     }
 
-    public Clientes(Integer id, String nombreTitular, String cedulaTitular, String contactoTitular, String emailTitular, String razonSocial, String nombreNegocio, String ruc, String emailNegocio, String telefonoNegocio, String barrio, String callePrincipal, String calleSecundaria, Integer numeroCasa, String referencia, boolean geolocalizado, double latitude, double longitud, byte[] foto, String fotoUrl, boolean tieneFoto, Date fechaCreacion, Date fechaActualizacion, boolean lunes, boolean martes, boolean miercoles, boolean jueves, boolean viernes, boolean sabado, boolean domingo, Circuitos idCircuito, Ciudades idCiudad, Departamentos idDepartamento, FormasPago idFormaPago) {
+    public Clientes(Integer id, String nombreTitular, String cedulaTitular, String contactoTitular, String emailTitular, String razonSocial, String nombreNegocio, String ruc, String emailNegocio, String telefonoNegocio, String barrio, String callePrincipal, String calleSecundaria, Integer numeroCasa, String referencia, boolean geolocalizado, double latitud, double longitud, byte[] foto, String fotoUrl, boolean tieneFoto, Date fechaCreacion, Date fechaActualizacion, boolean lunes, boolean martes, boolean miercoles, boolean jueves, boolean viernes, boolean sabado, boolean domingo, Circuitos idCircuito, Ciudades idCiudad, Departamentos idDepartamento, FormasPago idFormaPago) {
         this.id = id;
         this.nombreTitular = nombreTitular;
         this.cedulaTitular = cedulaTitular;
@@ -223,7 +223,7 @@ public class Clientes implements Serializable {
         this.numeroCasa = numeroCasa;
         this.referencia = referencia;
         this.geolocalizado = geolocalizado;
-        this.latitude = latitude;
+        this.latitud = latitud;
         this.longitud = longitud;
         this.foto = foto;
         this.fotoUrl = fotoUrl;
@@ -373,12 +373,12 @@ public class Clientes implements Serializable {
         this.geolocalizado = geolocalizado;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public double getLatitud() {
+        return latitud;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
     }
 
     public double getLongitud() {

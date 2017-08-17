@@ -40,8 +40,8 @@
                         -->
 
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton"/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton"/>
 
 
                         <p:column sortBy="#{item.numeroComprobante}" filterBy="#{item.numeroComprobante}" filterMatchMode="contains"  >
@@ -154,7 +154,6 @@
                             <div class="footer-section">
                                 <p:commandButton id="createButton" value="#{bundle.Create}" actionListener="#{comprobantesCompraCabeceraController.prepareCreate}" update=":ComprobantesCompraCabeceraCreateForm" oncomplete="PF('ComprobantesCompraCabeceraCreateDialog').show()" style="width: 100px" styleClass="GreenButton" icon="fa fa-plus Fs16 White"/>
                                 <p:commandButton id="viewButton"   value="#{bundle.View}" update=":ComprobantesCompraCabeceraViewForm" oncomplete="PF('ComprobantesCompraCabeceraViewDialog').show()" disabled="#{empty comprobantesCompraCabeceraController.selected}"  style="width: 100px" styleClass="AquaButton" icon="fa fa-search Fs16 White"/>
-                                <p:commandButton id="editButton"   value="#{bundle.Edit}" update=":ComprobantesCompraCabeceraEditForm" oncomplete="PF('ComprobantesCompraCabeceraEditDialog').show()" disabled="#{empty comprobantesCompraCabeceraController.selected}"  style="width: 100px" styleClass="NavyButton" icon="fa fa-edit Fs16 White"/>
                             </div>
                         </f:facet>
 

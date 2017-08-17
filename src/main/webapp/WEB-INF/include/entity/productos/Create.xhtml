@@ -11,7 +11,7 @@
         <p:dialog id="ProductosCreateDlg" widgetVar="ProductosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductosTitle}" closeOnEscape="true">
 
             <h:form id="ProductosCreateForm">
-                <p:panel>
+                <p:panel >
                     <h:panelGroup id="display" rendered="#{productosController.selected != null}">
                         <p:panelGrid columns="1" columnClasses="column">
 
@@ -91,14 +91,17 @@
                             <p:outputLabel value="#{bundle.CreateProductosLabel_foto}" for="idUploadPic" />
                             <p:fileUpload id="idUploadPic"
                                           fileUploadListener="#{productosController.handleFileUpload}" 
-                                          value="#{productosController.uploadedFile}" mode="advanced" dragDropSupport="false"
+                                          value="#{productosController.uploadedFile}"
+                                          mode="advanced" 
+                                          dragDropSupport="false"
                                           update="growl" 
-                                          sizeLimit="100000" 
+                                          sizeLimit="1000000" 
                                           fileLimit="1" 
                                           cancelLabel="#{bundle.Cancel}"
                                           label="#{bundle.Pick}"
                                           uploadLabel="#{bundle.Upload}"
                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+                                          previewWidth="50"
                                           invalidFileMessage="#{bundle.ErrorInvalidFileFormat}"/>
 
                         </p:panelGrid>

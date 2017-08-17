@@ -8,12 +8,12 @@
 
     <ui:composition>
 
-        <p:dialog id="ComprobantesCompraCabeceraViewDlg" widgetVar="ComprobantesCompraCabeceraViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewComprobantesCompraCabeceraTitle}" closeOnEscape="true">
+        <p:dialog id="ComprobantesCompraCabeceraViewDlg" widgetVar="ComprobantesCompraCabeceraViewDialog" onShow="PF('tabview.select(1)')" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewComprobantesCompraCabeceraTitle}" closeOnEscape="true">
 
             <h:form id="ComprobantesCompraCabeceraViewForm">
                 <p:panel>
                     <h:panelGroup id="display">
-                        <p:tabView id="ComprasView">
+                        <p:tabView id="ComprasView" widgetVar="tabview">
                             <p:tab id="ComprasTab1" title="#{bundle.TabHeaderComprasPrefixCabecera}">
                                 <p:panelGrid columns="2" columnClasses="column" rendered="#{comprobantesCompraCabeceraController.selected != null}">
 
@@ -32,73 +32,92 @@
                                     </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalComprobante}"/>
-                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalComprobante}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalComprobante}"/>
+                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalComprobante}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalComprobante}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalGravada5}"/>
-                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalGravadas5}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalGravada5}"/>
+                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalGravadas5}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalGravada5}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalGravada10}"/>
-                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva10}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalGravada10}"/>
+                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva10}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalGravada10}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalIva10}"/>
-                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva10}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalIva10}"/>
+                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva10}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalIva10}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalIva5}"/>
-                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva5}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalIva5}"/>
+                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalIva5}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalIva5}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewComprobantesCompraCabeceraLabel_totalExentas}"/>
-                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalExentas}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalExentas}"/>
+                                    <h:outputText value="#{comprobantesCompraCabeceraController.selected.totalExentas}" title="#{bundle.ViewComprobantesCompraCabeceraTitle_totalExentas}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputText>
                                 </p:panelGrid>
                             </p:tab>
                             <p:tab id="ComprasTab2" title="#{bundle.TabHeaderComprasPrefixDetalle}">
                                 <h:panelGroup>
-                                    <p:dataTable  id="datalist"
-                                                  value="#{comprobantesCompraCabeceraController.comprasDetalleView}"
-                                                  var="item"
-                                                  paginator="true"
-                                                  paginatorPosition="bottom"
-                                                  rows="10"
-                                                  rowsPerPageTemplate="10,20,30"
-                                                  emptyMessage="#{bundle.ErrorEmptyDetail}"
-                                                  reflow="true">
+                                    <p:panel  style="width: 800px;">
+                                        <p:dataTable  id="datalist"
+                                                      value="#{comprobantesCompraCabeceraController.comprasDetalleView}"
+                                                      var="item"
+                                                      paginator="true"
+                                                      paginatorPosition="bottom"
+                                                      rows="10"
+                                                      rowsPerPageTemplate="10,20,30"
+                                                      emptyMessage="#{bundle.ErrorEmptyDetail}"
+                                                      reflow="true"
+                                                      rendered="#{comprobantesCompraCabeceraController.comprasDetalleView!=null}">
 
 
-                                        <p:column sortBy="#{item.producto.codigoBarra}" >
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelCodigo}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.producto.codigoBarra}"/>
-                                        </p:column>
+                                            <p:column sortBy="#{item.producto.codigoBarra}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelCodigo}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.producto.codigoBarra}"/>
+                                            </p:column>
 
 
-                                        <p:column sortBy="#{item.producto.descripcion}" >
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelDescripcion}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.producto.descripcion}"/>
-                                        </p:column>
+                                            <p:column sortBy="#{item.producto.descripcion}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelDescripcion}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.producto.descripcion}"/>
+                                            </p:column>
 
-                                        <p:column sortBy="#{item.precioUnitario}" >
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelPrecioUnitario}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.precioUnitario}"/>
-                                        </p:column>
+                                            <p:column sortBy="#{item.precioUnitario}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelPrecioUnitario}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.precioUnitario}">
+                                                    <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                                </h:outputText>
+                                            </p:column>
 
-                                        <p:column sortBy="#{item.cantidad}" >
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelCantidad}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.cantidad}"/>
-                                        </p:column>
+                                            <p:column sortBy="#{item.cantidad}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelCantidad}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.cantidad}"/>
+                                            </p:column>
 
-                                        <p:column sortBy="#{item.importe}" >
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ComprasDetalle_columnLabelImporte}"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.importe}"/>
-                                        </p:column>
-                                    </p:dataTable>
+                                            <p:column sortBy="#{item.importe}" >
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ComprasDetalle_columnLabelImporte}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.importe}">
+                                                    <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                                </h:outputText>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:panel>
                                 </h:panelGroup>
                             </p:tab>
                         </p:tabView>
