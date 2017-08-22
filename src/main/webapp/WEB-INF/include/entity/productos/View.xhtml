@@ -9,60 +9,62 @@
 
     <ui:composition>
 
-        <p:dialog id="ProductosViewDlg" widgetVar="ProductosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewProductosTitle}" closeOnEscape="true">
+        <p:dialog id="ProductosViewDlg" widgetVar="ProductosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewProductosTitle}" closeOnEscape="true"   onShow="PF('tabview.select(1)')">
 
             <h:form id="ProductosViewForm">
                 <p:panel>
                     <h:panelGroup id="display">
 
-                        <p:tabView id="ProductosTabView">
+                        <p:tabView id="ProductosTabView" widgetVar="tabview">
                             <p:tab id="productos1" title="#{bundle.TabHeaderProductPrefixInfo}">
 
-                                <p:panelGrid columns="2" columnClasses="column" rendered="#{productosController.selected != null}">
+                            
+                                    <p:panelGrid columns="2" columnClasses="column" rendered="#{productosController.selected != null}">
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_id}"/>
-                                    <h:outputText value="#{productosController.selected.id}" title="#{bundle.ViewProductosTitle_id}"/>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_id}"/>
+                                        <h:outputText value="#{productosController.selected.id}" title="#{bundle.ViewProductosTitle_id}"/>
 
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_descripcion}"/>
-                                    <h:outputText value="#{productosController.selected.descripcion}" title="#{bundle.ViewProductosTitle_descripcion}"/>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_descripcion}"/>
+                                        <h:outputText value="#{productosController.selected.descripcion}" title="#{bundle.ViewProductosTitle_descripcion}"/>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_codigoBarra}"/>
-                                    <h:outputText value="#{productosController.selected.codigoBarra}" title="#{bundle.ViewProductosTitle_codigoBarra}"/>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_codigoBarra}"/>
+                                        <h:outputText value="#{productosController.selected.codigoBarra}" title="#{bundle.ViewProductosTitle_codigoBarra}"/>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_activo}"/>
-                                    <p:inputSwitch id="activo"
-                                                   value="#{productosController.selected.activo}" 
-                                                   required="true" 
-                                                   requiredMessage="#{bundle.EditProductosRequiredMessage_activo}" 
-                                                   disabled="true"
-                                                   onLabel="#{bundle.Yes}"
-                                                   offLabel="#{bundle.No}"/>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_activo}"/>
+                                        <p:inputSwitch id="activo"
+                                                       value="#{productosController.selected.activo}" 
+                                                       required="true" 
+                                                       requiredMessage="#{bundle.EditProductosRequiredMessage_activo}" 
+                                                       disabled="true"
+                                                       onLabel="#{bundle.Yes}"
+                                                       offLabel="#{bundle.No}"/>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_precioVenta}"/>
-                                    <h:outputText value="#{productosController.selected.precioVenta}" title="#{bundle.ViewProductosTitle_precioVenta}">
-                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
-                                    </h:outputText>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_precioVenta}"/>
+                                        <h:outputText value="#{productosController.selected.precioVenta}" title="#{bundle.ViewProductosTitle_precioVenta}">
+                                            <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                        </h:outputText>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_precioCosto}"/>
-                                    <h:outputText value="#{productosController.selected.precioCosto}" title="#{bundle.ViewProductosTitle_precioCosto}">
-                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
-                                    </h:outputText>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_precioCosto}"/>
+                                        <h:outputText value="#{productosController.selected.precioCosto}" title="#{bundle.ViewProductosTitle_precioCosto}">
+                                            <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                        </h:outputText>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_stock}"/>
-                                    <h:outputText value="#{productosController.selected.stock.cantidad}" title="#{bundle.ViewProductosTitle_stock}">
-                               
-                                    </h:outputText>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_stock}"/>
+                                        <h:outputText value="#{productosController.selected.stock.cantidad}" title="#{bundle.ViewProductosTitle_stock}">
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_idProductoFamilia}"/>
-                                    <h:outputText value="#{productosController.selected.idProductoFamilia.descripcion}"/>
+                                        </h:outputText>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_idProveedor}"/>
-                                    <h:outputText value="#{productosController.selected.idProveedor.descripcion}"/>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_idProductoFamilia}"/>
+                                        <h:outputText value="#{productosController.selected.idProductoFamilia.descripcion}"/>
 
-                                    <h:outputText value="#{bundle.ViewProductosLabel_idTipoImpuesto}"/>
-                                    <h:outputText value="#{productosController.selected.idTipoImpuesto.descripcion}"/>
-                                </p:panelGrid>
+                                        <h:outputText value="#{bundle.ViewProductosLabel_idProveedor}"/>
+                                        <h:outputText value="#{productosController.selected.idProveedor.descripcion}"/>
+
+                                        <h:outputText value="#{bundle.ViewProductosLabel_idTipoImpuesto}"/>
+                                        <h:outputText value="#{productosController.selected.idTipoImpuesto.descripcion}"/>
+                                    </p:panelGrid>
+                           
                             </p:tab>
 
 

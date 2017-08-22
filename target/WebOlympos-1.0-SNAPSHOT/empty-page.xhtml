@@ -11,9 +11,9 @@
                 <div class="Container100 NoIndent " id="pricingtables" style=" padding:0px 3rem;">
 
                     <div class="EmptyBox50"></div>
-
-                    <h1 class="FontLatoBold Fs26 Navy TexAlCenter">Resumen del Día</h1>
-
+                    <div class="Container100 NoIndent NavyBack TexAlCenter" id="highlight">
+                        <h1 class="FontLatoRegular Fs40 White TexAlCenter FontNormal">RESUMEN DEL DÍA</h1>
+                    </div>
                     <div class="EmptyBox30"></div>
 
                     <div class="SeparatorFull"></div>
@@ -26,7 +26,7 @@
                             <div class="Container60 NoIndent Responsive100">
                                 <i class="icon-shopping226 White Fs60 Fleft MarRight10 MarBot10"></i>
                                 <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">PEDIDOS DEL DIA</span><br/>
-                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.orderTodayQuantity}</span>
+                                <span class="FontLatoRegular White Fleft Fs30 DispBlock">#{resumeController.orderTodayQuantity}</span>
                             </div>
 
                             <div class="EmptyBox10"></div>
@@ -34,24 +34,40 @@
                     </div>
 
                     <div class="Container50 Responsive50 Flex">
-                        <div class="Card Zoom1point05x PurpleBack White">
+                        <div class="Card Zoom1point05x GreenBack White">
                             <div class="EmptyBox10"></div>
                             <div class="Container60 NoIndent Responsive100">
                                 <i class="fa fa-money White Fs60 Fleft MarRight10 MarBot10"></i>
                                 <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">INGRESOS DEL DIA</span><br/>
-                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.revenueTodayAmount}</span>
+                                <span class="FontLatoRegular White Fleft Fs30 DispBlock">
+                                    <h:outputLabel value="#{resumeController.revenueTodayAmount}">
+                                        <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                    </h:outputLabel>
+                                </span>
                             </div>
-
                             <div class="EmptyBox10"></div>
                         </div>
                     </div>
+
                     <div class="Container50 Responsive50 Flex">
-                        <div class="Card Zoom1point05x Card GreenBack White">
+                        <div class="Card Zoom1point05x RedBack White">
+                            <div class="EmptyBox10"></div>
+                            <div class="Container60 NoIndent Responsive100">
+                                <i class="material-icons White Fs60 Fleft MarRight10 MarBot10">remove_shopping_cart</i>
+                                <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">NO COMPRAS DEL DIA</span><br/>
+                                <span class="FontLatoRegular White Fleft Fs30 DispBlock">#{resumeController.visitsQuantity}</span>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                        </div>
+                    </div>
+
+                    <div class="Container50 Responsive50 Flex">
+                        <div class="Card Zoom1point05x Card PurpleBack White">
                             <div class="EmptyBox10"></div>
                             <div class="Container60 NoIndent Responsive100">
                                 <i class="fa fa-users White Fs60 Fleft MarRight10 MarBot10"></i>
                                 <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">CLIENTES ACTIVOS</span><br/>
-                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.activeQuantityClients}</span>
+                                <span class="FontLatoRegular White Fleft Fs30 DispBlock">#{resumeController.activeQuantityClients}</span>
                             </div>
                             <div class="EmptyBox10"></div>
                         </div>
@@ -62,11 +78,13 @@
                             <div class="Container60 NoIndent Responsive100">
                                 <i class="icon-user106 White Fs60 Fleft MarRight10 MarBot10"></i>
                                 <span class="FontLatoBlack White Opac80 Fleft Fs13 DispBlock">VENDEDORES ACTIVOS</span><br/>
-                                <span class="FontLatoRegular White Fleft Fs40 DispBlock">#{resumeController.activeQuantitySalesmen}</span>
+                                <span class="FontLatoRegular White Fleft Fs30 DispBlock">#{resumeController.activeQuantitySalesmen}</span>
                             </div>
                             <div class="EmptyBox10"></div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

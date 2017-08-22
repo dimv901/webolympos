@@ -6,6 +6,7 @@
         <properties>
             <property name="eclipselink.target-server" value="Glassfish"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
             <property name="hibernate.cache.use.query_cache" value="false"/>
             <property name="hibernate.cache.use.second_level_cache" value="false"/>
             

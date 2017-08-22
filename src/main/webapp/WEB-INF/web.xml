@@ -39,10 +39,7 @@
     <welcome-file-list>
         <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error.xhtml</location>
-    </error-page>
+
     
     
     <!--AGREGAR ESTOS PARAMETROS EN EL WEB XML DEL PROYECTO MICROSEGUROS-->
@@ -63,7 +60,14 @@
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/login.xhtml</location>
     </error-page>
-    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+       <error-page>
+        <error-code>404</error-code>
+        <location>/404.xhtml</location>
+    </error-page>
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>olympos</param-value>

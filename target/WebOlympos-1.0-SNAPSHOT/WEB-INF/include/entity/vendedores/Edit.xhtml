@@ -66,9 +66,7 @@
 
                             <p:outputLabel value="#{bundle.EditVendedoresLabel_idCircuito}" for="idCircuito" />
                             <p:selectOneMenu id="idCircuito" value="#{vendedoresController.selected.idCircuito}"
-                                             required="true" 
-                                             requiredMessage="#{bundle.EditVendedoresRequiredMessage_idCircuito}" 
-                                             converter="circuitosConverter" 
+                                                                            converter="circuitosConverter" 
                                              filter="true" 
                                              filterMatchMode="contains"
                                              valueChangeListener="#{vendedoresController.onCircuitoChange}">

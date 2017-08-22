@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="PedidosCabeceraCreateDlg" widgetVar="PedidosCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosCabeceraTitle}" closeOnEscape="true"  rendered="#{pedidosCabeceraController.vendedor!= null}">
+        <p:dialog id="PedidosCabeceraCreateDlg" widgetVar="PedidosCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePedidosCabeceraTitle}" closeOnEscape="true"  >
 
             <h:form id="PedidosCabeceraCreateForm">
                 <p:panel >
@@ -135,8 +135,9 @@
                                                                  update="datalist, datalist:total"/>
                                             </p:column>
 
-                                            <f:facet name="footer">
-                                                <h:outputText id="total" value="Total:  #{pedidosCabeceraController.totalPedido} Gs." class="FontBold FontLatoBlack">
+                                            <f:facet name="footer" >
+                                                <h:outputLabel for="total" value="Total: " class="FontBold FontLatoBlack"/>
+                                                <h:outputText id="total"  value="#{pedidosCabeceraController.totalPedido}" class="FontBold FontLatoBlack">
                                                     <f:convertNumber  type="currency"  currencySymbol="Gs" />
                                                 </h:outputText>
                                             </f:facet>

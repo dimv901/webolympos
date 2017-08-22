@@ -55,6 +55,11 @@ public class VendedoresController extends AbstractController<Vendedores> {
                 JsfUtil.addErrorMessage(bundle.getString("ErrorCircuitoYaAsignado"));
                 return;
             }
+            if (getSelected().getAndroid() && getSelected().getIdCircuito() == null) {
+                JsfUtil.addErrorMessage(bundle.getString("ErrorFaltaCircuito"));
+                return;
+            }
+
             super.saveNew(event); //To change body of generated methods, choose Tools | Templates.
             createSalesmen = true;
         } catch (Exception e) {
@@ -92,6 +97,11 @@ public class VendedoresController extends AbstractController<Vendedores> {
         getSelected().setDescripcion(getSelected().getNombre() + " " + getSelected().getApellido());
         if (circuitoYaAsignado(getSelected().getIdCircuito())) {
             JsfUtil.addErrorMessage(bundle.getString("ErrorCircuitoYaAsignado"));
+            return;
+        }
+
+        if (getSelected().getAndroid() && getSelected().getIdCircuito() == null) {
+            JsfUtil.addErrorMessage(bundle.getString("ErrorFaltaCircuito"));
             return;
         }
         super.save(event); //To change body of generated methods, choose Tools | Templates.

@@ -59,7 +59,6 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
     public void init() {
         checkVendedor();
     }*/
-
     private boolean checkVendedor() {
         boolean isVendor = false;
         Query qVendedor = em.createNamedQuery("Vendedores.findByCedula");
@@ -85,6 +84,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
             pedidosDetalleList = new ArrayList<>();
             pedidosItemDetalle = new ComprasDetalle();
             pedidosDetalleCaberaList = new ArrayList<>();
+            setTotalPedido(0);
             return super.prepareCreate(event); //To change body of generated methods, choose Tools | Templates.
         }
         return null;
@@ -199,6 +199,11 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
 
         if (pedidosItemDetalle.getCantidad() == null || pedidosItemDetalle.getCantidad() == 0) {
             JsfUtil.addErrorMessage("La cantidad no es valida.");
+            return;
+        }
+
+        if (pedidosItemDetalle.getProducto() == null) {
+            JsfUtil.addErrorMessage("Debe seleccionar un producto.");
             return;
         }
 

@@ -21,7 +21,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
 

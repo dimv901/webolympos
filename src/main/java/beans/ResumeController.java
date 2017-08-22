@@ -8,11 +8,15 @@ package beans;
 import controllers.ClientesFacade;
 import controllers.PedidosCabeceraFacade;
 import controllers.VendedoresFacade;
+import controllers.VisitasFacade;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -23,9 +27,13 @@ import javax.faces.view.ViewScoped;
 public class ResumeController implements Serializable {
 
     private int orderTodayQuantity;
-    private int revenueTodayAmount;
+    private double revenueTodayAmount;
     private int activeQuantityClients;
     private int activeQuantitySalesmen;
+    private int visitsQuantity;
+
+    @PersistenceContext(unitName = "py.com.fpuna_WebOlympos_war_1.0-SNAPSHOTPU")
+    private EntityManager em;
 
     @EJB
     private ClientesFacade clientesFacade;
@@ -33,6 +41,8 @@ public class ResumeController implements Serializable {
     private VendedoresFacade vendedoresFacade;
     @EJB
     private PedidosCabeceraFacade pedidosFacade;
+    @EJB
+    private VisitasFacade visitasFacade;
 
     /**
      * Creates a new instance of ResumeController
@@ -52,6 +62,10 @@ public class ResumeController implements Serializable {
 
         int countClients = clientesFacade.count();
         setActiveQuantityClients(countClients);
+
+        countOrdersToday();
+        sumOrdersToday();
+        countVisitsToday();
     }
 
     public int getOrderTodayQuantity() {
@@ -62,11 +76,11 @@ public class ResumeController implements Serializable {
         this.orderTodayQuantity = orderTodayQuantity;
     }
 
-    public int getRevenueTodayAmount() {
+    public double getRevenueTodayAmount() {
         return revenueTodayAmount;
     }
 
-    public void setRevenueTodayAmount(int revenueTodayAmount) {
+    public void setRevenueTodayAmount(double revenueTodayAmount) {
         this.revenueTodayAmount = revenueTodayAmount;
     }
 
@@ -86,4 +100,38 @@ public class ResumeController implements Serializable {
         this.activeQuantitySalesmen = activeQuantitySalesmen;
     }
 
+    public int getVisitsQuantity() {
+        return visitsQuantity;
+    }
+
+    public void setVisitsQuantity(int visitsQuantity) {
+        this.visitsQuantity = visitsQuantity;
+    }
+
+    private void countOrdersToday() {
+        try {
+            Query q = em.createNativeQuery("select cast(fecha_creacion as date)  from pedidos_cabecera where cast(fecha_creacion as date) = cast(CURRENT_DATE as date)");
+            setOrderTodayQuantity(q.getResultList().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sumOrdersToday() {
+        try {
+            Query q = em.createNativeQuery("select coalesce (sum(importe),0 )from pedidos_cabecera where cast(fecha_creacion as date) = cast(CURRENT_DATE as date)");
+            setRevenueTodayAmount(Double.parseDouble(String.valueOf(q.getSingleResult())));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void countVisitsToday() {
+        try {
+            Query q = em.createNativeQuery("select cast(fecha_creacion as date)  from visitas where cast(fecha_creacion as date) = cast(CURRENT_DATE as date)");
+            setVisitsQuantity(q.getResultList().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

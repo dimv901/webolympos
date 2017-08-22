@@ -65,7 +65,7 @@
                                          size="30"/>
 
                             <p:outputLabel value="#{bundle.CreateVendedoresLabel_idCircuito}" for="idCircuito" />
-                            <p:selectOneMenu id="idCircuito" value="#{vendedoresController.selected.idCircuito}" required="true" requiredMessage="#{bundle.CreateVendedoresRequiredMessage_idCircuito}" converter="circuitosConverter" filter="true" filterMatchMode="contains" valueChangeListener="#{vendedoresController.onCircuitoChange}">
+                            <p:selectOneMenu id="idCircuito" value="#{vendedoresController.selected.idCircuito}"  converter="circuitosConverter" filter="true" filterMatchMode="contains" valueChangeListener="#{vendedoresController.onCircuitoChange}">
                                 <p:ajax update="growl" process="@this"/>
                                 <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                                 <f:selectItems value="#{circuitosController.items}"

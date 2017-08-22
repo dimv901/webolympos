@@ -86,7 +86,7 @@ public class Vendedores implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaActualizacion;
     @JoinColumn(name = "id_circuito", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Circuitos idCircuito;
     @NotNull
     @Size(min = 1, max = 250)

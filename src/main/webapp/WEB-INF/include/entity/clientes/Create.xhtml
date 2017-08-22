@@ -8,12 +8,20 @@
 
     <ui:composition>
 
-        <p:dialog id="ClientesCreateDlg" widgetVar="ClientesCreateDialog"  modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClientesTitle}" closeOnEscape="true" fitViewport="true">
+        <p:dialog id="ClientesCreateDlg" 
+                  widgetVar="ClientesCreateDialog"  
+                  modal="true" 
+                  resizable="false" 
+                  appendTo="@(body)" 
+                  header="#{bundle.CreateClientesTitle}" 
+                  closeOnEscape="true" 
+                  fitViewport="true"
+                  onShow="PF('tabview.select(1)')">
 
             <h:form id="ClientesCreateForm">
                 <p:panel>
                     <h:panelGroup id="display" rendered="#{clientesController.selected != null}">
-                        <p:tabView id="ClientesTabView" >
+                        <p:tabView id="ClientesTabView" widgetVar="tabview" >
 
                             <p:tab id="ClientesTab1" title="#{bundle.TabHeaderClientsPrefixOwner}">
                                 <p:panelGrid columns="1" columnClasses="column">

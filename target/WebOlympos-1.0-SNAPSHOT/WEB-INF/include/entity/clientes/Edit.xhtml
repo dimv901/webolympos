@@ -7,12 +7,19 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-        <p:dialog id="ClientesEditDlg" widgetVar="ClientesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditClientesTitle}" closeOnEscape="true">
+        <p:dialog id="ClientesEditDlg" 
+                  widgetVar="ClientesEditDialog" 
+                  modal="true" 
+                  resizable="false"  
+                  appendTo="@(body)" 
+                  header="#{bundle.EditClientesTitle}" 
+                  closeOnEscape="true"
+                  onShow="PF('tabview.select(1)')" >
 
             <h:form id="ClientesEditForm">
                 <p:panel>
                     <h:panelGroup id="display">
-                        <p:tabView id="ClientesTabView">
+                        <p:tabView id="ClientesTabView" widgetVar="tabview">
 
                             <p:tab id="ClientesTab1" title="#{bundle.TabHeaderClientsPrefixOwner}">
                                 <p:panelGrid columns="1" columnClasses="column">

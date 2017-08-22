@@ -94,7 +94,7 @@ public class LoginController extends AbstractController<UsuariosWeb> {
         try {
             SessionUtils.logout();
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect("login.xhtml");
+            ec.redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/login.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }
