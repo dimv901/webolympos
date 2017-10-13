@@ -24,11 +24,11 @@
                                  selectionMode="single"
                                  selection="#{proveedoresController.selected}"
                                  reflow="true"
-                                 filteredValue="#{proveedoresController.filtered}"
                                  widgetVar="table"
                                  emptyMessage="#{bundle.EmptyMessage}">
 
 
+                        <!--
                         <f:facet name="header">
                             <div align="right">
                                 <p:outputPanel  >                        
@@ -36,6 +36,7 @@
                                 </p:outputPanel>
                             </div>
                         </f:facet>
+                        -->
 
                         <!--
                                  To enable Lazy Loading, please copy/replace the following lines above,
@@ -58,14 +59,14 @@
                         </p:column>
                         -->
 
-                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedoresTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
 
-                        <p:column sortBy="#{item.ruc}" filterBy="#{item.ruc}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.ruc}" filterBy="#{item.ruc}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedoresTitle_ruc}"/>
                             </f:facet>
@@ -74,7 +75,7 @@
 
 
 
-                        <p:column sortBy="#{item.telefono}" filterBy="#{item.telefono}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.telefono}" filterBy="#{item.telefono}"  filterMatchMode="contains" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedoresTitle_telefono}"/>
                             </f:facet>

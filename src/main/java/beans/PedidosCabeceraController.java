@@ -11,8 +11,10 @@ import entities.Productos;
 import entities.Stock;
 import entities.Vendedores;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -20,12 +22,13 @@ import javax.faces.view.ViewScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.apache.commons.lang3.time.DateUtils;
 import utils.SessionUtils;
 
 @Named(value = "pedidosCabeceraController")
 @ViewScoped
 public class PedidosCabeceraController extends AbstractController<PedidosCabecera> {
-
+    
     @PersistenceContext(unitName = "py.com.fpuna_WebOlympos_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     @EJB
@@ -34,25 +37,25 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
     private StockFacade stockService;
     @EJB
     private VendedoresFacade vendedoresService;
-
+    
     private Productos producto;
     private List<Productos> productoList;
     private double totalPedido;
-
+    
     private List<ComprasDetalle> pedidosDetalleView;
     private ComprasDetalle pedidosItemDetalle;
     private List<ComprasDetalle> pedidosDetalleList;
     private ComprasDetalle pedidosDetalleSelected;
     private List<PedidosDetalle> pedidosDetalleCaberaList;
     private Vendedores vendedor;
-
+    
     public PedidosCabeceraController() {
         // Inform the Abstract parent controller of the concrete PedidosCabecera Entity
         super(PedidosCabecera.class);
         pedidosDetalleList = new ArrayList<>();
         pedidosItemDetalle = new ComprasDetalle();
         pedidosDetalleCaberaList = new ArrayList<>();
-
+        
     }
 
     /*@PostConstruct
@@ -75,7 +78,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
         }
         return false;
     }
-
+    
     @Override
     public PedidosCabecera prepareCreate(ActionEvent event) {
         if (!checkVendedor()) {
@@ -89,15 +92,15 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
         }
         return null;
     }
-
+    
     public Vendedores getVendedor() {
         return vendedor;
     }
-
+    
     public void setVendedor(Vendedores vendedor) {
         this.vendedor = vendedor;
     }
-
+    
     @Override
     public void delete(ActionEvent event) {
         for (PedidosDetalle detalle : getSelected().getPedidosDetalleCollection()) {
@@ -117,7 +120,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
         }
         super.delete(event); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     public List<ComprasDetalle> getPedidosDetalleView() {
         pedidosDetalleView = new ArrayList<>();
         if (getSelected() != null) {
@@ -131,58 +134,58 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
                     pedidosDetalleView.add(cmp);
                 }
             }
-
+            
         }
         return pedidosDetalleView;
     }
-
+    
     public void setPedidosDetalleView(List<ComprasDetalle> pedidosDetalleView) {
         this.pedidosDetalleView = pedidosDetalleView;
     }
-
+    
     public Productos getProducto() {
         return producto;
     }
-
+    
     public void setProducto(Productos producto) {
         this.producto = producto;
     }
-
+    
     public List<Productos> getProductoList() {
         if (productoList == null) {
             productoList = productosService.findAll();
         }
         return productoList;
     }
-
+    
     public void setProductoList(List<Productos> productoList) {
         this.productoList = productoList;
     }
-
+    
     public ComprasDetalle getPedidosItemDetalle() {
         return pedidosItemDetalle;
     }
-
+    
     public void setPedidosItemDetalle(ComprasDetalle pedidosItemDetalle) {
         this.pedidosItemDetalle = pedidosItemDetalle;
     }
-
+    
     public List<ComprasDetalle> getPedidosDetalleList() {
         return pedidosDetalleList;
     }
-
+    
     public void setPedidosDetalleList(List<ComprasDetalle> pedidosDetalleList) {
         this.pedidosDetalleList = pedidosDetalleList;
     }
-
+    
     public ComprasDetalle getPedidosDetalleSelected() {
         return pedidosDetalleSelected;
     }
-
+    
     public void setPedidosDetalleSelected(ComprasDetalle pedidosDetalleSelected) {
         this.pedidosDetalleSelected = pedidosDetalleSelected;
     }
-
+    
     public void estimateTotal() {
         double total = 0;
         for (ComprasDetalle dt : pedidosDetalleList) {
@@ -190,26 +193,26 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
         }
         setTotalPedido(total);
     }
-
+    
     public void agregarItemADetalle() {
         if (pedidosItemDetalle.getProducto() == null) {
             JsfUtil.addErrorMessage("Debe seleccionar un producto.");
             return;
         }
-
+        
         if (pedidosItemDetalle.getCantidad() == null || pedidosItemDetalle.getCantidad() == 0) {
             JsfUtil.addErrorMessage("La cantidad no es valida.");
             return;
         }
-
+        
         if (pedidosItemDetalle.getProducto() == null) {
             JsfUtil.addErrorMessage("Debe seleccionar un producto.");
             return;
         }
-
+        
         double importe = pedidosItemDetalle.getCantidad() * pedidosItemDetalle.getProducto().getPrecioVenta();
         pedidosItemDetalle.setImporte(importe);
-
+        
         if (pedidosDetalleList.contains(pedidosItemDetalle)) {
             JsfUtil.addErrorMessage("Ya existe el producto en la lista.");
         } else {
@@ -219,7 +222,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
             estimateTotal();
         }
     }
-
+    
     public void eliminarItem(ComprasDetalle item) {
         try {
             pedidosDetalleList.remove(item);
@@ -229,7 +232,8 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
             e.printStackTrace();
         }
     }
-
+ 
+    
     @Override
     public void saveNew(ActionEvent event) {
         boolean savedOrder = false;
@@ -238,7 +242,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
             JsfUtil.addErrorMessage("Debe agregar detalles al pedido.");
             return;
         }
-
+        
         for (ComprasDetalle dt : pedidosDetalleList) {
             PedidosDetalle ccd = new PedidosDetalle();
             ccd.setPrecio(dt.getProducto().getPrecioVenta());
@@ -256,7 +260,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
         getSelected().setFechaPedido(new Date());
         getSelected().setFechaCreacion(new Date());
         getSelected().setPedidosDetalleCollection(pedidosDetalleCaberaList);
-
+        
         try {
             super.saveNew(event);
             savedOrder = true;
@@ -264,7 +268,7 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
             e.printStackTrace();
             System.err.print(e);
         }
-
+        
         if (savedOrder) {
             try {
                 for (ComprasDetalle dt : pedidosDetalleList) {
@@ -280,21 +284,39 @@ public class PedidosCabeceraController extends AbstractController<PedidosCabecer
             }
         }
     }
-
+    
     public List<PedidosDetalle> getPedidosDetalleCaberaList() {
         return pedidosDetalleCaberaList;
     }
-
+    
     public void setPedidosDetalleCaberaList(List<PedidosDetalle> pedidosDetalleCaberaList) {
         this.pedidosDetalleCaberaList = pedidosDetalleCaberaList;
     }
-
+    
     public double getTotalPedido() {
         return totalPedido;
     }
-
+    
     public void setTotalPedido(double totalPedido) {
         this.totalPedido = totalPedido;
     }
-
+    
+    public boolean filterByDate(Object value, Object filter, Locale locale) {
+        
+        if (filter == null) {
+            return true;
+        }
+        
+        if (value == null) {
+            return false;
+        }
+        
+        Calendar cal = Calendar.getInstance();
+        cal.setTime((Date) value);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return DateUtils.truncatedEquals((Date) filter, cal.getTime(), Calendar.DATE);
+    }
 }

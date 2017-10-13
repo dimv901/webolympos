@@ -64,6 +64,25 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Clientes.findByDomingo", query = "SELECT c FROM Clientes c WHERE c.domingo = :domingo")})
 public class Clientes implements Serializable {
 
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
+    @Column(name = "hora_visita")
+    @Temporal(TemporalType.TIME)
+    private Date horaVisita;
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "numero_casa")
+    private int numeroCasa;
+    @Column(name = "geolocalizado")
+    private Boolean geolocalizado;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "latitud")
+    private Double latitud;
+    @Column(name = "longitud")
+    private Double longitud;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,26 +144,9 @@ public class Clientes implements Serializable {
     @Column(name = "calle_secundaria")
     private String calleSecundaria;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "numero_casa")
-    private Integer numeroCasa;
-    @Basic(optional = false)
     @Size(min = 1, max = 250)
     @Column(name = "referencia")
     private String referencia;
-    @Basic(optional = false)
-    @Column(name = "geolocalizado")
-    private boolean geolocalizado;
-    @Basic(optional = false)
-    @Column(name = "latitud")
-    private double latitud;
-    @Basic(optional = false)
-    @Column(name = "longitud")
-    private double longitud;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "foto")
-    private byte[] foto;
     @Basic(optional = false)
     @Size(min = 1, max = 2147483647)
     @Column(name = "foto_url")
@@ -365,37 +367,6 @@ public class Clientes implements Serializable {
         this.referencia = referencia;
     }
 
-    public boolean getGeolocalizado() {
-        return geolocalizado;
-    }
-
-    public void setGeolocalizado(boolean geolocalizado) {
-        this.geolocalizado = geolocalizado;
-    }
-
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
-
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
 
     public String getFotoUrl() {
         return fotoUrl;
@@ -540,6 +511,54 @@ public class Clientes implements Serializable {
     @Override
     public String toString() {
         return "entities.Clientes[ id=" + id + " ]";
+    }
+
+
+    public void setNumeroCasa(int numeroCasa) {
+        this.numeroCasa = numeroCasa;
+    }
+
+    public Boolean getGeolocalizado() {
+        return geolocalizado;
+    }
+
+    public void setGeolocalizado(Boolean geolocalizado) {
+        this.geolocalizado = geolocalizado;
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
+    }
+
+
+
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public Date getHoraVisita() {
+        return horaVisita;
+    }
+
+    public void setHoraVisita(Date horaVisita) {
+        this.horaVisita = horaVisita;
     }
 
 }

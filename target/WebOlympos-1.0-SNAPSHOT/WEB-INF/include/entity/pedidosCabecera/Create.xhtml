@@ -71,8 +71,9 @@
                                                       var="item"
                                                       paginator="true"
                                                       paginatorPosition="bottom"
-                                                      rows="10"
-                                                      rowsPerPageTemplate="10,20,30"
+                                                      rows="5"
+                                                      sortBy="#{item.producto.id}"
+                                                      rowsPerPageTemplate="5,10,15"
                                                       emptyMessage="#{bundle.ErrorEmptyDetail}"
                                                       reflow="true">
 
@@ -126,6 +127,7 @@
                                             </p:column>
 
 
+
                                             <p:column width="50">
                                                 <p:commandButton title="#{bundle.Delete}"
                                                                  styleClass="RedButton" 
@@ -133,14 +135,48 @@
                                                                  actionListener="#{pedidosCabeceraController.eliminarItem(item)}"
                                                                  process="@this"
                                                                  update="datalist, datalist:total"/>
+
                                             </p:column>
 
-                                            <f:facet name="footer" >
-                                                <h:outputLabel for="total" value="Total: " class="FontBold FontLatoBlack"/>
-                                                <h:outputText id="total"  value="#{pedidosCabeceraController.totalPedido}" class="FontBold FontLatoBlack">
-                                                    <f:convertNumber  type="currency"  currencySymbol="Gs" />
+
+                                            <f:facet name="footer" class="FontBold Fs15">
+                                                <p:outputLabel value="Total: " for="total" class="FontBold Fs15"/>
+                                                <h:outputText id="total" value="#{pedidosCabeceraController.totalPedido}" class="FontBold Fs15">
+                                                    <f:convertNumber type="currency" currencySymbol="Gs" />
                                                 </h:outputText>
                                             </f:facet>
+                                            <!--
+                                             <p:summaryRow>
+                                                 <p:column colspan="3" style="text-align:right">
+                                                     <h:outputText value="Total:" />
+                                                 </p:column>
+                                                 <p:column>
+                                                     <h:outputText id="total" value="#{pedidosCabeceraController.totalPedido}">
+                                                         <f:convertNumber type="currency" currencySymbol="Gs" />
+                                                     </h:outputText>
+                                                 </p:column>
+                                             </p:summaryRow>
+                                            -->
+
+                                            <!--
+
+                                            <p:columnGroup type="footer">
+                                                <p:summaryRow>
+                                                    <p:row>
+                                                        <p:column colspan="5">
+                                                            <h:outputText value="TOTAL:" />
+                                                        </p:column>
+                                                        <p:column>
+                                                            <h:outputText id="total" value="#{pedidosCabeceraController.totalPedido}">
+                                                                <f:convertNumber type="currency" currencySymbol="Gs" />
+                                                            </h:outputText>
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:summaryRow>
+                                            </p:columnGroup>
+
+                                            --> 
+
                                         </p:dataTable>
                                     </p:panel>
                                 </h:panelGroup>
@@ -160,3 +196,11 @@
     </ui:composition>
 
 </html>
+<!--
+                                                                                     <f:facet name="footer" >
+                                                                                         <h:outputLabel for="total" value="Total: " class="FontBold FontLatoBlack"/>
+                                                                                         <h:outputText id="total"  value="#{pedidosCabeceraController.totalPedido}" class="FontBold FontLatoBlack">
+                                                                                             <f:convertNumber  type="currency"  currencySymbol="Gs" />
+                                                                                         </h:outputText>
+                                                                                     </f:facet>
+-->

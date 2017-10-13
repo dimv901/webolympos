@@ -23,9 +23,10 @@
                                  paginatorPosition="bottom"
                                  rowsPerPageTemplate="10,20,30"
                                  selectionMode="single"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  selection="#{pedidosCabeceraController.selected}"
                                  reflow="true"
-                                 filteredValue="#{pedidosCabeceraController.filtered}"
                                  widgetVar="table"
                                  emptyMessage="#{bundle.EmptyMessage}">
                         <!--
@@ -60,14 +61,29 @@
                             </f:facet>
                             <h:outputText value="#{item.estado}"/>
                         </p:column>
-
-                        <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaCreacion}"/>
+                        <!--
+                <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListPedidosCabeceraTitle_fechaCreacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaCreacion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"  />
+                    </h:outputText>
+                </p:column>
+                        -->
+                        <p:column id="date" 
+                                  headerText="#{bundle.ListVisitasTitle_fechaCreacion}"
+                                  filterFunction="#{pedidosCabeceraController.filterByDate}"
+                                  filterBy="#{item.fechaCreacion}">
+                            <f:facet name="filter">
+                                <p:calendar id="cal" pattern="dd/MM/yyyy" mode="popup" showOn="button" locale="es">
+                                    <p:ajax event="dateSelect" oncomplete="PF('table').filter()" update="datalist" />
+                                    <p:ajax event="change" process="@this" oncomplete="PF('table').filter()" update="datalist"/>
+                                </p:calendar>
                             </f:facet>
-                            <h:outputText value="#{item.fechaCreacion}">
-                                <f:convertDateTime pattern="dd/MM/yyyy"  />
-                            </h:outputText>
+                            <p:outputLabel value="#{item.fechaCreacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
                         </p:column>
 
                         <p:column sortBy="#{item.importe}" >
@@ -85,7 +101,6 @@
                             <div class="footer-section">
                                 <p:commandButton id="createButton" value="#{bundle.Create}" actionListener="#{pedidosCabeceraController.prepareCreate}" update=":PedidosCabeceraCreateForm" oncomplete="PF('PedidosCabeceraCreateDialog').show()" style="width: 100px;" styleClass="GreenButton" icon="fa fa-plus Fs16 White"/>
                                 <p:commandButton id="viewButton"   value="#{bundle.View}" update=":PedidosCabeceraViewForm" oncomplete="PF('PedidosCabeceraViewDialog').show()" disabled="#{empty pedidosCabeceraController.selected}" style="width: 100px;" styleClass="AquaButton" icon="fa fa-search Fs16 White"/>
-
                                 <p:commandButton id="deleteButton" value="#{bundle.Delete}" actionListener="#{pedidosCabeceraController.delete}" update=":growl,datalist" disabled="#{empty pedidosCabeceraController.selected}" style="width: 100px;" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
                             </div>
                         </f:facet>

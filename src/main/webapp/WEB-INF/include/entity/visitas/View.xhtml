@@ -8,35 +8,59 @@
 
     <ui:composition>
 
-        <p:dialog id="VisitasViewDlg" widgetVar="VisitasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.ViewVisitasTitle}" closeOnEscape="true">
+        <p:dialog id="VisitasViewDlg" widgetVar="VisitasViewDialog" modal="true" resizable="false" width="600" appendTo="@(body)" header="#{bundle.ViewVisitasTitle}" closeOnEscape="true">
 
             <h:form id="VisitasViewForm">
+                <p:panel>
 
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{visitasController.selected != null}">
+                    <h:panelGroup id="display">
+                        <div align="center" style="margin: 20px;">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{visitasController.selected != null}">
 
-                        <h:outputText value="#{bundle.ViewVisitasLabel_id}"/>
-                        <h:outputText value="#{visitasController.selected.id}" title="#{bundle.ViewVisitasTitle_id}"/>
+                                <h:outputText value="#{bundle.ViewVisitasLabel_id}"/>
+                                <h:outputText value="#{visitasController.selected.id}" title="#{bundle.ViewVisitasTitle_id}"/>
 
-                        <h:outputText value="#{bundle.ViewVisitasLabel_fechaCreacion}"/>
-                        <h:outputText value="#{visitasController.selected.fechaCreacion}" title="#{bundle.ViewVisitasTitle_fechaCreacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
+                                <h:outputText value="#{bundle.ViewVisitasLabel_fechaCreacion}"/>
+                                <h:outputText value="#{visitasController.selected.fechaCreacion}" title="#{bundle.ViewVisitasTitle_fechaCreacion}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                                </h:outputText>
 
-                        <h:outputText value="#{bundle.ViewVisitasLabel_fechaActualizacion}"/>
-                        <h:outputText value="#{visitasController.selected.fechaActualizacion}" title="#{bundle.ViewVisitasTitle_fechaActualizacion}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
+                                <h:outputText value="#{bundle.ViewVisitasLabel_idCliente}"/>
+                                <h:outputText value="#{visitasController.selected.idCliente.nombreNegocio}"/>
 
-                        <h:outputText value="#{bundle.ViewVisitasLabel_idCliente}"/>
-                        <h:outputText value="#{visitasController.selected.idCliente.id}"/>
+                                <h:outputText value="#{bundle.ViewVisitasLabel_CallePrincipal}"/>
+                                <h:outputText value="#{visitasController.selected.idCliente.callePrincipal}"/>
 
-                        <h:outputText value="#{bundle.ViewVisitasLabel_idMotivo}"/>
-                        <h:outputText value="#{visitasController.selected.idMotivo.descripcion}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PF('VisitasViewDialog').hide()"/>
-                </h:panelGroup>
+                                <h:outputText value="#{bundle.ViewVisitasLabel_CalleSecundaria}"/>
+                                <h:outputText value="#{visitasController.selected.idCliente.calleSecundaria}"/>
 
+                                <h:outputText value="#{bundle.ViewVisitasLabel_NroCasa}"/>
+                                <h:outputText value="#{visitasController.selected.idCliente.numeroCasa}"/>
+
+                            </p:panelGrid>
+                        </div>
+                    </h:panelGroup>
+
+                    <p:panel>
+                        <p:gmap center="#{visitasController.selected.latitud},#{visitasController.selected.longitud} " 
+                                zoom="15" 
+                                streetView="true" 
+                                navigationControl="false"  
+                                mapTypeControl="false"
+                                type="terrain"
+                                style="width:100%;height:250px;" 
+                                draggable="true"
+                                disableDefaultUI="true"
+                                model="#{visitasController.model}">
+                            <p:ajax event="overlaySelect" listener="#{visitasController.onMarkerSelect}" />
+                        </p:gmap>
+                    </p:panel>
+                    <f:facet name="footer">
+                        <div align="right">
+                            <p:commandButton value="#{bundle.Close}" onclick="PF('VisitasViewDialog').hide()" resetValues="true" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>      
+                        </div>
+                    </f:facet>
+                </p:panel>
             </h:form>
 
         </p:dialog>

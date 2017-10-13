@@ -25,6 +25,8 @@
                                  paginatorPosition="bottom"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  selectionMode="single"
                                  selection="#{comprobantesCompraCabeceraController.selected}"
                                  reflow="true"
@@ -59,6 +61,21 @@
                             <h:outputText value="#{item.idProveedor.descripcion}"/>
                         </p:column>
 
+                        <p:column id="date" 
+                                  headerText="#{bundle.ListComprobantesCompraCabeceraTitle_fechaComprobante}"
+                                  filterFunction="#{comprobantesCompraCabeceraController.filterByDate}"
+                                  filterBy="#{item.fechaComprobante}">
+                            <f:facet name="filter">
+                                <p:calendar id="cal" pattern="dd/MM/yyyy" mode="popup" showOn="button" locale="es">
+                                    <p:ajax event="dateSelect" oncomplete="PF('table').filter()" update="datalist" />
+                                    <p:ajax event="change" process="@this" oncomplete="PF('table').filter()" update="datalist"/>
+                                </p:calendar>
+                            </f:facet>
+                            <p:outputLabel value="#{item.fechaComprobante}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
+                        </p:column>
+                        <!--
                         <p:column sortBy="#{item.fechaComprobante}" filterBy="#{item.fechaComprobante}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListComprobantesCompraCabeceraTitle_fechaComprobante}"/>
@@ -67,6 +84,7 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
+                        -->
 
                         <!--
                         <p:column sortBy="#{item.id}" filterBy="#{item.id}">

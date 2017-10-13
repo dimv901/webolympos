@@ -25,7 +25,6 @@
                                  selectionMode="single"
                                  selection="#{usuariosMovilesController.selected}"
                                  reflow="true"
-                                 filteredValue="#{usuariosMovilesController.filtered}"
                                  widgetVar="table"
                                  emptyMessage="#{bundle.EmptyMessage}">
                         <!--
@@ -37,6 +36,7 @@
                                  rowKey="HASH{item.id}"  <<< Remove this line
                         -->
 
+                        <!--
                         <f:facet name="header">
                             <div align="right">
                                 <p:outputPanel  >                        
@@ -44,12 +44,13 @@
                                 </p:outputPanel>
                             </div>
                         </f:facet>
-
+                         -->
+                        
                         <p:ajax event="rowSelect"   update="viewButton,editButton,deleteButton"/>
                         <p:ajax event="rowUnselect" update="viewButton,editButton,deleteButton"/>
 
 
-                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains"  >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuariosMovilesTitle_descripcion}"/>
                             </f:facet>
@@ -57,7 +58,7 @@
                         </p:column>
 
 
-                        <p:column sortBy="#{item.usuario}" filterBy="#{item.usuario}" filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.usuario}" filterBy="#{item.usuario}" filterMatchMode="contains"  >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuariosMovilesTitle_usuario}"/>
                             </f:facet>

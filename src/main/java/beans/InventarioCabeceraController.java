@@ -3,23 +3,25 @@ package beans;
 import beans.util.JsfUtil;
 import controllers.ProductoFamiliasFacade;
 import controllers.ProductosFacade;
+import controllers.StockFacade;
 import entities.InventarioCabecera;
 import entities.InventarioDetalle;
 import entities.ProductoFamilias;
 import entities.Productos;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
@@ -36,6 +38,8 @@ public class InventarioCabeceraController extends AbstractController<InventarioC
     private ProductoFamiliasFacade productoFamiliasService;
     @EJB
     private ProductosFacade productoService;
+    @EJB
+    private StockFacade stockService;
 
     public InventarioCabeceraController() {
         // Inform the Abstract parent controller of the concrete InventarioCabecera Entity
@@ -133,38 +137,58 @@ public class InventarioCabeceraController extends AbstractController<InventarioC
         double actual = info.getCantidadActual();
         double registrada = info.getCantidadRegistrada();
 
-        double diferencia = actual - registrada;
+        double  diferencia = actual - registrada;
+        /*if (actual == registrada) {
+            diferencia = 0;
+        } else if (actual > registrada) {
+            diferencia = actual - registrada;
+        }else if (actual< registrada){
+            diferencia = actual - registrada;
+        }*/
         info.setCantidadDiferencia(diferencia);
 
         System.out.println("row index in event method " + event.getRowIndex());
         System.out.println("old value" + oldValue);
         System.out.println("new value" + newValue);
-        //System.out.println("column2 :" + col.getHeaderText());//header text value
         ((InventarioDetalle) CollectionUtils.get(getSelected().getInventarioDetalleCollection(), event.getRowIndex())).setCantidadDiferencia(diferencia);
+
         //JsfUtil.addSuccessMessage("Diferencia: " + diferencia);
         //FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Diferencia", String.valueOf(diferencia));
         //FacesContext.getCurrentInstance().addMessage(null, msg);
-        FacesContext context = FacesContext.getCurrentInstance();
-        InventarioDetalle item = context.getApplication().evaluateExpressionGet(context, "#{item}", InventarioDetalle.class);
-
-        String updateClientId = o.getClientId() + ":" + o.getRowIndex() + ":diference";
-        RequestContext.getCurrentInstance().update(updateClientId);
-
-        String componentId = ((DataTable) event.getSource()).getClientId(FacesContext.getCurrentInstance()) + ":" + event.getRowIndex() + ":updateTgtRow";
-        RequestContext.getCurrentInstance().execute("document.getElementById('" + componentId + "').click()");
-
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //InventarioDetalle item = context.getApplication().evaluateExpressionGet(context, "#{item}", InventarioDetalle.class);
+        // String updateClientId = o.getClientId() + ":" + o.getRowIndex() + ":diference";
+        // RequestContext.getCurrentInstance().update(updateClientId);
+        // String componentId = ((DataTable) event.getSource()).getClientId(FacesContext.getCurrentInstance()) + ":" + event.getRowIndex() + ":updateTgtRow";
+        // RequestContext.getCurrentInstance().execute("document.getElementById('" + componentId + "').click()");
         //RequestContext.getCurrentInstance().update(":datalist:diference");
     }
 
     @Override
     public void save(ActionEvent event) {
-        if(getSelected()!=null){
-            getSelected().setEstado("CERRADO");
+        if (getSelected() != null) {
+            getSelected().setEstado("PENDIENTE");
             getSelected().setFechaCierre(new Date());
         }
         super.save(event); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
+    public boolean filterByDate(Object value, Object filter, Locale locale) {
+
+        if (filter == null) {
+            return true;
+        }
+
+        if (value == null) {
+            return false;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime((Date) value);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return DateUtils.truncatedEquals((Date) filter, cal.getTime(), Calendar.DATE);
+    }
 }

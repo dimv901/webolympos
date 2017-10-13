@@ -200,6 +200,7 @@ public abstract class AbstractController<T> implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     this.ejbFacade.edit(selected);
+   
                 } else {
                     this.ejbFacade.remove(selected);
                 }

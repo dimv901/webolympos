@@ -28,6 +28,8 @@
                                  filteredValue="#{productosController.filtered}"
                                  reflow="true"
                                  widgetVar="table"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  emptyMessage="#{bundle.EmptyMessage}">
                         <!--
                                  To enable Lazy Loading, please copy/replace the following lines above,
@@ -38,13 +40,6 @@
                                  rowKey="HASH{item.id}"  <<< Remove this line
                         -->
 
-                        <f:facet name="header">
-                            <div align="right">
-                                <p:outputPanel  >                        
-                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
-                                </p:outputPanel>
-                            </div>
-                        </f:facet>
 
 
                         <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
@@ -68,21 +63,21 @@
                         </p:column>
                         -->
 
-                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains"  >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductosTitle_descripcion}"/>
                             </f:facet>
                             <h:outputText value="#{item.descripcion}"/>
                         </p:column>
 
-                        <p:column sortBy="#{item.codigoBarra}" filterBy="#{item.codigoBarra}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.codigoBarra}" filterBy="#{item.codigoBarra}"  filterMatchMode="contains"  >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductosTitle_codigoBarra}"/>
                             </f:facet>
                             <h:outputText value="#{item.codigoBarra}"/>
                         </p:column>
 
-                        <p:column sortBy="#{item.idProveedor.descripcion}" filterBy="#{item.idProveedor.descripcion}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.idProveedor.descripcion}" filterBy="#{item.idProveedor.descripcion}"  filterMatchMode="contains"  >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductosTitle_idProveedor}"/>
                             </f:facet>
@@ -184,3 +179,14 @@
         </div>
     </div>
 </ui:composition>
+
+<!--
+
+                        <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
+-->

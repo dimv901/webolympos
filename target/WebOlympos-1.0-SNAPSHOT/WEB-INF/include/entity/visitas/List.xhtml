@@ -6,87 +6,121 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
 
-    <h:form id="VisitasListForm">
+    <div class="Container100 ui-fluid">
+        <div class="Card">
 
-        <p:panel header="#{bundle.ListVisitasTitle}">
-            <p:dataTable id="datalist"
-                         value="#{visitasController.items}"
-                         lazy="false"
-                         rowKey="#{item.id}"
-                         var="item"
-                         paginator="true"
-                         rows="10"
-                         rowsPerPageTemplate="10,20,30"
-                         selectionMode="single"
-                         selection="#{visitasController.selected}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{visitasController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.id}"  <<< Remove this line
-                -->
+            <div class="SeparatorFull"></div>
+            <h:form id="VisitasListForm">
 
-
-                <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
-                <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
-
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListVisitasTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
+                <p:panel header="#{bundle.ListVisitasTitle}">
+                    <p:dataTable id="datalist"
+                                 value="#{visitasController.items}"
+                                 lazy="false"
+                                 rowKey="#{item.id}"
+                                 var="item"
+                                 paginator="true"
+                                 paginatorPosition="bottom"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30"
+                                 selectionMode="single"
+                                 reflow="true"
+                                  widgetVar="table"
+                                 selection="#{visitasController.selected}"
+                                 emptyMessage="#{bundle.EmptyMessage}">
+                        <!--
+                                 To enable Lazy Loading, please copy/replace the following lines above,
+                                 and be sure to replace the word HASH with the # symbol:
+                        
+                                 value="HASH{visitasController.lazyItems}"
+                                 lazy="true"
+                                 rowKey="HASH{item.id}"  <<< Remove this line
+                        -->
 
 
-                <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListVisitasTitle_fechaCreacion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaCreacion}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </p:column>
+                        <p:ajax event="rowSelect"   update="viewButton"/>
+                        <p:ajax event="rowUnselect" update="viewButton"/>
+
+                        <p:column sortBy="#{item.idCliente.id}" filterBy="#{item.idCliente.nombreNegocio}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisitasTitle_idCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente.nombreNegocio}"/>
+                        </p:column>
+
+                        <p:column sortBy="#{item.idMotivo.descripcion}" filterBy="#{item.idMotivo.descripcion}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisitasTitle_idMotivo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMotivo.descripcion}"/>
+                        </p:column>
+
+                        <!--
+                        <p:column sortBy="#{item.fechaCreacion}" filterBy="#{item.fechaCreacion}" filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisitasTitle_fechaCreacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCreacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        -->
+                        <p:column id="date" 
+                                  headerText="#{bundle.ListVisitasTitle_fechaCreacion}"
+                                  filterFunction="#{visitasController.filterByDate}"
+                                  filterBy="#{item.fechaCreacion}">
+                            <f:facet name="filter">
+                                <p:calendar id="cal" pattern="dd/MM/yyyy" mode="popup" showOn="button" locale="es">
+                                    <p:ajax event="dateSelect" oncomplete="PF('table').filter()" update="datalist" />
+                                    <p:ajax event="change" process="@this" oncomplete="PF('table').filter()" update="datalist"/>
+                                </p:calendar>
+                            </f:facet>
+                            <p:outputLabel value="#{item.fechaCreacion}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:outputLabel>
+                        </p:column>
 
 
-                <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListVisitasTitle_fechaActualizacion}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaActualizacion}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </p:column>
+                        <!--
+                                        <p:column sortBy="#{item.fechaActualizacion}" filterBy="#{item.fechaActualizacion}">
+                                            <f:facet name="header">
+                                                <h:outputText value="#{bundle.ListVisitasTitle_fechaActualizacion}"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.fechaActualizacion}">
+                                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                            </h:outputText>
+                                        </p:column>
+                        -->
+                        <!--
+                                            <p:column sortBy="#{item.idCliente.id}" filterBy="#{item.idCliente.id}">
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{bundle.ListVisitasTitle_idCliente}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.idCliente.id}"/>
+                                            </p:column>
+                        -->
+                        <!--
+                                           
+                        -->
 
-                <!--
-                                    <p:column sortBy="#{item.idCliente.id}" filterBy="#{item.idCliente.id}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListVisitasTitle_idCliente}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.idCliente.id}"/>
-                                    </p:column>
-                -->
-                <!--
-                                    <p:column sortBy="#{item.idMotivo.descripcion}" filterBy="#{item.idMotivo.descripcion}">
-                                        <f:facet name="header">
-                                            <h:outputText value="#{bundle.ListVisitasTitle_idMotivo}"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.idMotivo.descripcion}"/>
-                                    </p:column>
-                -->
-                <f:facet name="footer">
-                    <div class="footer-section">
-                        <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{visitasController.prepareCreate}" update=":VisitasCreateForm" oncomplete="PF('VisitasCreateDialog').show()"/>
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VisitasViewForm" oncomplete="PF('VisitasViewDialog').show()" disabled="#{empty visitasController.selected}"/>
-                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VisitasEditForm" oncomplete="PF('VisitasEditDialog').show()" disabled="#{empty visitasController.selected}"/>
-                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{visitasController.delete}" update=":growl,datalist" disabled="#{empty visitasController.selected}"/>
-                    </div>
-                </f:facet>
+                        <!--
+                            <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVisitasTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+        
+                        -->
+                        <f:facet name="footer">
+                            <div class="footer-section">
+                                <p:commandButton id="viewButton" value="#{bundle.View}" update=":VisitasViewForm" oncomplete="PF('VisitasViewDialog').show()" disabled="#{empty visitasController.selected}" style="width: 100px" styleClass="AquaButton" icon="fa fa-search Fs16 White"/>
+                            </div>
+                        </f:facet>
 
-            </p:dataTable>
+                    </p:dataTable>
 
-        </p:panel>
-    </h:form>
-
+                </p:panel>
+            </h:form>
+        </div>
+    </div>
 </ui:composition>

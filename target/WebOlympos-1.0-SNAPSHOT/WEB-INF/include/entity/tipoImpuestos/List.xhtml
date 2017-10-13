@@ -25,18 +25,13 @@
                                  selectionMode="single"
                                  selection="#{tipoImpuestosController.selected}"
                                  reflow="true"
-                                 filteredValue="#{tipoImpuestosController.filtered}"
                                  widgetVar="table"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  emptyMessage="#{bundle.EmptyMessage}">
 
 
-                        <f:facet name="header">
-                            <div align="right">
-                                <p:outputPanel  >                        
-                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
-                                </p:outputPanel>
-                            </div>
-                        </f:facet>
+
 
                         <!--
                                  To enable Lazy Loading, please copy/replace the following lines above,
@@ -60,7 +55,7 @@
                         </p:column>
                         -->
 
-                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}"  filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoImpuestosTitle_descripcion}"/>
                             </f:facet>
@@ -112,3 +107,14 @@
         </div>
     </div>
 </ui:composition>
+
+<!--
+
+   <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
+-->

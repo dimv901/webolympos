@@ -69,6 +69,11 @@
                                         <h:outputText value="#{bundle.ViewClientesLabel_idCircuito}"/>
                                         <h:outputText value="#{clientesController.selected.idCircuito.descripcion}"/>
 
+                                        <h:outputLabel for="time" value="#{bundle.hora}" />
+                                        <p:calendar id="time" disabled="true" value="#{clientesController.selected.horaVisita}" locale="es" pattern="HH:mm" timeOnly="true"  />
+
+
+
                                         <p:outputLabel value="#{bundle.DiaVisita}" />
                                         <p:panelGrid columns="7" columnClasses="column">
                                             <p:selectBooleanCheckbox  itemLabel="#{bundle.Lunes}" value="#{clientesController.selected.lunes}" disabled="true" />

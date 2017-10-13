@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invetario" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcfd0a97-adc3-43bf-9a79-156d56e5a121">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="397"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
@@ -96,10 +96,6 @@ and p.id = id.id_producto and ic.id=$P{id}]]>
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="330" y="0" width="92" height="21" uuid="33f1b782-5b38-4018-a7bb-9e9731143651"/>
-				<text><![CDATA[Cantidad Actual]]></text>
-			</staticText>
-			<staticText>
 				<reportElement style="Column header" x="435" y="0" width="120" height="21" uuid="46ee5509-31bf-4bfe-825e-d3bef99c48b7"/>
 				<text><![CDATA[Cantidad Registrada]]></text>
 			</staticText>
@@ -119,12 +115,7 @@ and p.id = id.id_producto and ic.id=$P{id}]]>
 	<detail>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement style="Detail" x="330" y="0" width="92" height="15" uuid="1c63f843-8263-4f8e-b2eb-31e185bb2e70"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{cantidad_actual}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement style="Detail" x="63" y="0" width="237" height="15" uuid="123e9e17-1f8f-48a6-b445-9fba7e2e2a8b"/>
+				<reportElement style="Detail" x="63" y="0" width="372" height="15" uuid="123e9e17-1f8f-48a6-b445-9fba7e2e2a8b"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<line>

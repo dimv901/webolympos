@@ -1,5 +1,6 @@
 package beans;
 
+import beans.util.JsfUtil;
 import entities.Ciudades;
 import entities.Clientes;
 import entities.Departamentos;
@@ -11,8 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -34,6 +39,9 @@ public class ClientesController extends AbstractController<Clientes> {
     private StreamedContent picture;
     private List<Ciudades> listaCiudades;
 
+    @ManagedProperty("#{bundle}")
+    private ResourceBundle bundle;
+
     public Marker getMarker() {
         return marker;
     }
@@ -45,6 +53,8 @@ public class ClientesController extends AbstractController<Clientes> {
     public ClientesController() {
         // Inform the Abstract parent controller of the concrete Clientes Entity
         super(Clientes.class);
+        FacesContext context = FacesContext.getCurrentInstance();
+        bundle = context.getApplication().getResourceBundle(context, "bundle");
     }
 
     public MapModel getModel() {
@@ -98,6 +108,36 @@ public class ClientesController extends AbstractController<Clientes> {
 
     public void setListaCiudades(List<Ciudades> listaCiudades) {
         this.listaCiudades = listaCiudades;
+    }
+
+    @Override
+    public void saveNew(ActionEvent event) {
+        if (getSelected().getDomingo() == false
+                && getSelected().getLunes() == false
+                && getSelected().getMartes() == false
+                && getSelected().getMiercoles() == false
+                && getSelected().getJueves() == false
+                && getSelected().getViernes() == false
+                && getSelected().getSabado() == false) {
+            JsfUtil.addErrorMessage(bundle.getString("ErrorDiaVisita"));
+            return;
+        }
+        super.saveNew(event); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void save(ActionEvent event) {
+        if (getSelected().getDomingo() == false
+                && getSelected().getLunes() == false
+                && getSelected().getMartes() == false
+                && getSelected().getMiercoles() == false
+                && getSelected().getJueves() == false
+                && getSelected().getViernes() == false
+                && getSelected().getSabado() == false) {
+            JsfUtil.addErrorMessage(bundle.getString("ErrorDiaVisita"));
+            return;
+        }
+        super.saveNew(event); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

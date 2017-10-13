@@ -26,7 +26,8 @@
                                  selectionMode="single"
                                  selection="#{motivosNoCompraController.selected}"
                                  reflow="true"
-                                 filteredValue="#{motivosNoCompraController.filtered}"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  widgetVar="table"
                                  emptyMessage="#{bundle.EmptyMessage}">
                         <!--
@@ -38,13 +39,7 @@
                                  rowKey="HASH{item.id}"  <<< Remove this line
                         -->
 
-                        <f:facet name="header">
-                            <div align="right">
-                                <p:outputPanel  >                        
-                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
-                                </p:outputPanel>
-                            </div>
-                        </f:facet>
+
 
                         <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
@@ -57,7 +52,7 @@
                         </p:column>
                         -->
 
-                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMotivosNoCompraTitle_descripcion}"/>
                             </f:facet>
@@ -101,3 +96,13 @@
         </div>
     </div>
 </ui:composition>
+
+<!--
+     <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
+-->

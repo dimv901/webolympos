@@ -24,18 +24,12 @@
                                  selectionMode="single"
                                  selection="#{vendedoresController.selected}"
                                  reflow="true"
-                                 filteredValue="#{vendedoresController.filtered}"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  widgetVar="table"
                                  emptyMessage="#{bundle.EmptyMessage}">
 
 
-                        <f:facet name="header">
-                            <div align="right">
-                                <p:outputPanel  >                        
-                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
-                                </p:outputPanel>
-                            </div>
-                        </f:facet>
                         <!--
                                  To enable Lazy Loading, please copy/replace the following lines above,
                                  and be sure to replace the word HASH with the # symbol:
@@ -58,14 +52,14 @@
                         </p:column>
                         -->
 
-                        <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}" filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVendedoresTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
                         </p:column>
 
-                        <p:column sortBy="#{item.apellido}" filterBy="#{item.apellido}" filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.apellido}" filterBy="#{item.apellido}" >
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVendedoresTitle_apellido}"/>
                             </f:facet>
@@ -73,7 +67,7 @@
                         </p:column>
 
 
-                        <p:column sortBy="#{item.cedula}" filterBy="#{item.cedula}" filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.cedula}" filterBy="#{item.cedula}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListVendedoresTitle_cedula}"/>
                             </f:facet>
@@ -155,3 +149,14 @@
         </div>
     </div>
 </ui:composition>
+
+<!--
+
+                        <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
+-->

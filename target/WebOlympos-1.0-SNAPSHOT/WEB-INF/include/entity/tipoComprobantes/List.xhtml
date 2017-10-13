@@ -25,8 +25,9 @@
                                  selectionMode="single"
                                  selection="#{tipoComprobantesController.selected}"
                                  reflow="true"
-                                 filteredValue="#{tipoComprobantesController.filtered}"
                                  widgetVar="table"
+                                 sortBy="#{item.id}"
+                                 sortOrder="descending"
                                  emptyMessage="#{bundle.EmptyMessage}">
                         <!--
                                  To enable Lazy Loading, please copy/replace the following lines above,
@@ -37,20 +38,14 @@
                                  rowKey="HASH{item.id}"  <<< Remove this line
                         -->
 
-                        <f:facet name="header">
-                            <div align="right">
-                                <p:outputPanel  >                        
-                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
-                                </p:outputPanel>
-                            </div>
-                        </f:facet>
+
 
                         <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton"/>
 
 
 
-                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains"  filterStyle="display:none; visibility:hidden;">
+                        <p:column sortBy="#{item.descripcion}" filterBy="#{item.descripcion}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTipoComprobantesTitle_descripcion}"/>
                             </f:facet>
@@ -104,4 +99,12 @@
               </f:facet>
               <h:outputText value="#{item.id}"/>
           </p:column>
+
+         <f:facet name="header">
+                            <div align="right">
+                                <p:outputPanel  >                        
+                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()"  style="width: 200px; font-size: 15px;" placeholder="#{bundle.HintSearch}" />
+                                </p:outputPanel>
+                            </div>
+                        </f:facet>
 -->

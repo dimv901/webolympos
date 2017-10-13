@@ -50,8 +50,9 @@
                                           rendered="#{inventarioCabeceraController.selected.inventarioDetalleCollection!=null}"
                                           editable="true" editMode="cell" widgetVar="cells">
 
+                                
                                 <p:ajax event="cellEdit" listener="#{inventarioCabeceraController.onCellEdit}" update="datalist" ignoreAutoUpdate="false" process="@this"/>
-
+                                
 
                                 <p:column sortBy="#{item.idProducto.codigoBarra}" >
                                     <f:facet name="header">
@@ -67,32 +68,35 @@
                                     </f:facet>
                                     <h:outputText value="#{item.idProducto.descripcion}"/>
                                 </p:column>
-
-                                <p:column sortBy="#{item.cantidadActual}" >
-                                    <f:facet name="header">
-                                        <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadActual}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.cantidadActual}"/>
-                                </p:column>
-
+                                <!--
+                               <p:column sortBy="#{item.cantidadActual}" >
+                                   <f:facet name="header">
+                                       <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadActual}"/>
+                                   </f:facet>
+                                   <h:outputText value="#{item.cantidadActual}"/>
+                               </p:column>
+                                -->
 
                                 <p:column sortBy="#{item.cantidadRegistrada}" headerText="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{item.cantidadRegistrada}" /></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{item.cantidadRegistrada}" style="width:50%" label="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}"/></f:facet>
+                                    <p:cellEditor >
+                                        <f:facet name="output"><h:outputText value="#{item.cantidadRegistrada}"/></f:facet>
+                                        <f:facet name="input"><p:inputText value="#{item.cantidadRegistrada}" required="true" style="width:50%" label="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
 
+                                <!--
                                 <p:column sortBy="#{item.cantidadDiferencia}" >
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadDiferencia}"/>
                                     </f:facet>
                                     <h:outputText id="diference" value="#{item.cantidadDiferencia}" />
                                 </p:column>
-
+                                -->
+                                <!--
                                 <p:column  style="display: none"  >
                                     <p:commandButton style="display: none" value="updateTgtRow" id="updateTgtRow"  process="@this" ajax="true" immediate="true" update="diference"/>
                                 </p:column>
+                                -->
 
                             </p:dataTable>
                         </p:panel>

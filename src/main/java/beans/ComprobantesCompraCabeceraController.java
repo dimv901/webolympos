@@ -9,13 +9,16 @@ import entities.ComprobantesCompraDetalle;
 import entities.Productos;
 import entities.Proveedores;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import org.apache.commons.lang3.time.DateUtils;
 
 @Named(value = "comprobantesCompraCabeceraController")
 @ViewScoped
@@ -148,6 +151,7 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
             comprasDetalleList.remove(item);
             JsfUtil.addSuccessMessage("Producto eliminado.");
         } catch (Exception e) {
+            
         }
     }
 
@@ -227,6 +231,25 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
     public void onProveedorChange(ValueChangeEvent event) {
         Proveedores p = (Proveedores) event.getNewValue();
         setProductoList(new ArrayList<>(p.getIdProducto()));
+    }
+    
+        public boolean filterByDate(Object value, Object filter, Locale locale) {
+
+        if (filter == null) {
+            return true;
+        }
+
+        if (value == null) {
+            return false;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime((Date) value);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return DateUtils.truncatedEquals((Date) filter, cal.getTime(), Calendar.DATE);
     }
 
 }

@@ -128,6 +128,9 @@
                                                        itemLabel="#{idCircuitoItem.descripcion.toString()}"/>
                                     </p:selectOneMenu>
 
+                                    <h:outputLabel for="time" value="#{bundle.hora}" />
+                                    <p:calendar id="time" value="#{clientesController.selected.horaVisita}"  maxHour="17" minHour="8" locale="es" pattern="HH:mm" timeOnly="true"  />
+
                                     <p:outputLabel value="#{bundle.DiaVisita}" for="grids"/>
                                     <p:panelGrid id="grids" columns="7" columnClasses="column">
                                         <p:selectBooleanCheckbox  itemLabel="#{bundle.Lunes}" value="#{clientesController.selected.lunes}" />

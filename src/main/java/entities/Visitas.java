@@ -36,6 +36,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Visitas.findByFechaActualizacion", query = "SELECT v FROM Visitas v WHERE v.fechaActualizacion = :fechaActualizacion")})
 public class Visitas implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "latitud")
+    private Double latitud;
+    @Column(name = "longitud")
+    private Double longitud;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,6 +130,22 @@ public class Visitas implements Serializable {
     @Override
     public String toString() {
         return "entities.Visitas[ id=" + id + " ]";
+    }
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(Double longitud) {
+        this.longitud = longitud;
     }
     
 }
