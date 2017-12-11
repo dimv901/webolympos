@@ -29,7 +29,7 @@
                                     </h:outputText>
 
                                     <h:outputText value="#{bundle.ViewInventarioCabeceraLabel_fechaCierre}"/>
-                                    <h:outputText value="#{inventarioCabeceraController.selected.fechaCierre}" title="#{bundle.ViewInventarioCabeceraTitle_fechaCierre}">
+                                    <h:outputText value="#{inventarioCabeceraController.selected.fechaCierre}" title="#{bundle.ViewInventarioCabeceraTitle_fechaCierre}"> 
                                         <f:convertDateTime pattern="dd/MM/yyyy" />
                                     </h:outputText>
                                 </p:panelGrid>
@@ -50,9 +50,10 @@
                                           rendered="#{inventarioCabeceraController.selected.inventarioDetalleCollection!=null}"
                                           editable="true" editMode="cell" widgetVar="cells">
 
-                                
+
+
                                 <p:ajax event="cellEdit" listener="#{inventarioCabeceraController.onCellEdit}" update="datalist" ignoreAutoUpdate="false" process="@this"/>
-                                
+
 
                                 <p:column sortBy="#{item.idProducto.codigoBarra}" >
                                     <f:facet name="header">
@@ -97,13 +98,12 @@
                                     <p:commandButton style="display: none" value="updateTgtRow" id="updateTgtRow"  process="@this" ajax="true" immediate="true" update="diference"/>
                                 </p:column>
                                 -->
-
                             </p:dataTable>
                         </p:panel>
                     </h:panelGroup>
                     <f:facet name="footer">
                         <div align="right">
-                            <p:commandButton validateClient="true" actionListener="#{inventarioCabeceraController.save}" value="#{bundle.Save}" update="display,:InventarioCabeceraEditForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InventarioCabeceraEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton validateClient="true" actionListener="#{inventarioCabeceraController.save}" value="#{bundle.Save}" update="display,:InventarioCabeceraEditForm:datalist,:growl,datalist" oncomplete="handleSubmit(xhr,status,args,PF('InventarioCabeceraEditDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
                             <p:commandButton value="#{bundle.Close}" onclick="PF('InventarioCabeceraEditDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White" resetValues="true"/>
                         </div>
                     </f:facet>

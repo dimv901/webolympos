@@ -38,8 +38,8 @@
                         -->
 
 
-                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton,reportButton"/>
-                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton,reportButton"/>
+                        <p:ajax event="rowSelect"   update="createButton,viewButton,editButton,deleteButton,reportButton,autorizarButton"/>
+                        <p:ajax event="rowUnselect" update="createButton,viewButton,editButton,deleteButton,reportButton,autorizarButton"/>
 
                         <p:column sortBy="#{item.id}" filterBy="#{item.id}" filterMatchMode="contains"  >
                             <f:facet name="header">
@@ -115,7 +115,7 @@
                                 <p:commandButton id="editButton"   value="#{bundle.Adjust}" update=":InventarioCabeceraEditForm" oncomplete="PF('InventarioCabeceraEditDialog').show()" disabled="#{empty inventarioCabeceraController.selected or inventarioCabeceraController.selected.estado eq 'CERRADO'}" style="width: 100px" styleClass="NavyButton" icon="fa fa-edit Fs16 White"/>
                                 <p:commandButton id="deleteButton" value="#{bundle.Delete}" actionListener="#{inventarioCabeceraController.delete}" update=":growl,datalist" disabled="#{empty inventarioCabeceraController.selected or inventarioCabeceraController.selected.estado eq 'CERRADO'}" style="width: 100px" styleClass="RedButton" icon="fa fa-remove Fs16 White"/>
                                 <p:commandButton id="reportButton" value="#{bundle.Report}" actionListener="#{reportsBean.reporteInventario(inventarioCabeceraController.selected)}" update=":growl,datalist" disabled="#{empty inventarioCabeceraController.selected  or inventarioCabeceraController.selected.estado eq 'CERRADO'}" ajax="false" style="width: 100px" styleClass="OrangeButton" icon="fa fa-file-pdf-o Fs16 White"/>
-                              <!--  <p:commandButton id="autorizarButton" value="#{bundle.Autorizar}" update=":InventarioCabeceraAutorizationForm" oncomplete="PF('InventarioCabeceraAuthDialog').show()" style="width: 105px" styleClass="YellowButton" icon="fa  fa-check  Fs16 White"/>-->
+                                <p:commandButton id="autorizarButton" value="#{bundle.Autorizar}" update=":InventarioCabeceraAutorizationForm" oncomplete="PF('InventarioCabeceraAuthDialog').show()" disabled="#{empty inventarioCabeceraController.selected or inventarioCabeceraController.selected.estado eq 'CERRADO' } " style="width: 105px" styleClass="YellowButton" icon="fa fa-check Fs16 White"/>
                             </div>
                         </f:facet>
 

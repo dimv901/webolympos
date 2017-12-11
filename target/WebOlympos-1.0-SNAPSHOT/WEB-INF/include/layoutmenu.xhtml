@@ -7,7 +7,7 @@
     xmlns:po="http://primefaces.org/olympos">
 
     <h:form id="menuform">
-        <po:menu widgetVar="OlymposMenu" >
+        <po:menu widgetVar="OlymposMenu"  >
             <p:submenu id="om_dash" label="#{bundle.SubMenuLabelInformacion}">
                 <p:menuitem id="om_dash_1" value="#{bundle.MenudResumenLabel}" icon="fa fa-pie-chart" outcome="/empty-page" />
             </p:submenu>
@@ -18,7 +18,7 @@
                 <p:menuitem id="om_clients_b" value="#{bundle.MenuClientesLabel}" icon="fa fa-users" outcome="/clientes/index" />  
                 <p:menuitem id="om_providers_b" value="#{bundle.MenuProveedoresLabel}" icon="fa fa-dropbox" outcome="/proveedores/index" />  
                 <p:menuitem id="om_db_sc" value="#{bundle.MenuCircuitosLabel}" icon="icon-code22" outcome="/circuitos/index"/>
-                <p:menuitem id="om_pagos_b" value="#{bundle.MenuFormasPagoLabel}" icon="icon-dollar136" outcome="/formasPago/index"/>
+                <p:menuitem id="om_pagos_b" value="#{bundle.MenuFormasPagoLabel}" icon="fa fa-credit-card" outcome="/formasPago/index"/>
                 <p:menuitem id="om_no_venta_b" value="#{bundle.MenuMotivosNoVentaLabel}" icon="icon-close7" outcome="/motivosNoCompra/index"/>
                 <p:menuitem id="om_vendedor_b" value="#{bundle.MenuVendedoresLabel}" icon="icon-user106" outcome="/vendedores/index"/>
 
@@ -41,9 +41,7 @@
                 <p:menuitem id="om_buy_b" value="#{bundle.MenuComprasLabel}" icon="fa fa-opencart" outcome="/comprobantesCompraCabecera/index" />  
                 <p:menuitem id="om_order_b" value="#{bundle.MenuPedidosLabel}" icon="icon-shopping226" outcome="/pedidosCabecera/index" /> 
                 <p:menuitem id="om_inventory_b" value="#{bundle.MenuInventario}" icon="icon-clipboard88" outcome="/inventarioCabecera/index"/> 
-                <p:menuitem id="om_no_sale_b" value="#{bundle.MenuNoVentasLabel}" icon="fa fa-remove"  outcome="/visitas/index">
-
-                </p:menuitem> 
+                <p:menuitem id="om_no_sale_b" value="#{bundle.MenuNoVentasLabel}" icon="fa fa-remove"  outcome="/visitas/index"/>
             </p:submenu>
         </po:menu>
     </h:form>
@@ -54,7 +52,10 @@
                 <p:menuitem id="om_delivery_b" value="#{bundle.MenuRepartidoresLabel}" icon="fa fa-motorcycle" outcome="/repartidores/index" />  
 
 <p:menuitem id="om_moviles_b" value="#{bundle.MenuMovilesLabel}" icon="fa fa-truck" outcome="/moviles/index"/>
-               
+           
+     <p:menuitem id="om_no_facturation_b" value="#{bundle.MenuFacturacionLabel}" icon="icon-dollar136" outcome="/visitas/index"/>
+           
+
     <p:submenu id="om_menuoptcolor" label="MENU AND COLOR OPTIONS">
         <p:menuitem id="om_def" url="#" value="Default Menu Option" icon="icon-list3" onclick="PF('OlymposMenu').changeBodyClass('');return false;"/>
         <p:menuitem id="om_popup" url="#" value="Popup Menu Option" icon="icon-window32" onclick="PF('OlymposMenu').changeBodyClass('PopupMenu');return false;"/>

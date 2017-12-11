@@ -103,9 +103,9 @@ public class ProductosController extends AbstractController<Productos> {
             InputStream input = uploadedFile.getInputstream();
             BufferedImage scaledImage = Scalr.resize(ImageIO.read(input), 400);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            String filename = getSelected().getCodigoBarra();
+            String filename = getSelected().getCodigoBarra().trim();
             String extension = ".jpg";
-            File f = new File(filePath + filename + extension);
+            File f = new File(filePath + filename.trim() + extension.trim());
             ImageIO.write(scaledImage, "jpeg", f);
             ImageIO.write(scaledImage, "jpg", baos);
             byte[] bytes = baos.toByteArray();

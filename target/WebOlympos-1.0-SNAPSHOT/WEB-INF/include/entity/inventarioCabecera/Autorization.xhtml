@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
+
         <p:dialog id="InventarioCabeceraAutorizationDlg" widgetVar="InventarioCabeceraAuthDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditInventarioCabeceraTitle}" closeOnEscape="true">
 
             <h:form id="InventarioCabeceraAutorizationForm" >
@@ -38,21 +39,20 @@
                     </p:panel>
                     <h:panelGroup id="table">
                         <p:panel  header="#{bundle.InventarioDetalleHeading}" style="width: 820px; margin: 10px;">
-                            <p:dataTable  id="datalist"
-                                          value="#{inventarioCabeceraController.selected.inventarioDetalleCollection}"
-                                          var="item"
-                                          paginator="true"
-                                          paginatorPosition="bottom"
-                                          rows="10"
-                                          rowsPerPageTemplate="5,10,15"
-                                          emptyMessage="#{bundle.ErrorEmptyDetail}"
-                                          reflow="true"
-                                          rendered="#{inventarioCabeceraController.selected.inventarioDetalleCollection!=null}"
-                                          editable="true" editMode="cell" widgetVar="cells">
+                            <p:dataTable  
+                                id="datalista"
+                                value="#{inventarioCabeceraController.selected.inventarioDetalleCollection}"
+                                var="item"
+                                paginator="true"
+                                paginatorPosition="bottom"
+                                rows="10"
+                                rowsPerPageTemplate="5,10,15"
+                                emptyMessage="#{bundle.ErrorEmptyDetail}"
+                                reflow="true"
+                                rendered="#{inventarioCabeceraController.selected.inventarioDetalleCollection!=null}"
+                                editable="true" editMode="cell" widgetVar="cells">
 
-                                
-                                <p:ajax event="cellEdit" listener="#{inventarioCabeceraController.onCellEdit}" update="datalist" ignoreAutoUpdate="false" process="@this"/>
-                                
+                                <p:ajax event="cellEdit" listener="#{inventarioCabeceraController.onCellEdit}" update="datalista" ignoreAutoUpdate="false" process="@this"/>
 
                                 <p:column sortBy="#{item.idProducto.codigoBarra}" >
                                     <f:facet name="header">
@@ -68,21 +68,21 @@
                                     </f:facet>
                                     <h:outputText value="#{item.idProducto.descripcion}"/>
                                 </p:column>
-                               
-                               <p:column sortBy="#{item.cantidadActual}" >
-                                   <f:facet name="header">
-                                       <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadActual}"/>
-                                   </f:facet>
-                                   <h:outputText value="#{item.cantidadActual}"/>
-                               </p:column>
-                               
-                                
-                                  <p:column sortBy="#{item.cantidadRegistrada}" >
-                                   <f:facet name="header">
-                                       <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}"/>
-                                   </f:facet>
-                                   <h:outputText value="#{item.cantidadRegistrada}"/>
-                               </p:column>
+
+                                <p:column sortBy="#{item.cantidadActual}" >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadActual}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cantidadActual}"/>
+                                </p:column>
+
+
+                                <p:column sortBy="#{item.cantidadRegistrada}" >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cantidadRegistrada}"/>
+                                </p:column>
                                 <!--
 
                                 <p:column sortBy="#{item.cantidadRegistrada}" headerText="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}">
@@ -91,16 +91,16 @@
                                         <f:facet name="input"><p:inputText value="#{item.cantidadRegistrada}" required="true" style="width:50%" label="#{bundle.CreateInventarioDetalleTitle_cantidadRegistrada}"/></f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                  -->  
-                                
-                                <!--
+                                -->  
+
+
                                 <p:column sortBy="#{item.cantidadDiferencia}" >
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.CreateInventarioDetalleTitle_cantidadDiferencia}"/>
                                     </f:facet>
                                     <h:outputText id="diference" value="#{item.cantidadDiferencia}" />
-                                </p:column>
-                                -->
+                                </p:column> 
+
                                 <!--
                                 <p:column  style="display: none"  >
                                     <p:commandButton style="display: none" value="updateTgtRow" id="updateTgtRow"  process="@this" ajax="true" immediate="true" update="diference"/>
@@ -112,7 +112,7 @@
                     </h:panelGroup>
                     <f:facet name="footer">
                         <div align="right">
-                            <p:commandButton validateClient="true" actionListener="#{inventarioCabeceraController.save}" value="#{bundle.Save}" update="display,:InventarioCabeceraAutorizationForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InventarioCabeceraAuthDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
+                            <p:commandButton validateClient="true" actionListener="#{inventarioCabeceraController.updateStock}" value="#{bundle.Save}" update="display,:InventarioCabeceraAutorizationForm:datalista,:growl" oncomplete="handleSubmit(xhr,status,args,PF('InventarioCabeceraAuthDialog'));" styleClass="GreenButton" icon="fa fa-save Fs16 White"/>
                             <p:commandButton value="#{bundle.Close}" onclick="PF('InventarioCabeceraAuthDialog').hide()" styleClass="RedButton" icon="fa fa-remove Fs16 White" resetValues="true"/>
                         </div>
                     </f:facet>

@@ -42,6 +42,8 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
     private ComprasDetalle comprasDetalleSelected;
     private ComprasDetalle comprasItemDetalle;
 
+    private double totalCompra;
+
     public ComprobantesCompraCabeceraController() {
         // Inform the Abstract parent controller of the concrete ComprobantesCompraCabecera Entity
         super(ComprobantesCompraCabecera.class);
@@ -143,6 +145,7 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
             comprasDetalleList.add(comprasItemDetalle);
             JsfUtil.addSuccessMessage("El producto se agrego a la lista.");
             comprasItemDetalle = new ComprasDetalle();
+            estimateTotal();
         }
     }
 
@@ -150,8 +153,9 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
         try {
             comprasDetalleList.remove(item);
             JsfUtil.addSuccessMessage("Producto eliminado.");
+            estimateTotal();
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -232,8 +236,8 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
         Proveedores p = (Proveedores) event.getNewValue();
         setProductoList(new ArrayList<>(p.getIdProducto()));
     }
-    
-        public boolean filterByDate(Object value, Object filter, Locale locale) {
+
+    public boolean filterByDate(Object value, Object filter, Locale locale) {
 
         if (filter == null) {
             return true;
@@ -250,6 +254,22 @@ public class ComprobantesCompraCabeceraController extends AbstractController<Com
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         return DateUtils.truncatedEquals((Date) filter, cal.getTime(), Calendar.DATE);
+    }
+
+    public double getTotalCompra() {
+        return totalCompra;
+    }
+
+    public void setTotalCompra(double totalCompra) {
+        this.totalCompra = totalCompra;
+    }
+
+    public void estimateTotal() {
+        double total = 0;
+        for (ComprasDetalle dt : comprasDetalleList) {
+            total = total + dt.getImporte();
+        }
+        setTotalCompra(total);
     }
 
 }

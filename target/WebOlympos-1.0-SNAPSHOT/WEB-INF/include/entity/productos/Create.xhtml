@@ -92,7 +92,6 @@
                             <p:fileUpload id="idUploadPic"
                                           fileUploadListener="#{productosController.handleFileUpload}" 
                                           value="#{productosController.uploadedFile}"
-                                          mode="advanced" 
                                           dragDropSupport="false"
                                           update="growl" 
                                           sizeLimit="1000000" 
@@ -101,7 +100,7 @@
                                           label="#{bundle.Pick}"
                                           uploadLabel="#{bundle.Upload}"
                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
-                                          previewWidth="50"
+                                          previewWidth="30"
                                           invalidFileMessage="#{bundle.ErrorInvalidFileFormat}"/>
 
                         </p:panelGrid>

@@ -16,9 +16,11 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.primefaces.component.datatable.DataTable;
@@ -40,10 +42,17 @@ public class InventarioCabeceraController extends AbstractController<InventarioC
     private ProductosFacade productoService;
     @EJB
     private StockFacade stockService;
+    @Inject
+    ProductosFacade ejbProductos;
+    @Inject
+    StockFacade ejbStock;
+
+    boolean autorization = false;
 
     public InventarioCabeceraController() {
         // Inform the Abstract parent controller of the concrete InventarioCabecera Entity
         super(InventarioCabecera.class);
+
     }
 
     @PostConstruct
@@ -137,7 +146,7 @@ public class InventarioCabeceraController extends AbstractController<InventarioC
         double actual = info.getCantidadActual();
         double registrada = info.getCantidadRegistrada();
 
-        double  diferencia = actual - registrada;
+        double diferencia = actual - registrada;
         /*if (actual == registrada) {
             diferencia = 0;
         } else if (actual > registrada) {
@@ -167,10 +176,38 @@ public class InventarioCabeceraController extends AbstractController<InventarioC
     @Override
     public void save(ActionEvent event) {
         if (getSelected() != null) {
-            getSelected().setEstado("PENDIENTE");
-            getSelected().setFechaCierre(new Date());
+            if (!autorization) {
+                getSelected().setEstado("PENDIENTE");
+            } else {
+                getSelected().setEstado("CERRADO");
+                getSelected().setFechaCierre(new Date());
+            }
         }
         super.save(event); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void updateStock(ActionEvent event) {
+        boolean isUpdate = false;
+        for (InventarioDetalle id : getSelected().getInventarioDetalleCollection()) {
+            try {
+                Productos p = ejbProductos.find(id.getIdProducto().getId());
+                p.getStock().setCantidad(id.getCantidadRegistrada());
+                p.getStock().setFechaActualizacion(new Date());
+                ejbStock.edit(p.getStock());
+                isUpdate = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (isUpdate) {
+            autorization = true;
+            save(event);
+            super.setItems(null);
+            super.getItems();
+            JsfUtil.addSuccessMessage("El stock se actualizo correctamente.");
+        } else {
+            JsfUtil.addErrorMessage("Error al actualizar el stock.");
+        }
     }
 
     public boolean filterByDate(Object value, Object filter, Locale locale) {

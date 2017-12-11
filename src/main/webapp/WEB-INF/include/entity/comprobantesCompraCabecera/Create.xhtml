@@ -124,6 +124,12 @@
                                                        title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalIva10}" 
                                                        decimalSeparator="," thousandSeparator="."/>
 
+                                        <p:outputLabel value="#{bundle.CreateComprobantesCompraCabeceraLabel_totalIva5}" for="totalIva5" />
+                                        <p:inputNumber id="totalIva5" 
+                                                       value="#{comprobantesCompraCabeceraController.selected.totalIva5}" 
+                                                       title="#{bundle.CreateComprobantesCompraCabeceraTitle_totalIva5}" 
+                                                       decimalSeparator="," thousandSeparator="."/>
+
                                     </p:panelGrid>
                                 </p:panel>
                             </p:tab>
@@ -226,6 +232,13 @@
                                                     <f:convertNumber  type="currency"  currencySymbol="Gs" />
                                                 </h:outputText>
                                             </p:column>
+
+                                            <f:facet name="footer" class="FontBold Fs15">
+                                                <p:outputLabel value="Total: " for="total" class="FontBold Fs15"/>
+                                                <h:outputText id="total" value="#{comprobantesCompraCabeceraController.totalCompra}" class="FontBold Fs15">
+                                                    <f:convertNumber type="currency" currencySymbol="Gs" />
+                                                </h:outputText>
+                                            </f:facet>
 
                                             <p:column>
                                                 <p:commandButton title="#{bundle.Delete}"

@@ -19,12 +19,12 @@
                   onShow="PF('tabview.select(1)')">
 
             <h:form id="ClientesCreateForm">
-                <p:panel>
+                <p:panel >
                     <h:panelGroup id="display" rendered="#{clientesController.selected != null}">
                         <p:tabView id="ClientesTabView" widgetVar="tabview" >
 
                             <p:tab id="ClientesTab1" title="#{bundle.TabHeaderClientsPrefixOwner}">
-                                <p:panelGrid columns="1" columnClasses="column">
+                                <p:panelGrid columns="1" columnClasses="column" >
                                     <p:outputLabel value="#{bundle.CreateClientesLabel_nombreTitular}" for="nombreTitular" />
                                     <p:inputText id="nombreTitular" 
                                                  value="#{clientesController.selected.nombreTitular}" 
@@ -60,92 +60,96 @@
                                         <f:validator validatorId="utils.emailValidator" />
                                     </p:inputText>
                                 </p:panelGrid>
+
                             </p:tab>
 
 
                             <p:tab id="ClientesTab2" title="#{bundle.TabHeaderClientsPrefixBussiness}">
-                                <p:panelGrid columns="1" columnClasses="column">
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_razonSocial}" for="razonSocial" />
-                                    <p:inputText id="razonSocial" 
-                                                 value="#{clientesController.selected.razonSocial}" 
-                                                 title="#{bundle.CreateClientesTitle_razonSocial}" 
-                                                 required="true" 
-                                                 requiredMessage="#{bundle.CreateClientesRequiredMessage_razonSocial}" 
-                                                 size="100"/>
+                                <p:scrollPanel style="height:500px;">
+                                    <p:panelGrid columns="1" columnClasses="column"  >
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_razonSocial}" for="razonSocial" />
+                                        <p:inputText id="razonSocial" 
+                                                     value="#{clientesController.selected.razonSocial}" 
+                                                     title="#{bundle.CreateClientesTitle_razonSocial}" 
+                                                     required="true" 
+                                                     requiredMessage="#{bundle.CreateClientesRequiredMessage_razonSocial}" 
+                                                     size="100"/>
 
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_nombreNegocio}" for="nombreNegocio" />
-                                    <p:inputText id="nombreNegocio" 
-                                                 value="#{clientesController.selected.nombreNegocio}" 
-                                                 title="#{bundle.CreateClientesTitle_nombreNegocio}" 
-                                                 required="true" 
-                                                 requiredMessage="#{bundle.CreateClientesRequiredMessage_nombreNegocio}" 
-                                                 size="100"/>
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_nombreNegocio}" for="nombreNegocio" />
+                                        <p:inputText id="nombreNegocio" 
+                                                     value="#{clientesController.selected.nombreNegocio}" 
+                                                     title="#{bundle.CreateClientesTitle_nombreNegocio}" 
+                                                     required="true" 
+                                                     requiredMessage="#{bundle.CreateClientesRequiredMessage_nombreNegocio}" 
+                                                     size="100"/>
 
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_ruc}" for="ruc" />
-                                    <p:inputText id="ruc" 
-                                                 value="#{clientesController.selected.ruc}" 
-                                                 title="#{bundle.CreateClientesTitle_ruc}" 
-                                                 required="true" 
-                                                 requiredMessage="#{bundle.CreateClientesRequiredMessage_ruc}" 
-                                                 size="30"
-                                                 maxlength="10"/>
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_ruc}" for="ruc" />
+                                        <p:inputText id="ruc" 
+                                                     value="#{clientesController.selected.ruc}" 
+                                                     title="#{bundle.CreateClientesTitle_ruc}" 
+                                                     required="true" 
+                                                     requiredMessage="#{bundle.CreateClientesRequiredMessage_ruc}" 
+                                                     size="30"
+                                                     maxlength="10"/>
 
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_emailNegocio}" for="emailNegocio" />
-                                    <p:inputText id="emailNegocio" 
-                                                 value="#{clientesController.selected.emailNegocio}" 
-                                                 title="#{bundle.CreateClientesLabel_emailNegocio}" 
-                                                 size="100"
-                                                 required="true" 
-                                                 requiredMessage="#{bundle.CreateClientesHelpText_emailNegocio}" >
-                                        <f:validator validatorId="utils.emailValidator" />
-                                    </p:inputText>
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_emailNegocio}" for="emailNegocio" />
+                                        <p:inputText id="emailNegocio" 
+                                                     value="#{clientesController.selected.emailNegocio}" 
+                                                     title="#{bundle.CreateClientesLabel_emailNegocio}" 
+                                                     size="100"
+                                                     required="true" 
+                                                     requiredMessage="#{bundle.CreateClientesHelpText_emailNegocio}" >
+                                            <f:validator validatorId="utils.emailValidator" />
+                                        </p:inputText>
 
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_contactoNegocio}" for="contactoNegocio" />
-                                    <p:inputMask id="contactoNegocio" 
-                                                 mask="(999) 999-999"  
-                                                 value="#{clientesController.selected.telefonoNegocio}" 
-                                                 title="#{bundle.CreateClientesTitle_contactoNegocio}" 
-                                                 required="true" 
-                                                 requiredMessage="#{bundle.CreateClientesRequiredMessage_contactoNegocio}" 
-                                                 size="30"/>
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_contactoNegocio}" for="contactoNegocio" />
+                                        <p:inputMask id="contactoNegocio" 
+                                                     mask="(999) 999-999"  
+                                                     value="#{clientesController.selected.telefonoNegocio}" 
+                                                     title="#{bundle.CreateClientesTitle_contactoNegocio}" 
+                                                     required="true" 
+                                                     requiredMessage="#{bundle.CreateClientesRequiredMessage_contactoNegocio}" 
+                                                     size="30"/>
 
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_idFormaPago}" for="idFormaPago" />
-                                    <p:selectOneMenu id="idFormaPago" value="#{clientesController.selected.idFormaPago}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idFormaPago}" converter="formasPagoConverter">
-                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                                        <f:selectItems value="#{formasPagoController.items}"
-                                                       var="idFormaPagoItem"
-                                                       itemValue="#{idFormaPagoItem}"
-                                                       itemLabel="#{idFormaPagoItem.descripcion.toString()}"
-                                                       />
-                                    </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_idFormaPago}" for="idFormaPago" />
+                                        <p:selectOneMenu id="idFormaPago" value="#{clientesController.selected.idFormaPago}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idFormaPago}" converter="formasPagoConverter">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{formasPagoController.items}"
+                                                           var="idFormaPagoItem"
+                                                           itemValue="#{idFormaPagoItem}"
+                                                           itemLabel="#{idFormaPagoItem.descripcion.toString()}"
+                                                           />
+                                        </p:selectOneMenu>
 
-                                    <p:outputLabel value="#{bundle.CreateClientesLabel_idCircuito}" for="idCircuito" />
-                                    <p:selectOneMenu id="idCircuito" value="#{clientesController.selected.idCircuito}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idCircuito}" converter="circuitosConverter">
-                                        <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                                        <f:selectItems value="#{circuitosController.items}"
-                                                       var="idCircuitoItem"
-                                                       itemValue="#{idCircuitoItem}"
-                                                       itemLabel="#{idCircuitoItem.descripcion.toString()}"/>
-                                    </p:selectOneMenu>
+                                        <p:outputLabel value="#{bundle.CreateClientesLabel_idCircuito}" for="idCircuito" />
+                                        <p:selectOneMenu id="idCircuito" value="#{clientesController.selected.idCircuito}" required="true" requiredMessage="#{bundle.CreateClientesRequiredMessage_idCircuito}" converter="circuitosConverter">
+                                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                            <f:selectItems value="#{circuitosController.items}"
+                                                           var="idCircuitoItem"
+                                                           itemValue="#{idCircuitoItem}"
+                                                           itemLabel="#{idCircuitoItem.descripcion.toString()}"/>
+                                        </p:selectOneMenu>
 
-                                    <h:outputLabel for="time" value="#{bundle.hora}" />
-                                    <p:calendar id="time" value="#{clientesController.selected.horaVisita}"  maxHour="17" minHour="8" locale="es" pattern="HH:mm" timeOnly="true"  />
+                                        <h:outputLabel for="time" value="#{bundle.hora}" />
+                                        <p:calendar id="time" value="#{clientesController.selected.horaVisita}"  maxHour="17" minHour="8" locale="es" pattern="HH:mm" timeOnly="true"  />
 
-                                    <p:outputLabel value="#{bundle.DiaVisita}" for="grids"/>
-                                    <p:panelGrid id="grids" columns="7" columnClasses="column">
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Lunes}" value="#{clientesController.selected.lunes}" />
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Martes}" value="#{clientesController.selected.martes}" />
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Miercoles}" value="#{clientesController.selected.miercoles}" />
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Jueves}" value="#{clientesController.selected.jueves}" />
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Viernes}" value="#{clientesController.selected.viernes}" />
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Sabado}" value="#{clientesController.selected.sabado}" />
-                                        <p:selectBooleanCheckbox  itemLabel="#{bundle.Domingo}" value="#{clientesController.selected.domingo}" />
+                                        <p:outputLabel value="#{bundle.DiaVisita}" for="grids"/>
+                                        <p:panelGrid id="grids" columns="7" columnClasses="column">
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Lunes}" value="#{clientesController.selected.lunes}" />
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Martes}" value="#{clientesController.selected.martes}" />
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Miercoles}" value="#{clientesController.selected.miercoles}" />
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Jueves}" value="#{clientesController.selected.jueves}" />
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Viernes}" value="#{clientesController.selected.viernes}" />
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Sabado}" value="#{clientesController.selected.sabado}" />
+                                            <p:selectBooleanCheckbox  itemLabel="#{bundle.Domingo}" value="#{clientesController.selected.domingo}" />
+                                        </p:panelGrid>
                                     </p:panelGrid>
-                                </p:panelGrid>
+                                </p:scrollPanel>
                             </p:tab>
 
                             <p:tab id="ClientesTab3" title="#{bundle.TabHeaderClientsPrefixLocation}">
-                                <p:panelGrid columns="1" columnClasses="column">
+
+                                <p:panelGrid columns="1" columnClasses="column" >
                                     <p:outputLabel value="#{bundle.CreateClientesLabel_idDepartamento}" for="idDepartamento" />
                                     <p:selectOneMenu id="idDepartamento" value="#{clientesController.selected.idDepartamento}" 
                                                      required="true" 
@@ -209,6 +213,7 @@
                                                  title="#{bundle.CreateClientesTitle_referencia}" 
                                                  size="100"/>
                                 </p:panelGrid>
+
                             </p:tab>
                         </p:tabView>
                     </h:panelGroup>
